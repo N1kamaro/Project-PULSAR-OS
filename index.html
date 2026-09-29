@@ -1,169 +1,1042 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
+
 <html lang="en">
 
+
 <head>
+
+
     <meta charset="UTF-8">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PULSAR OS</title>
+
+        <title>PULSAR OS</title>
+
 
     <link rel="stylesheet" href="style.css">
-    
+
+
 </head>
+
 
 <body>
 
-    <!-- TOP BAR -->
 
-    <header class="top-bar">
+        <!-- ========================================
+         PULSAR BOOT SEQUENCE // BUILD 0.6
+    ========================================= -->
 
-        <div class="top-left" id="welcomeopen">
-            <span class="top-symbol">✦</span>
-            <span>PULSAR OS</span>
+    <section class="pulsar-boot" id="pulsarBoot" aria-live="polite">
+
+        <div class="pulsar-boot-brand" id="pulsarBootBrand">
+            <img src="images/logos/LOGO-PULSAR.png" class="pulsar-boot-main-logo" alt="PULSAR">
+            <div class="pulsar-boot-name">PULSAR-OS</div>
+            <div class="pulsar-boot-status" id="pulsarBootStatus">
+                INITIALIZING SYSTEM
+            </div>
         </div>
 
-        <div class="top-center">
-            SIGNAL // STABLE
+        <div class="pulsar-boot-terminal" id="pulsarBootTerminal">
+            <div class="pulsar-boot-lines" id="pulsarBootLines"></div>
         </div>
 
-        <div class="top-right">
-            <span>LOCAL TIME //</span>
-            <span id="clock">00:00:00</span>
+        <div class="pulsar-boot-corner">
+            <img src="images/logos/LOGO-PULSAR.png" class="pulsar-boot-corner-logo" alt="">
+            <div>
+                <strong>PULSAR-OS</strong>
+                <span>BUILD 0.6</span>
+            </div>
         </div>
+
+        <div class="pulsar-boot-build">
+            PULSAR SYSTEM // BUILD 0.6
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+
+
+         TOP BAR
+
+
+    ========================================= -->
+
+
+        <header class="top-bar" id="topBar">
+
+    <button
+        class="top-left"
+        id="systemMenuButton"
+        type="button"
+        aria-label="Open PULSAR menu"
+    >
+        <img
+            src="images/logos/LOGO-PULSAR.png"
+            class="top-logo"
+            alt=""
+        >
+
+        <span>PULSAR OS</span>
+    </button>
+
+    <div class="top-center">
+        PULSAR OS // BUILD 0.6
+    </div>
+
+    <div class="top-right">
+        <span>LOCAL TIME //</span>
+        <span id="clock">00:00:00</span>
+    </div>
 
     </header>
 
 
-    <!-- DESKTOP -->
-
-    <main class="desktop">
-
-        <div class="desktop-label">
-            <span>PULSAR NETWORK</span>
-            <span>DESKTOP // 01</span>
-        </div>
+        <!-- ========================================
 
 
-        <!-- WELCOME WINDOW -->
-
-        <section
-            class="window"
-            id="welcome"
-        >
-
-            <!-- DRAG HANDLE -->
-
-            <div
-                class="window-bar"
-                id="welcomeheader"
-            >
-
-                <span>
-                    PULSAR // SYSTEM
-                </span>
-
-                <div class="window-controls">
-
-                    <span>─</span>
-
-                    <span>□</span>
-
-                    <button
-                        class="close-button"
-                        id="welcomeclose"
-                        type="button"
-                    >
-                        ×
-                    </button>
-
-                </div>
-
-            </div>
+         PULSAR SYSTEM MENU
 
 
-            <!-- WINDOW CONTENT -->
-
-            <div class="window-content">
-
-                <p class="system-code">
-                    PULSAR // WEB HARDWARE INTERFACE
-                </p>
+    ========================================= -->
 
 
-                <div class="pulsar-art">
-
-                    <div class="beam beam-left"></div>
-                    <div class="beam beam-right"></div>
-
-                    <div class="orbit orbit-1"></div>
-                    <div class="orbit orbit-2"></div>
-
-                    <div class="core"></div>
-
-                </div>
+        <nav         class="system-menu"         id="systemMenu"    >
 
 
-                <p class="status">
-                    [ SIGNAL ACQUIRED ]
-                </p>
+                <div class="menu-header">
 
 
-                <h1>
-                    PULSAR
-                </h1>
+                        <div class="menu-brand">
 
 
-                <p class="os-label">
-                    OPERATING SYSTEM
-                </p>
+                                <img src="images/logos/LOGO-PULSAR.png"
+                    class="menu-logo"                     alt=""                >
 
 
-                <div class="separator">
-
-                    <span>+</span>
-
-                    <div class="line"></div>
-
-                    <span>+</span>
-
-                </div>
+                                <span>
 
 
-                <p class="description">
-                    A web-based operating system designed to connect,
-                    monitor and interact with microcontrollers.
-                </p>
+                                        PULSAR // SYSTEM
 
 
-                <p class="quote">
-                    A STAR. A SIGNAL. AN INTERFACE.
-                </p>
+                                    </span>
 
 
-                <a class="enter-button" href="#">
-                    [ ENTER SYSTEM ]
-                </a>
-
-            </div>
+                            </div>
 
 
-            <div class="window-footer">
+                        <span class="menu-status">
 
-                <span>CORE // READY</span>
 
-                <span>NO DEVICE</span>
+                                ONLINE
 
-                <span>BUILD // 0.3</span>
 
-            </div>
+                            </span>
 
-        </section>
 
-    </main>
+                    </div>
+
+
+                <!-- SYSTEM -->
+
+
+                <div class="menu-section">
+
+
+                        <div class="menu-section-title">
+
+
+                                SYSTEM
+
+
+                            </div>
+
+
+                        <button                 class="menu-item"                 id="openAbout"
+                type="button"            >
+
+                                <span class="menu-icon">◇</span>
+
+                                <span>SYSTEM / ABOUT</span>
+
+                            </button>
+
+                    </div>
+
+                <!-- APPLICATIONS -->
+                <div class="menu-section">
+                        <div class="menu-section-title">
+                                APPLICATIONS
+                            </div>
+
+                        <button class="menu-item" id="openSignalLog" type="button">
+                                <span class="menu-icon">&gt;_</span>
+                                <span>SIGNAL LOG</span>
+                            </button>
+                        <div class="menu-item disabled">
+
+
+                                <span class="menu-icon">◉</span>
+
+
+                                <span>
+
+
+                                        SERIAL MONITOR
+
+
+                                    </span>
+
+
+                                <span class="menu-tag">
+
+
+                                        SOON
+
+
+                                    </span>
+
+
+                            </div>
+
+
+                        <div class="menu-item disabled">
+
+
+                                <span class="menu-icon">◫</span>
+
+
+                                <span>
+
+
+                                        DEVICE MANAGER
+
+
+                                    </span>
+
+
+                                <span class="menu-tag">
+
+
+                                        SOON
+
+
+                                    </span>
+
+
+                            </div>
+
+
+                    </div>
+
+
+                <!-- INTERFACE -->
+
+
+                <div class="menu-section">
+
+
+                        <div class="menu-section-title">
+
+
+                                INTERFACE
+
+
+                            </div>
+
+
+                        <button                 class="menu-item"                 id="openCustomization"
+                type="button"            >
+
+
+                                <span class="menu-icon">✦</span>
+
+
+                                <span>
+
+
+                                        CUSTOMIZATION
+
+
+                                    </span>
+
+
+                                <span class="menu-arrow">
+
+
+                                        &gt;
+
+
+                                    </span>
+
+
+                            </button>
+
+
+                    </div>
+
+
+                <div class="menu-footer">
+
+
+                        <span>
+
+
+                                CORE // READY
+
+
+                            </span>
+
+
+                        <span>
+
+
+                                BUILD // 0.6
+
+
+                            </span>
+
+
+                    </div>
+
+
+            </nav>
+
+
+        <!-- ========================================
+
+
+         SCREEN TRANSITION
+
+
+    ========================================= -->
+
+
+        <div         class="screen-fade"         id="screenFade"    ></div>
+
+
+        <!-- ========================================
+
+
+         DESKTOP
+
+
+    ========================================= -->
+
+
+        <main         class="desktop"         id="desktop"    >
+
+
+                <div class="desktop-label">
+
+
+                        <span>
+
+
+                                PULSAR NETWORK
+
+
+                            </span>
+
+
+                        <span>
+
+
+                                DESKTOP // 01
+
+
+                            </span>
+
+
+                    </div>
+
+
+                <!-- ========================================
+
+
+             WELCOME WINDOW
+
+
+        ========================================= -->
+
+
+                <section             class="window"             id="welcome"        >
+
+
+                        <div                 class="window-bar"                 id="welcomeheader"            >
+
+
+                                <span>
+
+
+                                        PULSAR // SYSTEM
+
+
+                                    </span>
+
+
+                                <div class="window-controls">
+
+
+                                        <span>─</span>
+
+
+                                        <span>□</span>
+
+
+                                        <button                         class="close-button"
+                        id="welcomeclose"                         type="button"                    >
+
+
+                                                ×
+
+
+                                            </button>
+
+
+                                    </div>
+
+
+                            </div>
+
+
+                        <div class="window-content welcome-content">
+
+
+                                <p class="system-code">
+
+
+                                        PULSAR // WEB HARDWARE INTERFACE
+
+
+                                    </p>
+
+
+                                <img                     src="images/logos/LOGO-PULSAR.png"
+                    class="welcome-logo"                     alt="PULSAR"                >
+
+
+                                <p class="status">
+
+
+                                        [ SIGNAL ACQUIRED ]
+
+
+                                    </p>
+
+
+                                <h1>
+
+
+                                        PULSAR
+
+
+                                    </h1>
+
+
+                                <p class="os-label">
+
+
+                                        OPERATING SYSTEM
+
+
+                                    </p>
+
+
+                                <div class="separator">
+
+
+                                        <span>+</span>
+
+
+                                        <div class="line"></div>
+
+
+                                        <span>+</span>
+
+
+                                    </div>
+
+
+                                <p class="description">
+
+
+                                        A web-based operating system designed to connect,
+
+
+                                        monitor and interact with microcontrollers.
+
+
+                                    </p>
+
+
+                                <p class="quote">
+
+
+                                        A STAR. A SIGNAL. AN INTERFACE.
+
+
+                                    </p>
+
+
+                                <button                     class="enter-button"                     id="enterSystem"
+                                      type="button"                >
+
+
+                                        [ ENTER SYSTEM ]
+
+
+                                    </button>
+
+
+                            </div>
+
+
+                        <div class="window-footer">
+
+
+                                <span>
+
+
+                                        CORE // READY
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        NO DEVICE
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        BUILD // 0.6
+
+
+                                    </span>
+
+
+                            </div>
+
+
+                    </section>
+
+
+                <!-- ========================================
+
+
+             SIGNAL LOG WINDOW
+
+
+        ========================================= -->
+
+
+                <section             class="window signal-window"             id="signalLog"        >
+
+
+                        <div                 class="window-bar"                 id="signalLogHeader"            >
+
+
+                                <span id="signalLogTitle">
+
+
+                                        PULSAR // SIGNAL LOG
+
+
+                                    </span>
+
+
+                                <div class="window-controls">
+
+
+                                        <span>─</span>
+
+
+                                        <span>□</span>
+
+
+                                        <button                         class="close-button"
+                        id="signalLogClose"                         type="button"                    >
+
+
+                                                ×
+
+
+                                            </button>
+
+
+                                    </div>
+
+
+                            </div>
+
+
+                        <div class="signal-content">
+
+
+                                <aside class="signal-index">
+
+
+                                        <div class="signal-index-title">
+
+
+                                                LOG INDEX
+
+
+                                            </div>
+
+
+                                        <div id="signalEntries">
+
+
+                                            </div>
+
+
+                                    </aside>
+
+
+                                <div class="signal-reader">
+
+
+                                        <div                         class="signal-reader-status"
+                          id="signalReaderStatus"                    >
+
+
+                                                TRANSMISSION // SELECT LOG
+
+
+                                            </div>
+
+
+                                        <div id="signalReader">
+
+
+                                                <h2>
+
+
+                                                        SIGNAL LOG
+
+
+                                                    </h2>
+
+
+                                                <p>
+
+
+                                                        PULSAR SYSTEM RECORD DATABASE.
+
+
+                                                    </p>
+
+
+                                                <p class="signal-muted">
+
+
+                                                        SELECT A TRANSMISSION FROM THE LOG INDEX.
+
+
+                                                    </p>
+
+
+                                            </div>
+
+
+                                    </div>
+
+
+                            </div>
+
+
+                        <div class="window-footer">
+
+
+                                <span>
+
+
+                                        ARCHIVE // ONLINE
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        3 RECORDS
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        BUILD // 0.6
+
+
+                                    </span>
+
+
+                            </div>
+
+
+                    </section>
+
+
+                <!-- ========================================
+
+
+             CUSTOMIZATION WINDOW
+
+
+        ========================================= -->
+
+
+                <section             class="window customization-window"             id="customization"        >
+
+
+                        <div                 class="window-bar"                 id="customizationHeader"            >
+
+
+                                <span>
+
+
+                                        PULSAR // CUSTOMIZATION
+
+
+                                    </span>
+
+
+                                <div class="window-controls">
+
+
+                                        <span>─</span>
+
+
+                                        <span>□</span>
+
+
+                                        <button                         class="close-button"
+                        id="customizationClose"                         type="button"                    >
+
+
+                                                ×
+
+
+                                            </button>
+
+
+                                    </div>
+
+
+                            </div>
+
+
+                        <div class="customization-content">
+
+
+                                <!-- SIDEBAR -->
+
+
+                                <aside class="customization-sidebar">
+
+
+                                        <button                         class="custom-nav active"
+                          type="button"                    >
+
+
+                                                WALLPAPERS
+
+
+                                            </button>
+
+
+                                        <button                         class="custom-nav disabled"
+                            type="button"                    >
+
+
+                                                APPEARANCE
+
+
+                                            </button>
+
+
+                                        <button                         class="custom-nav disabled"
+                            type="button"                    >
+
+
+                                                SYSTEM
+
+
+                                            </button>
+
+
+                                    </aside>
+
+
+                                <!-- WALLPAPERS -->
+
+
+                                <div class="customization-main">
+
+
+                                        <div class="customization-heading">
+
+
+                                                <div>
+
+
+                                                        <span class="customization-code">
+
+
+                                                                INTERFACE // VISUAL
+
+
+                                                            </span>
+
+
+                                                        <h2>
+
+
+                                                                WALLPAPERS
+
+
+                                                            </h2>
+
+
+                                                    </div>
+
+
+                                                <span id="wallpaperStatus">
+
+
+                                                        ACTIVE // PULSAR CORE
+
+
+                                                    </span>
+
+
+                                            </div>
+
+
+                                        <p class="customization-description">
+
+
+                                                SELECT A BACKGROUND FOR THE PULSAR DESKTOP ENVIRONMENT.
+
+
+                                            </p>
+
+
+                                        <div class="wallpaper-grid">
+
+
+                                                <button                             class="wallpaper-card"
+                                          data-wallpaper="pulsar"                             type="button"
+                                       >
+
+
+                                                        <img
+                                src="images/Wallpapers/Pulsar-wllp.png"                                 alt=""
+                                                 >
+
+
+                                                        <span class="wallpaper-card-info">
+
+
+                                                                <strong>
+
+
+                                                                        PULSAR CORE
+
+
+                                                                    </strong>
+
+
+                                                                <small>
+
+
+                                                                        NEUTRON STAR
+
+
+                                                                    </small>
+
+
+                                                            </span>
+
+
+                                                    </button>
+
+
+                                                <button                             class="wallpaper-card"
+                                          data-wallpaper="galaxy"                             type="button"
+                                       >
+
+
+                                                        <img
+                                src="images/Wallpapers/galaxy-wllp.png"                                 alt=""
+                                                 >
+
+
+                                                        <span class="wallpaper-card-info">
+
+
+                                                                <strong>
+
+
+                                                                        GALAXY
+
+
+                                                                    </strong>
+
+
+                                                                <small>
+
+
+                                                                        DEEP SPACE
+
+
+                                                                    </small>
+
+
+                                                            </span>
+
+
+                                                    </button>
+
+
+                                                <button                             class="wallpaper-card"
+                                          data-wallpaper="saturn"                             type="button"
+                                       >
+
+
+                                                        <img
+                                src="images/Wallpapers/saturn-wllp.png"                                 alt=""
+                                                 >
+
+
+                                                        <span class="wallpaper-card-info">
+
+
+                                                                <strong>
+
+
+                                                                        SATURN
+
+
+                                                                    </strong>
+
+
+                                                                <small>
+
+
+                                                                        PLANETARY VIEW
+
+
+                                                                    </small>
+
+
+                                                            </span>
+
+
+                                                    </button>
+
+
+                                                <button                             class="wallpaper-card"
+                                          data-wallpaper="void"                             type="button"
+                                     >
+                                                        <img
+                                src="images/Wallpapers/void-wllp.png"                                 alt=""
+                                               >
+                                                        <span class="wallpaper-card-info">
+
+                                                                <strong>
+
+
+                                                                        VOID
+
+
+                                                                    </strong>
+
+
+                                                                <small>
+
+
+                                                                        EVENT HORIZON
+
+
+                                                                    </small>
+
+
+                                                            </span>
+
+
+                                                    </button>
+
+
+                                            </div>
+
+
+                                    </div>
+
+
+                            </div>
+
+
+                        <div class="window-footer">
+
+
+                                <span id="customizationFooter">
+
+
+                                        WALLPAPER // PULSAR CORE
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        LOCAL PROFILE
+
+
+                                    </span>
+
+
+                                <span>
+
+
+                                        BUILD // 0.6
+
+
+                                    </span>
+
+
+                            </div>
+
+
+                    </section>
+
+
+            </main>
 
 
     <script src="script.js"></script>
- 
+
+
 </body>
+
 
 </html>

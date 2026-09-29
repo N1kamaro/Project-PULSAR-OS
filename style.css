@@ -1,220 +1,1056 @@
+﻿/* ========================================
+
+   PULSAR OS // BUILD 0.6
+
+======================================== */
+
+
 * {
+
     box-sizing: border-box;
+
 }
 
 
 html,
+
 body {
+
     margin: 0;
 
     width: 100%;
+
     height: 100%;
 
     overflow: hidden;
+
 }
 
 
 body {
+
     background: #030305;
 
-    color: #eeeeF5;
+    color: #eeeef5;
+
 
     font-family:
+
         "Courier New",
+
         Courier,
+
         monospace;
+
 }
 
 
 /* ========================================
+
    TOP BAR
+
+======================================== */
+
+
+/* ========================================
+   PULSAR OS // TOP BAR
 ======================================== */
 
 .top-bar {
+    position: relative;
+    z-index: 1000;
+
+    width: 100%;
     height: 42px;
 
-    padding: 0 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    position: relative;
-
-    z-index: 100;
-
-    background: rgba(8, 8, 13, 0.92);
+    background: rgba(8, 8, 13, 0.94);
+    backdrop-filter: blur(12px);
 
     border-bottom: 1px solid #292936;
 
     font-size: 0.7rem;
-
     letter-spacing: 0.12em;
 }
 
 
-.top-left,
-.top-right {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
+/* LEFT */
 
 .top-left {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #eeeef5;
+
+    font: inherit;
+    letter-spacing: inherit;
+
     cursor: pointer;
+}
 
-    user-select: none;
+.top-left:hover,
+.top-left.active {
+    color: #ffffff;
+}
+
+.top-logo {
+    display: block;
+
+    width: 19px;
+    height: 19px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(180, 190, 255, 0.45)
+        );
 }
 
 
-.top-symbol {
-    color: white;
-
-    font-size: 1rem;
-}
-
+/* CENTER */
 
 .top-center {
     position: absolute;
 
     left: 50%;
+    top: 50%;
 
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 
     color: #696979;
+
+    white-space: nowrap;
 }
 
+
+/* RIGHT */
 
 .top-right {
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     color: #8e8e9c;
+
+    white-space: nowrap;
 }
 
-
 #clock {
-    color: #eeeeF5;
+    color: #eeeef5;
 }
 
 
 /* ========================================
-   DESKTOP
+
+   SYSTEM MENU
+
 ======================================== */
 
-.desktop {
-    width: 100vw;
 
-    height: calc(100vh - 42px);
+.system-menu {
 
-    position: relative;
+    width: 330px;
 
-    overflow: hidden;
+
+    position: fixed;
+
+    top: 42px;
+
+    left: 8px;
+
+
+    z-index: 1200;
+
+
+    display: none;
+
 
     background:
-        radial-gradient(
-            circle at 50% 45%,
-            #11111b 0%,
-            #08080d 38%,
-            #030305 75%
-        );
+
+        rgba(5, 5, 9, 0.97);
+
+
+    backdrop-filter:
+
+        blur(18px);
+
+
+    border:
+
+        1px solid #383847;
+
+
+    box-shadow:
+
+        0 25px 70px
+
+        rgba(0, 0, 0, 0.75);
+
 }
 
 
-/* tiny grid */
+.system-menu.open {
+
+    display: block;
+
+
+    animation:
+
+        menuOpen
+
+        0.15s
+
+        ease-out;
+
+}
+
+
+@keyframes menuOpen {
+
+
+    from {
+
+        opacity: 0;
+
+
+        transform:
+
+            translateY(-6px);
+
+    }
+
+
+    to {
+
+        opacity: 1;
+
+
+        transform:
+
+            translateY(0);
+
+    }
+
+}
+
+
+.menu-header {
+
+    height: 44px;
+
+    padding: 0 14px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+
+    border-bottom:
+
+        1px solid #30303c;
+
+
+    color: #eeeef5;
+
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+.menu-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+}
+
+
+.menu-logo {
+
+    width: 17px;
+
+    height: 17px;
+
+
+    object-fit: contain;
+
+}
+
+
+.menu-status {
+
+    color: #696979;
+
+    font-size: 0.5rem;
+
+}
+
+
+.menu-section {
+
+    padding: 14px 10px;
+
+
+    border-bottom:
+
+        1px solid #20202a;
+
+}
+
+
+.menu-section-title {
+
+    margin:
+
+        0
+
+        8px
+
+        10px;
+
+
+    color: #4e4e5d;
+
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.22em;
+
+}
+
+
+.menu-item {
+
+    width: 100%;
+
+    min-height: 40px;
+
+
+    padding: 0 10px;
+
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        34px
+
+        1fr
+
+        auto;
+
+
+    align-items: center;
+
+
+    border:
+
+        1px solid transparent;
+
+
+    background:
+
+        transparent;
+
+
+    color: #8e8e9c;
+
+
+    font-family: inherit;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.1em;
+
+
+    text-align: left;
+
+
+    cursor: pointer;
+
+}
+
+
+.menu-item:hover {
+
+    border-color: #343440;
+
+
+    background:
+
+        rgba(150, 150, 255, 0.05);
+
+
+    color: #eeeef5;
+
+}
+
+
+.menu-item.disabled {
+
+    opacity: 0.3;
+
+    cursor: default;
+
+}
+
+
+.menu-item.disabled:hover {
+
+    border-color: transparent;
+
+    background: transparent;
+
+    color: #8e8e9c;
+
+}
+
+
+.menu-icon {
+
+    color: #eeeef5;
+
+    font-size: 0.72rem;
+
+}
+
+
+.menu-tag {
+
+    color: #4e4e5d;
+
+    font-size: 0.48rem;
+
+}
+
+
+.menu-arrow {
+
+    color: #656574;
+
+}
+
+
+.menu-footer {
+
+    height: 34px;
+
+    padding: 0 12px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+
+    color: #454553;
+
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+/* ========================================
+
+   SCREEN TRANSITION
+
+======================================== */
+
+
+.screen-fade {
+
+    position: fixed;
+
+    inset: 0;
+
+
+    z-index: 1100;
+
+
+    background: #000;
+
+
+    opacity: 0;
+
+
+    pointer-events: none;
+
+
+    transition:
+
+        opacity
+
+        0.22s
+
+        ease;
+
+}
+
+
+.screen-fade.active {
+
+    opacity: 1;
+
+}
+
+
+/* ========================================
+
+   DESKTOP
+
+======================================== */
+
+
+.desktop {
+
+    --wallpaper:
+
+        url("images/Wallpapers/Pulsar-wllp.png");
+
+
+    width: 100vw;
+
+
+    height:
+
+        calc(100vh - 42px);
+
+
+    position: relative;
+
+
+    overflow: hidden;
+
+
+    background-image:
+
+        linear-gradient(
+
+            rgba(2, 2, 7, 0.30),
+
+            rgba(2, 2, 7, 0.46)
+
+        ),
+
+        var(--wallpaper);
+
+
+    background-position:
+
+        center;
+
+
+    background-size:
+
+        cover;
+
+
+    background-repeat:
+
+        no-repeat;
+
+}
+
+
+/* ========================================
+
+   WALLPAPERS
+
+======================================== */
+
+
+.desktop.wallpaper-pulsar {
+
+    --wallpaper:
+
+        url("images/Wallpapers/Pulsar-wllp.png");
+
+}
+
+
+.desktop.wallpaper-galaxy {
+
+    --wallpaper:
+
+        url("Wallpapers/galaxy-wllp.png");
+
+}
+
+
+.desktop.wallpaper-saturn {
+
+    --wallpaper:
+
+        url("Wallpapers/saturn-wllp.png");
+
+}
+
+
+.desktop.wallpaper-void {
+
+    --wallpaper:
+
+        url("Wallpapers/void-wllp.png");
+
+}
+
+
+.desktop.wallpaper-grid {
+
+    --wallpaper:
+
+        radial-gradient(
+
+            circle at 50% 45%,
+
+            #11111b 0%,
+
+            #08080d 38%,
+
+            #030305 75%
+
+        );
+
+}
+
+
+/* GRID OVERLAY */
+
 
 .desktop::before {
+
     content: "";
+
 
     position: absolute;
 
     inset: 0;
 
+
+    z-index: 0;
+
+
     background-image:
+
         linear-gradient(
-            rgba(255, 255, 255, 0.018) 1px,
-            transparent 1px
+
+            rgba(255, 255, 255, 0.018)
+
+            1px,
+
+            transparent
+
+            1px
+
         ),
+
         linear-gradient(
+
             90deg,
-            rgba(255, 255, 255, 0.018) 1px,
-            transparent 1px
+
+            rgba(255, 255, 255, 0.018)
+
+            1px,
+
+            transparent
+
+            1px
+
         );
 
-    background-size: 40px 40px;
+
+    background-size:
+
+        40px 40px;
+
 
     pointer-events: none;
+
 }
 
 
 /* ========================================
+
    DESKTOP INFORMATION
+
 ======================================== */
 
+
 .desktop-label {
+
     position: absolute;
 
+
     top: 18px;
+
     left: 22px;
+
     right: 22px;
+
+
+    z-index: 1;
+
 
     display: flex;
 
     justify-content: space-between;
 
-    color: #41414f;
+
+    color:
+
+        rgba(170, 170, 190, 0.45);
+
 
     font-size: 0.62rem;
 
     letter-spacing: 0.15em;
+
+
+    pointer-events: none;
+
+
+    text-shadow:
+
+        0 1px 5px
+
+        #000;
+
 }
 
 
 /* ========================================
-   WINDOW
+
+   DESKTOP APPS
+
 ======================================== */
 
-.window {
-    width: min(720px, 88vw);
 
-    height: min(650px, 82vh);
+.desktop-app {
+
+    width: 100px;
+
 
     position: absolute;
 
-    /*
-        Part 3:
-        top and left now define the real position
-        because JavaScript will change them while dragging.
-    */
 
-    top: 10%;
-    left: calc(50% - 360px);
+    z-index: 2;
+
 
     display: flex;
 
     flex-direction: column;
 
-    background: rgba(5, 5, 9, 0.96);
 
-    border: 1px solid #383847;
+    align-items: center;
+
+
+    gap: 8px;
+
+
+    padding: 10px;
+
+
+    color: #a1a1b0;
+
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.12em;
+
+
+    cursor: pointer;
+
+    user-select: none;
+
+
+    text-shadow:
+
+        0 2px 6px
+
+        #000;
+
+}
+
+
+#signalLogIcon {
+
+    top: 55px;
+
+    left: 25px;
+
+}
+
+
+.customization-icon {
+
+    top: 155px;
+
+    left: 25px;
+
+}
+
+
+.desktop-app:hover {
+
+    color: #fff;
+
+}
+
+
+.desktop-app.selected {
+
+    background:
+
+        rgba(150, 150, 255, 0.08);
+
+
+    outline:
+
+        1px solid
+
+        rgba(160, 160, 190, 0.4);
+
+}
+
+
+.app-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    border:
+
+        1px solid
+
+        rgba(180, 180, 205, 0.5);
+
+
+    background:
+
+        rgba(4, 4, 10, 0.72);
+
+
+    backdrop-filter:
+
+        blur(8px);
+
+
+    color: #eeeef5;
+
+
+    font-size: 0.9rem;
+
 
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.5);
+
+        0 10px 30px
+
+        rgba(0, 0, 0, 0.35);
+
+}
+
+
+.settings-icon {
+
+    font-size: 1.35rem;
+
+}
+
+
+.desktop-app.selected .app-icon {
+
+    border-color: #aaaabb;
+
+
+    box-shadow:
+
+        0 0 30px
+
+        rgba(160, 160, 255, 0.18);
+
+}
+
+
+.app-icon-lines {
+
+    margin-top: 3px;
+
+
+    color: #696979;
+
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.25em;
+
+}
+
+
+.app-name {
+
+    text-align: center;
+
 }
 
 
 /* ========================================
-   WINDOW BAR
+
+   WINDOWS
+
 ======================================== */
 
+
+.window {
+
+    width:
+
+        min(720px, 88vw);
+
+
+    height:
+
+        min(650px, 82vh);
+
+
+    position: absolute;
+
+
+    top: 10%;
+
+
+    left:
+
+        calc(50% - 360px);
+
+
+    z-index: 10;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    background:
+
+        rgba(5, 5, 9, 0.94);
+
+
+    backdrop-filter:
+
+        blur(18px);
+
+
+    border:
+
+        1px solid #454554;
+
+
+    box-shadow:
+
+        0 30px 90px
+
+        rgba(0, 0, 0, 0.72);
+
+}
+
+
+.window.window-exit {
+
+    animation:
+
+        windowExit
+
+        0.22s
+
+        ease
+
+        forwards;
+
+}
+
+
+@keyframes windowExit {
+
+
+    to {
+
+        opacity: 0;
+
+
+        transform:
+
+            scale(0.985);
+
+    }
+
+}
+
+
+/* ========================================
+
+   WINDOW BAR
+
+======================================== */
+
+
 .window-bar {
+
     height: 38px;
+
 
     flex-shrink: 0;
 
+
     padding: 0 12px;
+
 
     display: flex;
 
@@ -222,329 +1058,369 @@ body {
 
     justify-content: space-between;
 
-    border-bottom: 1px solid #30303c;
+
+    border-bottom:
+
+        1px solid #30303c;
+
 
     color: #8e8e9c;
+
 
     font-size: 0.65rem;
 
     letter-spacing: 0.12em;
 
-    /* Part 3 */
 
     cursor: grab;
 
     user-select: none;
+
+
+    touch-action: none;
+
 }
 
 
 .window-bar:active {
+
     cursor: grabbing;
+
 }
 
 
 .window-controls {
+
     display: flex;
 
     align-items: center;
 
+
     gap: 15px;
+
 
     color: #656574;
 
+
     font-size: 0.8rem;
+
 }
 
 
-/* ========================================
-   CLOSE BUTTON
-======================================== */
-
 .close-button {
+
     padding: 0;
+
 
     border: none;
 
-    background: transparent;
+
+    background:
+
+        transparent;
+
 
     color: #656574;
+
 
     font-family: inherit;
 
     font-size: 0.8rem;
 
+
     line-height: 1;
 
+
     cursor: pointer;
+
 }
 
 
 .close-button:hover {
-    color: #ffffff;
+
+    color: #fff;
+
 }
 
 
 /* ========================================
-   WINDOW CONTENT
+
+   WELCOME
+
 ======================================== */
 
+
 .window-content {
+
     flex: 1;
 
-    padding: 26px 40px;
+
+    padding:
+
+        26px 40px;
+
 
     text-align: center;
 
+
     overflow: auto;
+
+}
+
+
+.welcome-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
 }
 
 
 .system-code {
-    margin: 0 0 22px;
+
+    margin:
+
+        0 0 18px;
+
 
     color: #737382;
+
 
     font-size: 0.62rem;
 
     letter-spacing: 0.28em;
+
 }
 
 
-/* ========================================
-   PULSAR
-======================================== */
+.welcome-logo {
 
-.pulsar-art {
-    width: 145px;
-    height: 145px;
-
-    margin: 0 auto 18px;
-
-    position: relative;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-
-.core {
-    width: 18px;
-    height: 18px;
-
-    position: absolute;
-
-    z-index: 5;
-
-    border-radius: 50%;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 0 10px #ffffff,
-        0 0 25px #aaaaff,
-        0 0 55px rgba(150, 150, 255, 0.45);
-}
-
-
-.orbit {
-    position: absolute;
-
-    border:
-        1px solid rgba(200, 200, 255, 0.22);
-
-    border-radius: 50%;
-}
-
-
-.orbit-1 {
-    width: 72px;
-    height: 72px;
-}
-
-
-.orbit-2 {
     width: 120px;
+
     height: 120px;
-}
 
 
-.beam {
-    width: 1px;
-    height: 135px;
+    margin:
 
-    position: absolute;
+        0 0 14px;
 
-    top: 5px;
-    left: 50%;
 
-    transform-origin: center;
+    object-fit:
 
-    background:
-        linear-gradient(
-            to bottom,
-            transparent,
-            rgba(200, 200, 255, 0.3),
-            white,
-            rgba(200, 200, 255, 0.3),
-            transparent
+        contain;
+
+
+    filter:
+
+        drop-shadow(
+
+            0 0 15px
+
+            rgba(180, 190, 255, 0.38)
+
         );
+
 }
 
-
-.beam-left {
-    transform:
-        translateX(-50%)
-        rotate(45deg);
-}
-
-
-.beam-right {
-    transform:
-        translateX(-50%)
-        rotate(-45deg);
-}
-
-
-/* ========================================
-   TEXT
-======================================== */
 
 .status {
-    margin: 0 0 10px;
+
+    margin:
+
+        0 0 10px;
+
 
     color: #9999aa;
+
 
     font-size: 0.62rem;
 
     letter-spacing: 0.3em;
+
 }
 
 
 h1 {
+
     margin: 0;
 
+
     font-family:
+
         Arial,
+
         Helvetica,
+
         sans-serif;
 
+
     font-size:
+
         clamp(3rem, 7vw, 5rem);
+
 
     line-height: 0.95;
 
     letter-spacing: 0.16em;
+
 }
 
 
 .os-label {
-    margin: 14px 0 20px;
+
+    margin:
+
+        14px 0 20px;
+
 
     color: #7e7e8c;
+
 
     font-size: 0.58rem;
 
     letter-spacing: 0.5em;
+
 }
 
 
-/* ========================================
-   SEPARATOR
-======================================== */
-
 .separator {
+
     width: 65%;
 
-    margin: 0 auto 18px;
+
+    margin:
+
+        0 auto 18px;
+
 
     display: flex;
 
     align-items: center;
 
+
     gap: 10px;
 
+
     color: #4e4e5d;
+
 }
 
 
 .line {
+
     height: 1px;
+
 
     flex: 1;
 
+
     background: #343440;
+
 }
 
 
-/* ========================================
-   DESCRIPTION
-======================================== */
-
 .description {
+
     max-width: 520px;
+
 
     margin: 0 auto;
 
+
     color: #aaaab5;
+
 
     font-size: 0.72rem;
 
     line-height: 1.7;
+
 }
 
 
 .quote {
-    margin: 16px 0 22px;
+
+    margin:
+
+        16px 0 22px;
+
 
     color: #696979;
+
 
     font-size: 0.62rem;
 
     letter-spacing: 0.22em;
+
 }
 
 
-/* ========================================
-   BUTTON
-======================================== */
-
 .enter-button {
+
     display: inline-block;
 
-    padding: 10px 18px;
 
-    border: 1px solid #656574;
+    padding:
 
-    color: #eeeeF5;
+        10px 18px;
 
-    text-decoration: none;
+
+    border:
+
+        1px solid #656574;
+
+
+    background:
+
+        transparent;
+
+
+    color: #eeeef5;
+
+
+    font-family: inherit;
+
 
     font-size: 0.65rem;
 
     letter-spacing: 0.15em;
+
+
+    cursor: pointer;
+
 }
 
 
 .enter-button:hover {
-    background: #eeeeF5;
+
+    background: #eeeef5;
 
     color: #050507;
+
 }
 
 
 /* ========================================
+
    WINDOW FOOTER
+
 ======================================== */
 
+
 .window-footer {
+
     height: 36px;
+
 
     flex-shrink: 0;
 
-    padding: 0 14px;
+
+    padding:
+
+        0 14px;
+
 
     display: flex;
 
@@ -552,62 +1428,1213 @@ h1 {
 
     justify-content: space-between;
 
-    border-top: 1px solid #292936;
+
+    border-top:
+
+        1px solid #292936;
+
 
     color: #555563;
+
 
     font-size: 0.56rem;
 
     letter-spacing: 0.12em;
+
 }
 
 
 /* ========================================
-   MOBILE
+
+   SIGNAL LOG
+
 ======================================== */
 
-@media (max-width: 600px) {
+
+.signal-window {
+
+    width:
+
+        min(760px, 86vw);
+
+
+    height:
+
+        min(520px, 72vh);
+
+
+    top: 16%;
+
+    left: 28%;
+
+
+    display: none;
+
+}
+
+
+.signal-content {
+
+    min-height: 0;
+
+
+    flex: 1;
+
+
+    display: flex;
+
+
+    overflow: hidden;
+
+}
+
+
+.signal-index {
+
+    width: 210px;
+
+
+    flex-shrink: 0;
+
+
+    padding:
+
+        20px 14px;
+
+
+    overflow-y: auto;
+
+
+    border-right:
+
+        1px solid #292936;
+
+
+    background:
+
+        rgba(8, 8, 13, 0.55);
+
+}
+
+
+.signal-index-title {
+
+    margin-bottom: 18px;
+
+
+    color: #555563;
+
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.2em;
+
+}
+
+
+.signal-entry {
+
+    margin-bottom: 8px;
+
+
+    padding: 11px;
+
+
+    border:
+
+        1px solid transparent;
+
+
+    color: #777786;
+
+
+    cursor: pointer;
+
+
+    transition:
+
+        0.15s ease;
+
+}
+
+
+.signal-entry:hover {
+
+    border-color: #343440;
+
+    color: #eeeef5;
+
+}
+
+
+.signal-entry.active {
+
+    border-color: #555566;
+
+
+    background:
+
+        rgba(150, 150, 255, 0.05);
+
+
+    color: #eeeef5;
+
+}
+
+
+.signal-entry-title {
+
+    margin-bottom: 5px;
+
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.1em;
+
+}
+
+
+.signal-entry-code {
+
+    color: #555563;
+
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+.signal-reader {
+
+    min-width: 0;
+
+
+    flex: 1;
+
+
+    padding: 28px;
+
+
+    overflow-y: auto;
+
+}
+
+
+.signal-reader-status {
+
+    margin-bottom: 30px;
+
+
+    color: #555563;
+
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.2em;
+
+}
+
+
+#signalReader h2 {
+
+    margin:
+
+        0 0 22px;
+
+
+    color: #eeeef5;
+
+
+    font-family:
+
+        "Courier New",
+
+        Courier,
+
+        monospace;
+
+
+    font-size: 1.1rem;
+
+    letter-spacing: 0.15em;
+
+}
+
+
+#signalReader p {
+
+    color: #aaaab5;
+
+
+    font-size: 0.7rem;
+
+    line-height: 1.8;
+
+}
+
+
+#signalReader .signal-muted {
+
+    margin-top: 25px;
+
+
+    color: #555563;
+
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.1em;
+
+}
+
+
+.signal-data {
+
+    margin-top: 24px;
+
+
+    padding: 14px;
+
+
+    border:
+
+        1px solid #292936;
+
+
+    color: #777786;
+
+
+    font-size: 0.6rem;
+
+    line-height: 1.8;
+
+}
+
+
+/* ========================================
+
+   CUSTOMIZATION
+
+======================================== */
+
+
+.customization-window {
+
+    width:
+
+        min(860px, 88vw);
+
+
+    height:
+
+        min(560px, 76vh);
+
+
+    top: 13%;
+
+    left: 24%;
+
+
+    display: none;
+
+}
+
+
+.customization-content {
+
+    min-height: 0;
+
+
+    flex: 1;
+
+
+    display: flex;
+
+
+    overflow: hidden;
+
+}
+
+
+.customization-sidebar {
+
+    width: 175px;
+
+
+    flex-shrink: 0;
+
+
+    padding:
+
+        18px 10px;
+
+
+    border-right:
+
+        1px solid #292936;
+
+
+    background:
+
+        rgba(8, 8, 13, 0.62);
+
+}
+
+
+.custom-nav {
+
+    width: 100%;
+
+
+    padding:
+
+        12px 10px;
+
+
+    border:
+
+        1px solid transparent;
+
+
+    background:
+
+        transparent;
+
+
+    color: #686879;
+
+
+    font-family: inherit;
+
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.18em;
+
+
+    text-align: left;
+
+
+    cursor: pointer;
+
+}
+
+
+.custom-nav.active {
+
+    border-color: #39394a;
+
+
+    background:
+
+        rgba(150, 150, 255, 0.08);
+
+
+    color: #eeeef5;
+
+}
+
+
+.custom-nav.disabled {
+
+    opacity: 0.3;
+
+    cursor: default;
+
+}
+
+
+.customization-main {
+
+    min-width: 0;
+
+
+    flex: 1;
+
+
+    padding: 26px;
+
+
+    overflow-y: auto;
+
+}
+
+
+.customization-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+
+    gap: 20px;
+
+}
+
+
+.customization-heading h2 {
+
+    margin:
+
+        6px 0 0;
+
+
+    font-size: 1rem;
+
+    letter-spacing: 0.18em;
+
+}
+
+
+.customization-code {
+
+    color: #555563;
+
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.2em;
+
+}
+
+
+#wallpaperStatus {
+
+    color: #686879;
+
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+.customization-description {
+
+    margin:
+
+        14px 0 22px;
+
+
+    color: #626271;
+
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+
+
+    line-height: 1.7;
+
+}
+
+
+.wallpaper-grid {
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(
+
+            2,
+
+            minmax(0, 1fr)
+
+        );
+
+
+    gap: 14px;
+
+}
+
+
+.wallpaper-card {
+
+    min-width: 0;
+
+
+    padding: 0;
+
+
+    overflow: hidden;
+
+
+    border:
+
+        1px solid #343440;
+
+
+    background:
+
+        #050509;
+
+
+    color: #aaaab5;
+
+
+    font-family: inherit;
+
+
+    text-align: left;
+
+
+    cursor: pointer;
+
+
+    transition:
+
+        transform 0.16s ease,
+
+        border-color 0.16s ease,
+
+        box-shadow 0.16s ease;
+
+}
+
+
+.wallpaper-card:hover {
+
+    transform:
+
+        translateY(-2px);
+
+
+    border-color: #69697d;
+
+
+    box-shadow:
+
+        0 10px 30px
+
+        rgba(0, 0, 0, 0.4);
+
+}
+
+
+.wallpaper-card.active {
+
+    border-color: #aaaac0;
+
+
+    box-shadow:
+
+        0 0 0 1px
+
+        rgba(200, 200, 255, 0.12),
+
+        0 0 30px
+
+        rgba(150, 150, 255, 0.1);
+
+}
+
+
+.wallpaper-card img,
+
+.grid-preview {
+
+    width: 100%;
+
+    height: 120px;
+
+
+    display: block;
+
+
+    object-fit: cover;
+
+}
+
+
+.grid-preview {
+
+    background:
+
+        linear-gradient(
+
+            rgba(170, 170, 255, 0.05)
+
+            1px,
+
+            transparent
+
+            1px
+
+        ),
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(170, 170, 255, 0.05)
+
+            1px,
+
+            transparent
+
+            1px
+
+        ),
+
+        radial-gradient(
+
+            circle at center,
+
+            #11111b,
+
+            #030305 70%
+
+        );
+
+
+    background-size:
+
+        25px 25px,
+
+        25px 25px,
+
+        auto;
+
+}
+
+
+.wallpaper-card-info {
+
+    padding:
+
+        10px 12px 11px;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    gap: 5px;
+
+}
+
+
+.wallpaper-card-info strong {
+
+    color: #b0b0bd;
+
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.14em;
+
+}
+
+
+.wallpaper-card-info small {
+
+    color: #555563;
+
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.13em;
+
+}
+
+
+/* ========================================
+
+   MOBILE
+
+======================================== */
+
+
+@media (max-width: 700px) {
+
 
     .top-center {
+
         display: none;
+
     }
 
 
     .top-right > span:first-child {
+
         display: none;
+
     }
 
 
-    .window {
+    .system-menu {
+
+        width:
+
+            calc(100vw - 16px);
+
+    }
+
+
+    .window,
+
+    .signal-window,
+
+    .customization-window {
+
         width: 92vw;
 
         height: 82vh;
 
-        /*
-            Keep the initial window inside
-            the viewport on small screens.
-        */
 
         left: 4vw;
+
     }
 
 
     .window-content {
+
         padding:
-            20px
-            18px;
+
+            20px 18px;
+
     }
 
 
     .window-footer {
+
         gap: 5px;
 
-        font-size: 0.48rem;
+
+        font-size: 0.46rem;
+
     }
 
 
     .desktop-label {
+
         display: none;
+
+    }
+
+
+    .signal-index {
+
+        width: 125px;
+
+
+        padding:
+
+            14px 8px;
+
+    }
+
+
+    .signal-reader {
+
+        padding: 18px;
+
+    }
+
+
+    .customization-sidebar {
+
+        width: 120px;
+
+    }
+
+
+    .customization-main {
+
+        padding: 16px;
+
+    }
+
+
+    .customization-heading {
+
+        display: block;
+
+    }
+
+
+    #wallpaperStatus {
+
+        display: block;
+
+
+        margin-top: 10px;
+
+    }
+
+
+    .wallpaper-grid {
+
+        grid-template-columns:
+
+            1fr;
+
+    }
+
+
+    .wallpaper-card img,
+
+    .grid-preview {
+
+        height: 100px;
+
     }
 
 }
+
+
+/**/
+
+/* ========================================
+   PULSAR BOOT SEQUENCE // BUILD 0.6
+======================================== */
+
+.boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    color: #d9d9e2;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+
+.boot-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.boot-acquisition {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.boot-acquisition.hide {
+    opacity: 0;
+    transform: scale(0.985);
+    pointer-events: none;
+}
+
+.boot-logo {
+    width: 92px;
+    height: 92px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 22px rgba(190, 195, 255, 0.34));
+    animation: bootLogoPulse 1.6s ease-in-out infinite;
+}
+
+.boot-brand {
+    margin-top: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.48em;
+    text-indent: 0.48em;
+}
+
+.boot-acquiring {
+    margin-top: 34px;
+    color: #5f5f6d;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+}
+
+@keyframes bootLogoPulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+.boot-console {
+    width: min(660px, calc(100vw - 40px));
+    border: 1px solid #353541;
+    background: rgba(4, 4, 8, 0.96);
+    box-shadow: 0 0 80px rgba(90, 90, 150, 0.08);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.boot-console.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.boot-console-bar {
+    height: 38px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #2a2a35;
+    color: #8c8c9b;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+}
+
+.boot-console-body {
+    padding: 26px 30px 24px;
+}
+
+.boot-meta {
+    color: #70707f;
+    font-size: 0.57rem;
+    line-height: 1.75;
+    letter-spacing: 0.17em;
+}
+
+.boot-init {
+    margin: 22px 0 17px;
+    color: #c4c4ce;
+    font-size: 0.61rem;
+    letter-spacing: 0.14em;
+}
+
+.boot-checks {
+    display: grid;
+    gap: 8px;
+}
+
+.boot-check {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    align-items: center;
+    gap: 9px;
+    min-height: 14px;
+    color: #777786;
+    font-size: 0.57rem;
+    letter-spacing: 0.11em;
+}
+
+.boot-check i {
+    min-width: 20px;
+    height: 1px;
+    border-bottom: 1px dotted #343440;
+}
+
+.boot-check strong {
+    min-width: 88px;
+    color: #555563;
+    font: inherit;
+    text-align: right;
+}
+
+.boot-check.done strong {
+    color: #b0b0bd;
+}
+
+.boot-check.warn strong {
+    color: #777786;
+}
+
+.boot-message {
+    min-height: 14px;
+    margin-top: 22px;
+    color: #6c6c7c;
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
+}
+
+.boot-orbit {
+    position: absolute;
+    left: 50%;
+    bottom: 116px;
+    width: 88px;
+    height: 58px;
+    transform: translateX(-50%);
+    color: #555563;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.boot-console.show ~ .boot-orbit {
+    opacity: 1;
+}
+
+.orbit-dot,
+.orbit-star {
+    position: absolute;
+    line-height: 1;
+}
+
+.orbit-star {
+    left: 50%;
+    top: 50%;
+    color: #d7d7e2;
+    transform: translate(-50%, -50%);
+    animation: bootStarPulse 1.2s ease-in-out infinite;
+}
+
+.orbit-top { left: 50%; top: 0; transform: translateX(-50%); }
+.orbit-bottom { left: 50%; bottom: 0; transform: translateX(-50%); }
+.orbit-left { left: 7px; top: 50%; transform: translateY(-50%); }
+.orbit-right { right: 7px; top: 50%; transform: translateY(-50%); }
+
+@keyframes bootStarPulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; text-shadow: 0 0 14px rgba(210, 210, 255, 0.55); }
+}
+
+.boot-progress {
+    position: absolute;
+    left: 50%;
+    bottom: 45px;
+    width: min(330px, calc(100vw - 60px));
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.boot-console.show ~ .boot-progress {
+    opacity: 1;
+}
+
+.boot-percent {
+    margin-bottom: 10px;
+    color: #bdbdc8;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+}
+
+.boot-progress-track {
+    width: 100%;
+    height: 1px;
+    display: block;
+    overflow: hidden;
+    background: #24242d;
+}
+
+.boot-progress-track span {
+    width: 0;
+    height: 100%;
+    display: block;
+    background: #bcbcca;
+    transition: width 0.28s ease;
+}
+
+.boot-progress-label {
+    margin-top: 10px;
+    color: #4f4f5c;
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+}
+
+.boot-star-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.boot-star-flash.active {
+    visibility: visible;
+    animation: pulsarFlash 0.48s ease forwards;
+}
+
+.boot-star-flash img {
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+    filter: brightness(2.2) drop-shadow(0 0 34px rgba(225, 225, 255, 0.75));
+}
+
+@keyframes pulsarFlash {
+    0% { opacity: 0; }
+    28% { opacity: 1; }
+    58% { opacity: 0.92; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+body.pulsar-booting .top-bar,
+body.pulsar-booting .desktop {
+    visibility: hidden;
+}
+
+@media (max-width: 700px) {
+    .boot-console-body {
+        padding: 21px 18px;
+    }
+
+    .boot-console-bar {
+        font-size: 0.46rem;
+    }
+
+    .boot-check {
+        font-size: 0.49rem;
+    }
+
+    .boot-check strong {
+        min-width: 72px;
+    }
+}
+
+/* ========================================
+   PULSAR // WALLPAPER ENGINE FIX
+======================================== */
+
+#desktop {
+    background-image:
+        var(
+            --wallpaper-image,
+            url("images/Wallpapers/Pulsar-wllp.png")
+        ) !important;
+
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+}
+
+/* ========================================
+   PULSAR OS // BOOT 0.6
+   LINUX STYLE INITIALIZATION
+======================================== */
+.pulsar-boot{position:fixed;inset:0;z-index:999999;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(30,30,45,.16),transparent 32%),#020204;color:#b8b8c5;font-family:"Courier New",monospace;opacity:1;visibility:visible;transition:opacity .85s ease,visibility .85s ease}
+.pulsar-boot.boot-finished{opacity:0;visibility:hidden;pointer-events:none}
+.pulsar-boot-brand{position:absolute;left:50%;top:50%;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%);transition:opacity .45s ease,transform .45s ease}
+.pulsar-boot-brand.boot-brand-leaving{opacity:0;transform:translate(-50%,-54%)}
+.pulsar-boot-main-logo{width:92px;height:auto;object-fit:contain;opacity:.92;filter:drop-shadow(0 0 14px rgba(190,190,255,.12));animation:pulsarBootMainPulse 1.4s ease-in-out infinite}
+.pulsar-boot-name{margin-top:20px;color:#ededf4;font-size:.92rem;font-weight:700;letter-spacing:.55em;text-indent:.55em}
+.pulsar-boot-status{margin-top:12px;color:#525261;font-size:.48rem;letter-spacing:.28em;text-indent:.28em}
+@keyframes pulsarBootMainPulse{0%,100%{opacity:.48;filter:drop-shadow(0 0 4px rgba(220,220,255,.06));transform:scale(.985)}50%{opacity:1;filter:drop-shadow(0 0 20px rgba(220,220,255,.22));transform:scale(1)}}
+.pulsar-boot-terminal{position:absolute;left:34px;top:30px;width:min(850px,calc(100vw - 68px));height:calc(100vh - 145px);overflow:hidden;opacity:0;transform:translateY(5px);transition:opacity .25s ease,transform .25s ease;pointer-events:none}
+.pulsar-boot-terminal.active{opacity:1;transform:translateY(0)}
+.pulsar-boot-lines{position:absolute;left:0;bottom:0;width:100%}
+.pulsar-boot-line{display:flex;align-items:baseline;min-height:18px;color:#767684;font-size:.58rem;line-height:1.45;letter-spacing:.055em;opacity:0;transform:translateX(-4px);animation:pulsarBootLineIn .12s ease forwards}
+@keyframes pulsarBootLineIn{to{opacity:1;transform:translateX(0)}}
+.pulsar-boot-prefix{display:inline-block;min-width:62px;margin-right:9px;color:#9292a0}
+.pulsar-boot-prefix.ok{color:#c8c8d3}.pulsar-boot-prefix.info{color:#777786}.pulsar-boot-prefix.warn{color:#92929e}
+.pulsar-boot-line-text{color:#686876}.pulsar-boot-line-important .pulsar-boot-line-text{color:#c2c2ce}
+.pulsar-boot-corner{position:absolute;left:32px;bottom:26px;display:flex;align-items:center;gap:13px;opacity:0;transition:opacity .35s ease}.pulsar-boot-corner.active{opacity:1}
+.pulsar-boot-corner-logo{width:37px;height:37px;object-fit:contain;animation:pulsarCornerPulse .95s ease-in-out infinite;filter:drop-shadow(0 0 7px rgba(220,220,255,.15))}
+@keyframes pulsarCornerPulse{0%,100%{opacity:.3;filter:drop-shadow(0 0 2px rgba(220,220,255,.04))}50%{opacity:1;filter:drop-shadow(0 0 15px rgba(220,220,255,.32))}}
+.pulsar-boot-corner-info{display:flex;flex-direction:column;gap:4px}.pulsar-boot-corner-info strong{color:#aaaab7;font-size:.5rem;font-weight:400;letter-spacing:.22em}.pulsar-boot-corner-info span{color:#444451;font-size:.43rem;letter-spacing:.18em}
+.pulsar-boot-build{position:absolute;right:31px;bottom:31px;color:#353540;font-size:.43rem;letter-spacing:.18em}
+.pulsar-boot.blackout .pulsar-boot-terminal,.pulsar-boot.blackout .pulsar-boot-corner,.pulsar-boot.blackout .pulsar-boot-build{opacity:0}
+@media(max-width:700px){.pulsar-boot-terminal{left:18px;top:20px;width:calc(100vw - 36px);height:calc(100vh - 125px)}.pulsar-boot-line{min-height:16px;font-size:.48rem}.pulsar-boot-prefix{min-width:54px;margin-right:5px}.pulsar-boot-corner{left:18px;bottom:18px}.pulsar-boot-build{right:18px;bottom:20px;font-size:.37rem}}
