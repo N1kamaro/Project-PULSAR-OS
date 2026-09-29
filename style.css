@@ -65,6 +65,13 @@ body {
 }
 
 
+.top-left {
+    cursor: pointer;
+
+    user-select: none;
+}
+
+
 .top-symbol {
     color: white;
 
@@ -176,10 +183,14 @@ body {
 
     position: absolute;
 
-    top: 50%;
-    left: 50%;
+    /*
+        Part 3:
+        top and left now define the real position
+        because JavaScript will change them while dragging.
+    */
 
-    transform: translate(-50%, -50%);
+    top: 10%;
+    left: calc(50% - 360px);
 
     display: flex;
 
@@ -218,17 +229,58 @@ body {
     font-size: 0.65rem;
 
     letter-spacing: 0.12em;
+
+    /* Part 3 */
+
+    cursor: grab;
+
+    user-select: none;
+}
+
+
+.window-bar:active {
+    cursor: grabbing;
 }
 
 
 .window-controls {
     display: flex;
 
+    align-items: center;
+
     gap: 15px;
 
     color: #656574;
 
     font-size: 0.8rem;
+}
+
+
+/* ========================================
+   CLOSE BUTTON
+======================================== */
+
+.close-button {
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #656574;
+
+    font-family: inherit;
+
+    font-size: 0.8rem;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+.close-button:hover {
+    color: #ffffff;
 }
 
 
@@ -530,6 +582,13 @@ h1 {
         width: 92vw;
 
         height: 82vh;
+
+        /*
+            Keep the initial window inside
+            the viewport on small screens.
+        */
+
+        left: 4vw;
     }
 
 
