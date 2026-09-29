@@ -1,0 +1,343 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #10101a 0%,
+            #08080d 35%,
+            #030305 75%
+        );
+
+    color: #eeeeF5;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+/* --------------------------------
+   MAIN SCREEN
+-------------------------------- */
+
+.welcome {
+    width: min(90%, 760px);
+
+    text-align: center;
+
+    position: relative;
+}
+
+
+/* --------------------------------
+   SYSTEM LABEL
+-------------------------------- */
+
+.system-code {
+    margin-bottom: 40px;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 0.3em;
+
+    color: #8c8c9e;
+}
+
+
+/* --------------------------------
+   PULSAR
+-------------------------------- */
+
+.pulsar-art {
+    width: 220px;
+    height: 220px;
+
+    margin: 0 auto 30px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* neutron star */
+
+.core {
+    width: 22px;
+    height: 22px;
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 10px #ffffff,
+        0 0 30px #aaaaff,
+        0 0 70px rgba(150, 150, 255, 0.5);
+
+    z-index: 5;
+}
+
+
+/* magnetic field / orbit lines */
+
+.orbit {
+    position: absolute;
+
+    border: 1px solid rgba(200, 200, 255, 0.25);
+
+    border-radius: 50%;
+}
+
+.orbit-1 {
+    width: 105px;
+    height: 105px;
+}
+
+.orbit-2 {
+    width: 175px;
+    height: 175px;
+}
+
+
+/* pulsar beams */
+
+.beam {
+    width: 2px;
+    height: 190px;
+
+    position: absolute;
+
+    top: 15px;
+    left: 50%;
+
+    transform-origin: center;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(200, 200, 255, 0.25),
+        #ffffff,
+        rgba(200, 200, 255, 0.25),
+        transparent
+    );
+}
+
+.beam-left {
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.beam-right {
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+
+/* --------------------------------
+   STATUS
+-------------------------------- */
+
+.status {
+    margin: 0 0 14px;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.3em;
+
+    color: #9b9bab;
+}
+
+
+/* --------------------------------
+   TITLE
+-------------------------------- */
+
+h1 {
+    margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: clamp(3.5rem, 10vw, 6.5rem);
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    line-height: 0.9;
+}
+
+
+.os-label {
+    margin: 18px 0 30px;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 0.55em;
+
+    color: #90909e;
+}
+
+
+/* --------------------------------
+   SEPARATOR
+-------------------------------- */
+
+.separator {
+    width: 65%;
+
+    margin: 0 auto 28px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #555566;
+}
+
+.line {
+    height: 1px;
+
+    flex: 1;
+
+    background: #343440;
+}
+
+
+/* --------------------------------
+   TEXT
+-------------------------------- */
+
+.description {
+    max-width: 580px;
+
+    margin: 0 auto;
+
+    font-size: 0.85rem;
+
+    line-height: 1.8;
+
+    color: #aaaab5;
+}
+
+
+.quote {
+    margin: 22px 0 32px;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.25em;
+
+    color: #717180;
+}
+
+
+/* --------------------------------
+   ENTER BUTTON
+-------------------------------- */
+
+.enter-button {
+    display: inline-block;
+
+    padding: 12px 24px;
+
+    border: 1px solid #666677;
+
+    color: #eeeeF5;
+
+    text-decoration: none;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 0.15em;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        box-shadow 0.2s;
+}
+
+
+.enter-button:hover {
+    background: #eeeeF5;
+
+    color: #050507;
+
+    box-shadow:
+        0 0 20px rgba(220, 220, 255, 0.25);
+}
+
+
+/* --------------------------------
+   SYSTEM INFORMATION
+-------------------------------- */
+
+.system-info {
+    width: 100%;
+
+    margin-top: 55px;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.12em;
+
+    color: #555563;
+}
+
+
+/* --------------------------------
+   RESPONSIVE
+-------------------------------- */
+
+@media (max-width: 600px) {
+
+    .pulsar-art {
+        width: 170px;
+        height: 170px;
+    }
+
+    .beam {
+        height: 150px;
+        top: 10px;
+    }
+
+    .orbit-1 {
+        width: 80px;
+        height: 80px;
+    }
+
+    .orbit-2 {
+        width: 135px;
+        height: 135px;
+    }
+
+    .system-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+}
