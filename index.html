@@ -12,64 +12,165 @@
 
 <body>
 
-    <main class="welcome">
+    <!-- TOP BAR -->
 
-        <p class="system-code">
-            PULSAR // WEB HARDWARE INTERFACE
-        </p>
+    <header class="top-bar">
 
-        <div class="pulsar-art">
-
-            <div class="beam beam-left"></div>
-            <div class="beam beam-right"></div>
-
-            <div class="orbit orbit-1"></div>
-            <div class="orbit orbit-2"></div>
-
-            <div class="core"></div>
-
+        <div class="top-left">
+            <span class="top-symbol">✦</span>
+            <span>PULSAR OS</span>
         </div>
 
-        <p class="status">
-            [ SIGNAL ACQUIRED ]
-        </p>
-
-        <h1>PULSAR</h1>
-
-        <p class="os-label">
-            OPERATING SYSTEM
-        </p>
-
-        <div class="separator">
-            <span>+</span>
-            <div class="line"></div>
-            <span>+</span>
+        <div class="top-center">
+            SIGNAL // STABLE
         </div>
 
-        <p class="description">
-            A web-based operating system designed to connect,
-            monitor and interact with microcontrollers.
-        </p>
-
-        <p class="quote">
-            A STAR. A SIGNAL. AN INTERFACE.
-        </p>
-
-        <a class="enter-button" href="#">
-            [ ENTER SYSTEM ]
-        </a>
-
-        <div class="system-info">
-
-            <span>CORE // READY</span>
-
-            <span>NO DEVICE</span>
-
-            <span>BUILD // 0.1</span>
-
+        <div class="top-right">
+            <span>LOCAL TIME //</span>
+            <span id="clock">00:00:00</span>
         </div>
+
+    </header>
+
+
+    <!-- DESKTOP -->
+
+    <main class="desktop">
+
+        <div class="desktop-label">
+            <span>PULSAR NETWORK</span>
+            <span>DESKTOP // 01</span>
+        </div>
+
+
+        <!-- WINDOW -->
+
+        <section class="window">
+
+            <div class="window-bar">
+
+                <span>
+                    PULSAR // SYSTEM
+                </span>
+
+                <div class="window-controls">
+                    <span>─</span>
+                    <span>□</span>
+                    <span>×</span>
+                </div>
+
+            </div>
+
+
+            <div class="window-content">
+
+                <p class="system-code">
+                    PULSAR // WEB HARDWARE INTERFACE
+                </p>
+
+
+                <!-- PULSAR -->
+
+                <div class="pulsar-art">
+
+                    <div class="beam beam-left"></div>
+                    <div class="beam beam-right"></div>
+
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+
+                    <div class="core"></div>
+
+                </div>
+
+
+                <p class="status">
+                    [ SIGNAL ACQUIRED ]
+                </p>
+
+
+                <h1>
+                    PULSAR
+                </h1>
+
+
+                <p class="os-label">
+                    OPERATING SYSTEM
+                </p>
+
+
+                <div class="separator">
+
+                    <span>+</span>
+
+                    <div class="line"></div>
+
+                    <span>+</span>
+
+                </div>
+
+
+                <p class="description">
+                    A web-based operating system designed to connect,
+                    monitor and interact with microcontrollers.
+                </p>
+
+
+                <p class="quote">
+                    A STAR. A SIGNAL. AN INTERFACE.
+                </p>
+
+
+                <a class="enter-button" href="#">
+                    [ ENTER SYSTEM ]
+                </a>
+
+            </div>
+
+
+            <div class="window-footer">
+
+                <span>CORE // READY</span>
+
+                <span>NO DEVICE</span>
+
+                <span>BUILD // 0.2</span>
+
+            </div>
+
+        </section>
 
     </main>
+
+
+    <!-- CLOCK -->
+
+    <script>
+
+        function updateClock() {
+
+            const now = new Date();
+
+            const hours =
+                String(now.getHours()).padStart(2, "0");
+
+            const minutes =
+                String(now.getMinutes()).padStart(2, "0");
+
+            const seconds =
+                String(now.getSeconds()).padStart(2, "0");
+
+
+            document.querySelector("#clock").textContent =
+                hours + ":" + minutes + ":" + seconds;
+        }
+
+
+        updateClock();
+
+        setInterval(updateClock, 1000);
+
+    </script>
 
 </body>
 

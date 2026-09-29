@@ -2,23 +2,20 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
     margin: 0;
+
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+
+    overflow: hidden;
 }
 
-body {
-    min-height: 100vh;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #10101a 0%,
-            #08080d 35%,
-            #030305 75%
-        );
+body {
+    background: #030305;
 
     color: #eeeeF5;
 
@@ -26,68 +23,268 @@ body {
         "Courier New",
         Courier,
         monospace;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    overflow: hidden;
 }
 
 
-/* --------------------------------
-   MAIN SCREEN
--------------------------------- */
+/* ========================================
+   TOP BAR
+======================================== */
 
-.welcome {
-    width: min(90%, 760px);
+.top-bar {
+    height: 42px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: relative;
+
+    z-index: 100;
+
+    background: rgba(8, 8, 13, 0.92);
+
+    border-bottom: 1px solid #292936;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 0.12em;
+}
+
+
+.top-left,
+.top-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.top-symbol {
+    color: white;
+
+    font-size: 1rem;
+}
+
+
+.top-center {
+    position: absolute;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #696979;
+}
+
+
+.top-right {
+    color: #8e8e9c;
+}
+
+
+#clock {
+    color: #eeeeF5;
+}
+
+
+/* ========================================
+   DESKTOP
+======================================== */
+
+.desktop {
+    width: 100vw;
+
+    height: calc(100vh - 42px);
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #11111b 0%,
+            #08080d 38%,
+            #030305 75%
+        );
+}
+
+
+/* tiny grid */
+
+.desktop::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   DESKTOP INFORMATION
+======================================== */
+
+.desktop-label {
+    position: absolute;
+
+    top: 18px;
+    left: 22px;
+    right: 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #41414f;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.15em;
+}
+
+
+/* ========================================
+   WINDOW
+======================================== */
+
+.window {
+    width: min(720px, 88vw);
+
+    height: min(650px, 82vh);
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: rgba(5, 5, 9, 0.96);
+
+    border: 1px solid #383847;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ========================================
+   WINDOW BAR
+======================================== */
+
+.window-bar {
+    height: 38px;
+
+    flex-shrink: 0;
+
+    padding: 0 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #30303c;
+
+    color: #8e8e9c;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.12em;
+}
+
+
+.window-controls {
+    display: flex;
+
+    gap: 15px;
+
+    color: #656574;
+
+    font-size: 0.8rem;
+}
+
+
+/* ========================================
+   WINDOW CONTENT
+======================================== */
+
+.window-content {
+    flex: 1;
+
+    padding: 26px 40px;
 
     text-align: center;
 
-    position: relative;
+    overflow: auto;
 }
 
-
-/* --------------------------------
-   SYSTEM LABEL
--------------------------------- */
 
 .system-code {
-    margin-bottom: 40px;
+    margin: 0 0 22px;
 
-    font-size: 0.75rem;
+    color: #737382;
 
-    letter-spacing: 0.3em;
+    font-size: 0.62rem;
 
-    color: #8c8c9e;
+    letter-spacing: 0.28em;
 }
 
 
-/* --------------------------------
+/* ========================================
    PULSAR
--------------------------------- */
+======================================== */
 
 .pulsar-art {
-    width: 220px;
-    height: 220px;
+    width: 145px;
+    height: 145px;
 
-    margin: 0 auto 30px;
+    margin: 0 auto 18px;
 
     position: relative;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 }
 
 
-/* neutron star */
-
 .core {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 
     position: absolute;
+
+    z-index: 5;
 
     border-radius: 50%;
 
@@ -95,126 +292,131 @@ body {
 
     box-shadow:
         0 0 10px #ffffff,
-        0 0 30px #aaaaff,
-        0 0 70px rgba(150, 150, 255, 0.5);
-
-    z-index: 5;
+        0 0 25px #aaaaff,
+        0 0 55px rgba(150, 150, 255, 0.45);
 }
 
-
-/* magnetic field / orbit lines */
 
 .orbit {
     position: absolute;
 
-    border: 1px solid rgba(200, 200, 255, 0.25);
+    border:
+        1px solid rgba(200, 200, 255, 0.22);
 
     border-radius: 50%;
 }
 
+
 .orbit-1 {
-    width: 105px;
-    height: 105px;
+    width: 72px;
+    height: 72px;
 }
+
 
 .orbit-2 {
-    width: 175px;
-    height: 175px;
+    width: 120px;
+    height: 120px;
 }
 
 
-/* pulsar beams */
-
 .beam {
-    width: 2px;
-    height: 190px;
+    width: 1px;
+    height: 135px;
 
     position: absolute;
 
-    top: 15px;
+    top: 5px;
     left: 50%;
 
     transform-origin: center;
 
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(200, 200, 255, 0.25),
-        #ffffff,
-        rgba(200, 200, 255, 0.25),
-        transparent
-    );
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(200, 200, 255, 0.3),
+            white,
+            rgba(200, 200, 255, 0.3),
+            transparent
+        );
 }
+
 
 .beam-left {
-    transform: translateX(-50%) rotate(45deg);
+    transform:
+        translateX(-50%)
+        rotate(45deg);
 }
+
 
 .beam-right {
-    transform: translateX(-50%) rotate(-45deg);
+    transform:
+        translateX(-50%)
+        rotate(-45deg);
 }
 
 
-/* --------------------------------
-   STATUS
--------------------------------- */
+/* ========================================
+   TEXT
+======================================== */
 
 .status {
-    margin: 0 0 14px;
+    margin: 0 0 10px;
 
-    font-size: 0.72rem;
+    color: #9999aa;
+
+    font-size: 0.62rem;
 
     letter-spacing: 0.3em;
-
-    color: #9b9bab;
 }
 
-
-/* --------------------------------
-   TITLE
--------------------------------- */
 
 h1 {
     margin: 0;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-    font-size: clamp(3.5rem, 10vw, 6.5rem);
+    font-size:
+        clamp(3rem, 7vw, 5rem);
 
-    font-weight: 700;
+    line-height: 0.95;
 
     letter-spacing: 0.16em;
-
-    line-height: 0.9;
 }
 
 
 .os-label {
-    margin: 18px 0 30px;
+    margin: 14px 0 20px;
 
-    font-size: 0.7rem;
+    color: #7e7e8c;
 
-    letter-spacing: 0.55em;
+    font-size: 0.58rem;
 
-    color: #90909e;
+    letter-spacing: 0.5em;
 }
 
 
-/* --------------------------------
+/* ========================================
    SEPARATOR
--------------------------------- */
+======================================== */
 
 .separator {
     width: 65%;
 
-    margin: 0 auto 28px;
+    margin: 0 auto 18px;
 
     display: flex;
-    align-items: center;
-    gap: 12px;
 
-    color: #555566;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #4e4e5d;
 }
+
 
 .line {
     height: 1px;
@@ -225,57 +427,52 @@ h1 {
 }
 
 
-/* --------------------------------
-   TEXT
--------------------------------- */
+/* ========================================
+   DESCRIPTION
+======================================== */
 
 .description {
-    max-width: 580px;
+    max-width: 520px;
 
     margin: 0 auto;
 
-    font-size: 0.85rem;
-
-    line-height: 1.8;
-
     color: #aaaab5;
+
+    font-size: 0.72rem;
+
+    line-height: 1.7;
 }
 
 
 .quote {
-    margin: 22px 0 32px;
+    margin: 16px 0 22px;
 
-    font-size: 0.72rem;
+    color: #696979;
 
-    letter-spacing: 0.25em;
+    font-size: 0.62rem;
 
-    color: #717180;
+    letter-spacing: 0.22em;
 }
 
 
-/* --------------------------------
-   ENTER BUTTON
--------------------------------- */
+/* ========================================
+   BUTTON
+======================================== */
 
 .enter-button {
     display: inline-block;
 
-    padding: 12px 24px;
+    padding: 10px 18px;
 
-    border: 1px solid #666677;
+    border: 1px solid #656574;
 
     color: #eeeeF5;
 
     text-decoration: none;
 
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 
     letter-spacing: 0.15em;
-
-    transition:
-        background 0.2s,
-        color 0.2s,
-        box-shadow 0.2s;
 }
 
 
@@ -283,61 +480,75 @@ h1 {
     background: #eeeeF5;
 
     color: #050507;
-
-    box-shadow:
-        0 0 20px rgba(220, 220, 255, 0.25);
 }
 
 
-/* --------------------------------
-   SYSTEM INFORMATION
--------------------------------- */
+/* ========================================
+   WINDOW FOOTER
+======================================== */
 
-.system-info {
-    width: 100%;
+.window-footer {
+    height: 36px;
 
-    margin-top: 55px;
+    flex-shrink: 0;
+
+    padding: 0 14px;
 
     display: flex;
+
+    align-items: center;
+
     justify-content: space-between;
 
-    font-size: 0.62rem;
-
-    letter-spacing: 0.12em;
+    border-top: 1px solid #292936;
 
     color: #555563;
+
+    font-size: 0.56rem;
+
+    letter-spacing: 0.12em;
 }
 
 
-/* --------------------------------
-   RESPONSIVE
--------------------------------- */
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 600px) {
 
-    .pulsar-art {
-        width: 170px;
-        height: 170px;
+    .top-center {
+        display: none;
     }
 
-    .beam {
-        height: 150px;
-        top: 10px;
+
+    .top-right > span:first-child {
+        display: none;
     }
 
-    .orbit-1 {
-        width: 80px;
-        height: 80px;
+
+    .window {
+        width: 92vw;
+
+        height: 82vh;
     }
 
-    .orbit-2 {
-        width: 135px;
-        height: 135px;
+
+    .window-content {
+        padding:
+            20px
+            18px;
     }
 
-    .system-info {
-        flex-direction: column;
-        gap: 8px;
+
+    .window-footer {
+        gap: 5px;
+
+        font-size: 0.48rem;
+    }
+
+
+    .desktop-label {
+        display: none;
     }
 
 }
