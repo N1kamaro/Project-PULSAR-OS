@@ -3,188 +3,990 @@
 // ========================================
 
 // ========================================
+// PULSAR OS // STORAGE CORE
+// BUILD 0.9
+// ========================================
+
+const PulsarStorage = (() => {
+    const PREFIX = "pulsar.";
+    const VERSION = "0.9";
+
+    function createKey(key) {
+        return PREFIX + key;
+    }
+
+    function set(key, value) {
+        try {
+            const data = {
+                value: value,
+                updatedAt: Date.now()
+            };
+
+            localStorage.setItem(
+                createKey(key),
+                JSON.stringify(data)
+            );
+
+            return true;
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // WRITE FAILED",
+                key,
+                error
+            );
+
+            return false;
+        }
+    }
+
+    function get(key, fallback = null) {
+        try {
+            const raw = localStorage.getItem(createKey(key));
+
+            if (raw === null) {
+                return fallback;
+            }
+
+            const data = JSON.parse(raw);
+
+            if (
+                data &&
+                Object.prototype.hasOwnProperty.call(data, "value")
+            ) {
+                return data.value;
+            }
+
+            return fallback;
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // READ FAILED",
+                key,
+                error
+            );
+
+            return fallback;
+        }
+    }
+
+    function has(key) {
+        try {
+            return localStorage.getItem(createKey(key)) !== null;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function remove(key) {
+        try {
+            localStorage.removeItem(createKey(key));
+            return true;
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // REMOVE FAILED",
+                key,
+                error
+            );
+
+            return false;
+        }
+    }
+
+    function clear() {
+        try {
+            const keys = [];
+
+            for (let index = 0; index < localStorage.length; index++) {
+                const key = localStorage.key(index);
+
+                if (key && key.startsWith(PREFIX)) {
+                    keys.push(key);
+                }
+            }
+
+            keys.forEach(key => localStorage.removeItem(key));
+            return true;
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // CLEAR FAILED",
+                error
+            );
+
+            return false;
+        }
+    }
+
+    function exportData() {
+        const output = {};
+
+        try {
+            for (let index = 0; index < localStorage.length; index++) {
+                const storageKey = localStorage.key(index);
+
+                if (
+                    !storageKey ||
+                    !storageKey.startsWith(PREFIX)
+                ) {
+                    continue;
+                }
+
+                const pulsarKey = storageKey.slice(PREFIX.length);
+                output[pulsarKey] = get(pulsarKey);
+            }
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // EXPORT FAILED",
+                error
+            );
+        }
+
+        return output;
+    }
+
+    function initialize() {
+        if (!has("system.createdAt")) {
+            set(
+                "system.createdAt",
+                new Date().toISOString()
+            );
+        }
+
+        set(
+            "system.lastBoot",
+            new Date().toISOString()
+        );
+
+        set(
+            "system.storageVersion",
+            VERSION
+        );
+
+        console.log("PULSAR STORAGE // ONLINE");
+    }
+
+    return {
+        set,
+        get,
+        has,
+        remove,
+        clear,
+        export: exportData,
+        initialize
+    };
+})();
+
+PulsarStorage.initialize();
+
+// ========================================
 // ELEMENTS
 // ========================================
 
-const desktop = document.querySelector("#desktop");
-const screenFade = document.querySelector("#screenFade");
+// SYSTEM MENU
+const systemMenuButton =
+    document.getElementById("systemMenuButton");
 
-// TOP BAR / MENU
-const systemMenuButton = document.querySelector("#systemMenuButton");
-const systemMenu = document.querySelector("#systemMenu");
-const openAbout = document.querySelector("#openAbout");
-const openSignalLog = document.querySelector("#openSignalLog");
-const openCustomization = document.querySelector("#openCustomization");
+const systemMenu =
+    document.getElementById("systemMenu");
+
+const openAbout =
+    document.getElementById("openAbout");
+
+const openSignalLog =
+    document.getElementById("openSignalLog");
+
+const openCustomization =
+    document.getElementById("openCustomization");
+
+const openNotes =
+    document.getElementById("openNotes");
+
+// DESKTOP
+const desktop =
+    document.getElementById("desktop");
+
+const topBar =
+    document.getElementById("topBar");
+
+const clock =
+    document.getElementById("clock");
+
+const screenFade =
+    document.getElementById("screenFade");
+
+const networkIndicator =
+    document.getElementById("networkIndicator");
 
 // WELCOME / ABOUT
-const welcomeWindow = document.querySelector("#welcome");
-const welcomeHeader = document.querySelector("#welcomeheader");
-const welcomeClose = document.querySelector("#welcomeclose");
-const enterSystem = document.querySelector("#enterSystem");
+const welcomeWindow =
+    document.getElementById("welcome");
+
+const enterSystem =
+    document.getElementById("enterSystem");
 
 // SIGNAL LOG
-const signalLogWindow = document.querySelector("#signalLog");
-const signalLogHeader = document.querySelector("#signalLogHeader");
-const signalLogClose = document.querySelector("#signalLogClose");
-const signalLogTitle = document.querySelector("#signalLogTitle");
-const signalLogIcon = document.querySelector("#signalLogIcon");
-const signalEntries = document.querySelector("#signalEntries");
-const signalReader = document.querySelector("#signalReader");
-const signalReaderStatus = document.querySelector("#signalReaderStatus");
+const signalLogWindow =
+    document.getElementById("signalLog");
+
+const signalLogTitle =
+    document.getElementById("signalLogTitle");
+
+const signalEntries =
+    document.getElementById("signalEntries");
+
+const signalReaderStatus =
+    document.getElementById("signalReaderStatus");
+
+const signalReader =
+    document.getElementById("signalReader");
 
 // CUSTOMIZATION
-const customizationWindow = document.querySelector("#customization");
-const customizationHeader = document.querySelector("#customizationHeader");
-const customizationClose = document.querySelector("#customizationClose");
-const customizationIcon = document.querySelector("#customizationIcon");
-const wallpaperCards = document.querySelectorAll(".wallpaper-card");
-const wallpaperStatus = document.querySelector("#wallpaperStatus");
-const customizationFooter = document.querySelector("#customizationFooter");
+const customizationWindow =
+    document.getElementById("customization");
+
+const wallpaperStatus =
+    document.getElementById("wallpaperStatus");
+
+const customizationFooter =
+    document.getElementById("customizationFooter");
+
+const wallpaperCards =
+    document.querySelectorAll(".wallpaper-card");
+
+// NOTES
+const notesWindow =
+    document.getElementById("notesWindow");
+
+const notesEditor =
+    document.getElementById("notesEditor");
+
+const notesStatus =
+    document.getElementById("notesStatus");
+
+const clearNotes =
+    document.getElementById("clearNotes");    
+
+// CALCULATOR
+const openCalculator =
+    document.getElementById("openCalculator");
+
+const calculatorWindow =
+    document.getElementById("calculatorWindow");
+
+const calculatorExpression =
+    document.getElementById("calculatorExpression");
+
+const calculatorResult =
+    document.getElementById("calculatorResult");
+
+const calculatorStatus =
+    document.getElementById("calculatorStatus");
+
+const calculatorButtons =
+    document.querySelectorAll(".calculator-button");
+
+    // TERMINAL
+const openTerminal =
+    document.getElementById("openTerminal");
+
+const terminalWindow =
+    document.getElementById("terminalWindow");
+
+const terminalOutput =
+    document.getElementById("terminalOutput");
+
+const terminalInput =
+    document.getElementById("terminalInput");
+
+const terminalStatus =
+    document.getElementById("terminalStatus");
+
+    // WEB NAVIGATOR
+    // PULSAR WEB
+const openWeb =
+    document.getElementById("openWeb");
+
+const webWindow =
+    document.getElementById("webWindow");
+
+const webBack =
+    document.getElementById("webBack");
+
+const webForward =
+    document.getElementById("webForward");
+
+const webReload =
+    document.getElementById("webReload");
+
+const webHome =
+    document.getElementById("webHome");
+
+const webAddress =
+    document.getElementById("webAddress");
+
+const webGo =
+    document.getElementById("webGo");
+
+const webHistoryToggle =
+    document.getElementById("webHistoryToggle");
+
+const webStatus =
+    document.getElementById("webStatus");
+
+const webProtocol =
+    document.getElementById("webProtocol");
+
+const webHistoryPanel =
+    document.getElementById("webHistoryPanel");
+
+const webHistoryList =
+    document.getElementById("webHistoryList");
+
+const webHomeScreen =
+    document.getElementById("webHomeScreen");
+
+const webFrame =
+    document.getElementById("webFrame");
+
+const webFallback =
+    document.getElementById("webFallback");
+
+const webFallbackUrl =
+    document.getElementById("webFallbackUrl");
+
+const webOpenExternal =
+    document.getElementById("webOpenExternal");
+
+const webFooterStatus =
+    document.getElementById("webFooterStatus");
+
+    // SERIAL MONITOR
+const openSerial =
+    document.getElementById("openSerial");
+
+const serialMenuStatus =
+    document.getElementById("serialMenuStatus");
+
+const serialWindow =
+    document.getElementById("serialWindow");
+
+const serialPortName =
+    document.getElementById("serialPortName");
+
+const serialBaudRate =
+    document.getElementById("serialBaudRate");
+
+const serialState =
+    document.getElementById("serialState");
+
+const serialStateText =
+    document.getElementById("serialStateText");
+
+const serialSelectPort =
+    document.getElementById("serialSelectPort");
+
+const serialConnect =
+    document.getElementById("serialConnect");
+
+const serialDisconnect =
+    document.getElementById("serialDisconnect");
+
+const serialVendorId =
+    document.getElementById("serialVendorId");
+
+const serialProductId =
+    document.getElementById("serialProductId");
+
+const serialDeviceLabel =
+    document.getElementById("serialDeviceLabel");
+
+const serialInterfaceStatus =
+    document.getElementById("serialInterfaceStatus");
+
+const serialLineEnding =
+    document.getElementById("serialLineEnding");
+
+const serialAutoScroll =
+    document.getElementById("serialAutoScroll");
+
+const serialTimestamp =
+    document.getElementById("serialTimestamp");
+
+const serialHexView =
+    document.getElementById("serialHexView");
+
+const serialClear =
+    document.getElementById("serialClear");
+
+const serialOutput =
+    document.getElementById("serialOutput");
+
+const serialTxInput =
+    document.getElementById("serialTxInput");
+
+const serialSend =
+    document.getElementById("serialSend");
+
+const serialRxBytes =
+    document.getElementById("serialRxBytes");
+
+const serialTxBytes =
+    document.getElementById("serialTxBytes");
+
+const serialRxMessages =
+    document.getElementById("serialRxMessages");
+
+const serialTxMessages =
+    document.getElementById("serialTxMessages");
+
+const serialLinkStatus =
+    document.getElementById("serialLinkStatus");
+
+const serialCoreStatus =
+    document.getElementById("serialCoreStatus");
+
+    // DEVICE MANAGER
+const openDeviceManager =
+    document.getElementById(
+        "openDeviceManager"
+    );
+
+const deviceManagerMenuStatus =
+    document.getElementById(
+        "deviceManagerMenuStatus"
+    );
+
+const deviceManagerWindow =
+    document.getElementById(
+        "deviceManagerWindow"
+    );
+
+const deviceManagerName =
+    document.getElementById(
+        "deviceManagerName"
+    );
+
+const deviceManagerState =
+    document.getElementById(
+        "deviceManagerState"
+    );
+
+const deviceManagerStateText =
+    document.getElementById(
+        "deviceManagerStateText"
+    );
+
+const deviceManagerVendorId =
+    document.getElementById(
+        "deviceManagerVendorId"
+    );
+
+const deviceManagerProductId =
+    document.getElementById(
+        "deviceManagerProductId"
+    );
+
+const deviceManagerInterface =
+    document.getElementById(
+        "deviceManagerInterface"
+    );
+
+const deviceManagerBaud =
+    document.getElementById(
+        "deviceManagerBaud"
+    );
+
+const deviceManagerAlias =
+    document.getElementById(
+        "deviceManagerAlias"
+    );
+
+const deviceManagerLastSeen =
+    document.getElementById(
+        "deviceManagerLastSeen"
+    );
+
+const deviceManagerSelect =
+    document.getElementById(
+        "deviceManagerSelect"
+    );
+
+const deviceManagerConnect =
+    document.getElementById(
+        "deviceManagerConnect"
+    );
+
+const deviceManagerDisconnect =
+    document.getElementById(
+        "deviceManagerDisconnect"
+    );
+
+const deviceManagerOpenSerial =
+    document.getElementById(
+        "deviceManagerOpenSerial"
+    );
+
+const deviceManagerLink =
+    document.getElementById(
+        "deviceManagerLink"
+    );
+// GUIDE
+const openGuide =
+    document.getElementById("openGuide");
+
+const guideWindow =
+    document.getElementById("guideWindow");
+
+const guideNavButtons =
+    document.querySelectorAll(".guide-nav");
+
+const guidePages =
+    document.querySelectorAll(".guide-page");
 
 // ========================================
 // CLOCK
 // ========================================
 
 function updateClock() {
-
-    const now =
-        new Date();
-
-    const hours =
-        String(now.getHours())
-            .padStart(2, "0");
-
-    const minutes =
-        String(now.getMinutes())
-            .padStart(2, "0");
-
-    const seconds =
-        String(now.getSeconds())
-            .padStart(2, "0");
-
-    const clock =
-        document.querySelector("#clock");
-
-    if (clock) {
-
-        clock.textContent =
-            `${hours}:${minutes}:${seconds}`;
+    if (!clock) {
+        return;
     }
+
+    const now = new Date();
+
+    const hours = String(
+        now.getHours()
+    ).padStart(2, "0");
+
+    const minutes = String(
+        now.getMinutes()
+    ).padStart(2, "0");
+
+    const seconds = String(
+        now.getSeconds()
+    ).padStart(2, "0");
+
+    clock.textContent =
+        `${hours}:${minutes}:${seconds}`;
 }
 
 updateClock();
-
-setInterval(
-    updateClock,
-    1000
-);
-
+setInterval(updateClock, 1000);
 
 // ========================================
-// WINDOW MANAGER
+// SYSTEM MENU
+// ========================================
+
+function openSystemMenu() {
+    if (!systemMenu || !systemMenuButton) {
+        return;
+    }
+
+    systemMenu.classList.add("open");
+    systemMenuButton.classList.add("active");
+}
+
+function closeSystemMenu() {
+    if (!systemMenu || !systemMenuButton) {
+        return;
+    }
+
+    systemMenu.classList.remove("open");
+    systemMenuButton.classList.remove("active");
+}
+
+function toggleSystemMenu() {
+    if (!systemMenu) {
+        return;
+    }
+
+    if (systemMenu.classList.contains("open")) {
+        closeSystemMenu();
+    } else {
+        openSystemMenu();
+    }
+}
+
+if (systemMenuButton) {
+    systemMenuButton.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+            toggleSystemMenu();
+        }
+    );
+}
+
+document.addEventListener(
+    "pointerdown",
+    function (event) {
+        if (!systemMenu || !systemMenuButton) {
+            return;
+        }
+
+        const clickedMenu =
+            systemMenu.contains(event.target);
+
+        const clickedButton =
+            systemMenuButton.contains(event.target);
+
+        if (
+            !clickedMenu &&
+            !clickedButton
+        ) {
+            closeSystemMenu();
+        }
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+        if (event.key === "Escape") {
+            closeSystemMenu();
+        }
+    }
+);
+
+// ========================================
+// PULSAR OS // WINDOW MANAGER
+// BUILD 1.0
 // ========================================
 
 let highestWindowIndex = 20;
 
+const PulsarWindowManager = (() => {
+    const states = new Map();
 
-function focusWindow(element) {
+    function getId(element) {
+        if (!element) {
+            return null;
+        }
 
-    if (!element) {
-        return;
+        return (
+            element.id ||
+            element.dataset.windowId ||
+            null
+        );
     }
 
-    highestWindowIndex++;
+    function getState(element) {
+        if (!element) {
+            return null;
+        }
 
-    element.style.zIndex =
-        highestWindowIndex;
-}
+        if (!states.has(element)) {
+            states.set(element, {
+                open: element.style.display !== "none",
+                minimized: false,
+                maximized: false,
+                restoreRect: null
+            });
+        }
 
-
-function openWindow(element) {
-
-    if (!element) {
-        return;
+        return states.get(element);
     }
 
-    element.classList.remove(
-        "window-exit"
-    );
-
-    element.classList.remove(
-        "hidden"
-    );
-
-    element.style.display =
-        "flex";
-
-    focusWindow(element);
-}
-
-
-function closeWindow(element) {
-
-    if (!element) {
-        return;
-    }
-
-    element.style.display =
-        "none";
-}
-
-
-function animatedClose(element) {
-
-    if (!element) {
-        return;
-    }
-
-    element.classList.add(
-        "window-exit"
-    );
-
-    setTimeout(
-        function () {
-
-            closeWindow(element);
-
-            element.classList.remove(
-                "window-exit"
-            );
-
-        },
-        220
-    );
-}
-
-
-// ========================================
-// FOCUS WINDOWS
-// ========================================
-
-[
-    welcomeWindow,
-    signalLogWindow,
-    customizationWindow
-
-].forEach(
-    function (windowElement) {
-
-        if (!windowElement) {
+    function focus(element) {
+        if (!element) {
             return;
         }
 
-        windowElement.addEventListener(
-            "pointerdown",
-            function () {
+        const state = getState(element);
 
-                focusWindow(
-                    windowElement
+        if (
+            state &&
+            state.minimized
+        ) {
+            return;
+        }
+
+        highestWindowIndex++;
+        element.style.zIndex = highestWindowIndex;
+    }
+
+    function open(element) {
+        if (!element) {
+            return;
+        }
+
+        const state = getState(element);
+
+        element.classList.remove(
+            "window-exit",
+            "hidden",
+            "window-minimized"
+        );
+
+        element.style.display = "flex";
+
+        state.open = true;
+        state.minimized = false;
+
+        focus(element);
+    }
+
+    function close(element) {
+        if (!element) {
+            return;
+        }
+
+        const state = getState(element);
+
+        element.style.display = "none";
+
+        element.classList.remove(
+            "window-minimized"
+        );
+
+        state.open = false;
+        state.minimized = false;
+    }
+
+    function animatedClose(element) {
+        if (!element) {
+            return;
+        }
+
+        element.classList.add("window-exit");
+
+        setTimeout(
+            function () {
+                close(element);
+
+                element.classList.remove(
+                    "window-exit"
                 );
-            }
+            },
+            220
         );
     }
-);
 
+    function minimize(element) {
+        if (!element) {
+            return;
+        }
+
+        const state = getState(element);
+
+        if (!state.open) {
+            return;
+        }
+
+        state.minimized = true;
+
+        element.classList.add(
+            "window-minimized"
+        );
+
+        element.style.display = "none";
+
+        console.log(
+            `PULSAR WINDOW // ${getId(element)} // MINIMIZED`
+        );
+    }
+
+    function saveRestoreRect(element) {
+        const state = getState(element);
+        const rect = element.getBoundingClientRect();
+
+        state.restoreRect = {
+            left: element.offsetLeft,
+            top: element.offsetTop,
+            width: rect.width,
+            height: rect.height
+        };
+    }
+
+    function maximize(element) {
+        if (
+            !element ||
+            !desktop
+        ) {
+            return;
+        }
+
+        const state = getState(element);
+
+        if (state.maximized) {
+            restore(element);
+            return;
+        }
+
+        saveRestoreRect(element);
+
+        state.maximized = true;
+        state.minimized = false;
+        state.open = true;
+
+        element.classList.add(
+            "window-maximized"
+        );
+
+        element.style.display = "flex";
+        element.style.left = "0px";
+        element.style.top = "0px";
+
+        element.style.width =
+            desktop.clientWidth + "px";
+
+        element.style.height =
+            desktop.clientHeight + "px";
+
+        element.style.maxWidth = "none";
+        element.style.maxHeight = "none";
+
+        focus(element);
+
+        console.log(
+            `PULSAR WINDOW // ${getId(element)} // MAXIMIZED`
+        );
+    }
+
+    function restore(element) {
+        if (!element) {
+            return;
+        }
+
+        const state = getState(element);
+
+        if (
+            state.minimized &&
+            !state.maximized
+        ) {
+            state.minimized = false;
+            state.open = true;
+
+            element.classList.remove(
+                "window-minimized"
+            );
+
+            element.style.display = "flex";
+
+            focus(element);
+            return;
+        }
+
+        if (
+            !state.maximized ||
+            !state.restoreRect
+        ) {
+            open(element);
+            return;
+        }
+
+        const rect = state.restoreRect;
+
+        state.maximized = false;
+        state.minimized = false;
+        state.open = true;
+
+        element.classList.remove(
+            "window-maximized"
+        );
+
+        element.style.display = "flex";
+
+        element.style.left =
+            rect.left + "px";
+
+        element.style.top =
+            rect.top + "px";
+
+        element.style.width =
+            rect.width + "px";
+
+        element.style.height =
+            rect.height + "px";
+
+        element.style.maxWidth = "";
+        element.style.maxHeight = "";
+
+        focus(element);
+
+        console.log(
+            `PULSAR WINDOW // ${getId(element)} // RESTORED`
+        );
+    }
+
+    function toggleMaximize(element) {
+        const state = getState(element);
+
+        if (!state) {
+            return;
+        }
+
+        if (state.maximized) {
+            restore(element);
+        } else {
+            maximize(element);
+        }
+    }
+
+    function isMaximized(element) {
+        const state = getState(element);
+
+        return Boolean(
+            state &&
+            state.maximized
+        );
+    }
+
+    function isMinimized(element) {
+        const state = getState(element);
+
+        return Boolean(
+            state &&
+            state.minimized
+        );
+    }
+
+    function getWindowState(element) {
+        const state = getState(element);
+
+        if (!state) {
+            return null;
+        }
+
+        return {
+            open: state.open,
+            minimized: state.minimized,
+            maximized: state.maximized
+        };
+    }
+
+    return {
+        open,
+        close,
+        focus,
+        minimize,
+        maximize,
+        restore,
+        toggleMaximize,
+        animatedClose,
+        isMaximized,
+        isMinimized,
+        getWindowState
+    };
+})();
+
+// ========================================
+// LEGACY COMPATIBILITY
+// ========================================
+
+function focusWindow(element) {
+    PulsarWindowManager.focus(element);
+}
+
+function openWindow(element) {
+    PulsarWindowManager.open(element);
+}
+
+function closeWindow(element) {
+    PulsarWindowManager.close(element);
+}
+
+function animatedClose(element) {
+    PulsarWindowManager.animatedClose(element);
+}
 
 // ========================================
 // GENERIC DRAG SYSTEM
@@ -194,10 +996,10 @@ function makeDraggable(
     windowElement,
     handleElement
 ) {
-
     if (
         !windowElement ||
-        !handleElement
+        !handleElement ||
+        !desktop
     ) {
         return;
     }
@@ -210,14 +1012,20 @@ function makeDraggable(
     let windowStartX = 0;
     let windowStartY = 0;
 
-
     handleElement.addEventListener(
         "pointerdown",
         function (event) {
-
             if (
                 event.target.closest(
                     ".window-controls"
+                )
+            ) {
+                return;
+            }
+
+            if (
+                PulsarWindowManager.isMaximized(
+                    windowElement
                 )
             ) {
                 return;
@@ -227,15 +1035,12 @@ function makeDraggable(
 
             dragging = true;
 
-            focusWindow(
+            PulsarWindowManager.focus(
                 windowElement
             );
 
-            pointerStartX =
-                event.clientX;
-
-            pointerStartY =
-                event.clientY;
+            pointerStartX = event.clientX;
+            pointerStartY = event.clientY;
 
             windowStartX =
                 windowElement.offsetLeft;
@@ -243,83 +1048,90 @@ function makeDraggable(
             windowStartY =
                 windowElement.offsetTop;
 
-            handleElement.setPointerCapture(
-                event.pointerId
-            );
+            try {
+                handleElement.setPointerCapture(
+                    event.pointerId
+                );
+            } catch (error) {
+                // Pointer capture is optional.
+            }
         }
     );
-
 
     handleElement.addEventListener(
         "pointermove",
         function (event) {
-
             if (!dragging) {
                 return;
             }
 
             const deltaX =
-                event.clientX -
-                pointerStartX;
+                event.clientX - pointerStartX;
 
             const deltaY =
-                event.clientY -
-                pointerStartY;
-
-            let newLeft =
-                windowStartX +
-                deltaX;
-
-            let newTop =
-                windowStartY +
-                deltaY;
+                event.clientY - pointerStartY;
 
             const maxLeft =
                 Math.max(
                     0,
                     desktop.clientWidth -
-                    windowElement.offsetWidth
+                        windowElement.offsetWidth
                 );
 
             const maxTop =
                 Math.max(
                     0,
                     desktop.clientHeight -
-                    windowElement.offsetHeight
+                        windowElement.offsetHeight
                 );
 
-            newLeft =
+            const newLeft =
                 Math.max(
                     0,
                     Math.min(
-                        newLeft,
+                        windowStartX + deltaX,
                         maxLeft
                     )
                 );
 
-            newTop =
+            const newTop =
                 Math.max(
                     0,
                     Math.min(
-                        newTop,
+                        windowStartY + deltaY,
                         maxTop
                     )
                 );
 
             windowElement.style.left =
-                newLeft + "px";
+                `${newLeft}px`;
 
             windowElement.style.top =
-                newTop + "px";
+                `${newTop}px`;
         }
     );
 
-
-    function stopDragging() {
+    function stopDragging(event) {
+        if (!dragging) {
+            return;
+        }
 
         dragging = false;
-    }
 
+        try {
+            if (
+                handleElement.hasPointerCapture(
+                    event.pointerId
+                )
+            ) {
+                handleElement.releasePointerCapture(
+                    event.pointerId
+                );
+            }
+        } catch (error) {
+            // Nothing to release.
+        }
+    }
 
     handleElement.addEventListener(
         "pointerup",
@@ -332,245 +1144,380 @@ function makeDraggable(
     );
 }
 
+// ========================================
+// PULSAR OS // WINDOW MANAGER AUTO REGISTER
+// BUILD 1.0
+// ========================================
 
-// ACTIVATE DRAGGING
+function registerPulsarWindow(windowElement) {
+    if (!windowElement) {
+        return;
+    }
 
-makeDraggable(
-    welcomeWindow,
-    welcomeHeader
-);
+    if (
+        windowElement.dataset.windowRegistered ===
+        "true"
+    ) {
+        return;
+    }
 
-makeDraggable(
-    signalLogWindow,
-    signalLogHeader
-);
+    windowElement.dataset.windowRegistered =
+        "true";
 
-makeDraggable(
-    customizationWindow,
-    customizationHeader
-);
+    const header =
+        windowElement.querySelector(
+            ".window-bar"
+        );
 
+    const minimizeButton =
+        windowElement.querySelector(
+            ".window-minimize"
+        );
+
+    const maximizeButton =
+        windowElement.querySelector(
+            ".window-maximize"
+        );
+
+    const closeButton =
+        windowElement.querySelector(
+            ".window-close"
+        );
+
+    // FOCUS
+    windowElement.addEventListener(
+        "pointerdown",
+        function () {
+            PulsarWindowManager.focus(
+                windowElement
+            );
+        }
+    );
+
+    // DRAG + DOUBLE CLICK MAXIMIZE
+    if (header) {
+        makeDraggable(
+            windowElement,
+            header
+        );
+
+        header.addEventListener(
+            "dblclick",
+            function (event) {
+                if (
+                    event.target.closest(
+                        ".window-controls"
+                    )
+                ) {
+                    return;
+                }
+
+                PulsarWindowManager.toggleMaximize(
+                    windowElement
+                );
+            }
+        );
+    }
+
+    // MINIMIZE
+    if (minimizeButton) {
+        minimizeButton.addEventListener(
+            "click",
+            function (event) {
+                event.stopPropagation();
+
+                PulsarWindowManager.minimize(
+                    windowElement
+                );
+            }
+        );
+    }
+
+    // MAXIMIZE / RESTORE
+    if (maximizeButton) {
+        maximizeButton.addEventListener(
+            "click",
+            function (event) {
+                event.stopPropagation();
+
+                PulsarWindowManager.toggleMaximize(
+                    windowElement
+                );
+            }
+        );
+    }
+
+    // CLOSE
+    if (closeButton) {
+        closeButton.addEventListener(
+            "click",
+            function (event) {
+                event.stopPropagation();
+
+                PulsarWindowManager.animatedClose(
+                    windowElement
+                );
+            }
+        );
+    }
+
+    console.log(
+        `PULSAR WINDOW // ${
+            windowElement.id || "UNNAMED"
+        } // REGISTERED`
+    );
+}
+
+// ========================================
+// REGISTER ALL WINDOWS
+// ========================================
+
+function registerPulsarWindows() {
+    const windows =
+        document.querySelectorAll(".window");
+
+    windows.forEach(
+        function (windowElement) {
+            registerPulsarWindow(
+                windowElement
+            );
+        }
+    );
+
+    console.log(
+        `PULSAR WINDOW MANAGER // ${windows.length} WINDOWS REGISTERED`
+    );
+}
+
+registerPulsarWindows();
 
 // ========================================
 // WELCOME / ABOUT WINDOW
 // ========================================
 
-if (welcomeClose) {
-
-    welcomeClose.addEventListener(
-        "click",
-        function () {
-
-            animatedClose(
-                welcomeWindow
-            );
-        }
-    );
-}
-
-
 if (enterSystem) {
-
     enterSystem.addEventListener(
         "click",
         function () {
-
-            animatedClose(
-                welcomeWindow
-            );
-
+            animatedClose(welcomeWindow);
             closeSystemMenu();
-
             deselectIcons();
         }
     );
 }
 
-
 // ========================================
-// SYSTEM MENU
+// SYSTEM MENU APPLICATIONS
 // ========================================
-
-function openSystemMenuPanel() {
-
-    if (
-        !systemMenu ||
-        !systemMenuButton
-    ) {
-        return;
-    }
-
-    systemMenu.classList.add(
-        "open"
-    );
-
-    systemMenuButton.classList.add(
-        "active"
-    );
-}
-
-
-function closeSystemMenu() {
-
-    if (
-        !systemMenu ||
-        !systemMenuButton
-    ) {
-        return;
-    }
-
-    systemMenu.classList.remove(
-        "open"
-    );
-
-    systemMenuButton.classList.remove(
-        "active"
-    );
-}
-
-
-function toggleSystemMenu() {
-
-    if (!systemMenu) {
-        return;
-    }
-
-    if (
-        systemMenu.classList.contains(
-            "open"
-        )
-    ) {
-
-        closeSystemMenu();
-
-    } else {
-
-        openSystemMenuPanel();
-    }
-}
-
-
-if (systemMenuButton) {
-
-    systemMenuButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.stopPropagation();
-
-            toggleSystemMenu();
-        }
-    );
-}
-
 
 // ABOUT / WHAT'S NEW
-
 if (openAbout) {
-
     openAbout.addEventListener(
         "click",
         function () {
-
-            openWindow(
-                welcomeWindow
-            );
-
+            openWindow(welcomeWindow);
             closeSystemMenu();
+            deselectIcons();
         }
     );
 }
 
-
 // SIGNAL LOG
-
 if (openSignalLog) {
-
     openSignalLog.addEventListener(
         "click",
         function () {
-
-            openWindow(
-                signalLogWindow
-            );
-
+            openWindow(signalLogWindow);
             closeSystemMenu();
-
             deselectIcons();
         }
     );
 }
 
-
 // CUSTOMIZATION
-
 if (openCustomization) {
-
     openCustomization.addEventListener(
         "click",
         function () {
-
-            openWindow(
-                customizationWindow
-            );
-
+            openWindow(customizationWindow);
             closeSystemMenu();
-
             deselectIcons();
         }
     );
 }
 
+// NOTES
+if (openNotes) {
+    openNotes.addEventListener(
+        "click",
+        function () {
+            openWindow(notesWindow);
+            closeSystemMenu();
+            deselectIcons();
 
-// CLICK OUTSIDE MENU
-
-document.addEventListener(
-    "pointerdown",
-    function (event) {
-
-        if (
-            !systemMenu ||
-            !systemMenuButton
-        ) {
-            return;
+            setTimeout(
+                function () {
+                    if (notesEditor) {
+                        notesEditor.focus();
+                    }
+                },
+                50
+            );
         }
+    );
+}
 
-        const clickedMenu =
-            systemMenu.contains(
-                event.target
+// CALCULATOR
+if (
+    openCalculator &&
+    calculatorWindow
+) {
+    openCalculator.addEventListener(
+        "click",
+        function () {
+            openWindow(
+                calculatorWindow
             );
 
-        const clickedButton =
-            systemMenuButton.contains(
-                event.target
+            closeSystemMenu();
+            deselectIcons();
+
+            calculatorWindow.focus();
+        }
+    );
+}
+
+ // TERMINAL
+if (
+    openTerminal &&
+    terminalWindow
+) {
+    openTerminal.addEventListener(
+        "click",
+        function () {
+            openWindow(
+                terminalWindow
             );
 
-        if (
-            !clickedMenu &&
-            !clickedButton
-        ) {
+            closeSystemMenu();
+            deselectIcons();
+
+            setTimeout(
+                function () {
+                    if (terminalInput) {
+                        terminalInput.focus();
+                    }
+                },
+                50
+            );
+        }
+    );
+}
+// EU SOU O HANDLE, TO AQUI!!
+// PULSAR WEB
+if (
+    openWeb &&
+    webWindow
+) {
+    openWeb.addEventListener(
+        "click",
+        function () {
+            openWindow(webWindow);
+            closeSystemMenu();
+            deselectIcons();
+
+            setTimeout(
+                function () {
+                    if (webAddress) {
+                        webAddress.focus();
+                    }
+                },
+                50
+            );
+        }
+    );
+}
+
+// SERIAL MONITOR
+if (
+    openSerial &&
+    serialWindow
+) {
+    openSerial.addEventListener(
+        "click",
+        function () {
+            openWindow(
+                serialWindow
+            );
 
             closeSystemMenu();
+            deselectIcons();
         }
-    }
-);
+    );
+}
 
-
-// ESC
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key === "Escape"
-        ) {
+// DEVICE MANAGER
+if (
+    openDeviceManager &&
+    deviceManagerWindow
+) {
+    openDeviceManager.addEventListener(
+        "click",
+        function () {
+            openWindow(
+                deviceManagerWindow
+            );
 
             closeSystemMenu();
+            deselectIcons();
         }
+    );
+}
+
+// GUIDE
+if (
+    openGuide &&
+    guideWindow
+) {
+    openGuide.addEventListener(
+        "click",
+        function () {
+            openWindow(guideWindow);
+            closeSystemMenu();
+            deselectIcons();
+        }
+    );
+}
+
+guideNavButtons.forEach(
+    function (button) {
+        button.addEventListener(
+            "click",
+            function () {
+                const page =
+                    button.dataset.guide;
+
+                guideNavButtons.forEach(
+                    item =>
+                        item.classList.remove("active")
+                );
+
+                guidePages.forEach(
+                    item =>
+                        item.classList.remove("active")
+                );
+
+                button.classList.add("active");
+
+                document
+                    .querySelector(
+                        `[data-guide-page="${page}"]`
+                    )
+                    ?.classList.add("active");
+            }
+        );
     }
 );
-
 
 // ========================================
 // DESKTOP ICON MANAGER
@@ -578,9 +1525,7 @@ document.addEventListener(
 
 let selectedIcon = null;
 
-
 function selectIcon(element) {
-
     if (!element) {
         return;
     }
@@ -589,23 +1534,16 @@ function selectIcon(element) {
         selectedIcon &&
         selectedIcon !== element
     ) {
-
         selectedIcon.classList.remove(
             "selected"
         );
     }
 
-    element.classList.add(
-        "selected"
-    );
-
-    selectedIcon =
-        element;
+    element.classList.add("selected");
+    selectedIcon = element;
 }
 
-
 function deselectIcons() {
-
     if (!selectedIcon) {
         return;
     }
@@ -617,9 +1555,7 @@ function deselectIcons() {
     selectedIcon = null;
 }
 
-
 function toggleIcon(element) {
-
     if (!element) {
         return;
     }
@@ -629,28 +1565,16 @@ function toggleIcon(element) {
             "selected"
         )
     ) {
-
         deselectIcons();
-
     } else {
-
-        selectIcon(
-            element
-        );
+        selectIcon(element);
     }
 }
-
-
-// IMPORTANT:
-// Desktop shortcuts were removed in BUILD 0.6.
-// This function therefore safely ignores
-// missing shortcut elements.
 
 function bindDesktopApp(
     icon,
     windowElement
 ) {
-
     if (
         !icon ||
         !windowElement
@@ -661,35 +1585,22 @@ function bindDesktopApp(
     icon.addEventListener(
         "click",
         function () {
-
-            toggleIcon(
-                icon
-            );
+            toggleIcon(icon);
         }
     );
-
 
     icon.addEventListener(
         "dblclick",
         function () {
-
-            openWindow(
-                windowElement
-            );
-
+            openWindow(windowElement);
             deselectIcons();
         }
     );
 
-
     icon.addEventListener(
         "keydown",
         function (event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
+            if (event.key === "Enter") {
                 openWindow(
                     windowElement
                 );
@@ -700,30 +1611,11 @@ function bindDesktopApp(
     );
 }
 
-
-// These calls are intentionally kept.
-// If shortcuts are ever restored,
-// they automatically work again.
-
-bindDesktopApp(
-    signalLogIcon,
-    signalLogWindow
-);
-
-bindDesktopApp(
-    customizationIcon,
-    customizationWindow
-);
-
-
 // EMPTY DESKTOP
-
 if (desktop) {
-
     desktop.addEventListener(
         "pointerdown",
         function (event) {
-
             const clickedApp =
                 event.target.closest(
                     ".desktop-app"
@@ -738,61 +1630,21 @@ if (desktop) {
                 !clickedApp &&
                 !clickedWindow
             ) {
-
                 deselectIcons();
             }
         }
     );
 }
 
-
-// ========================================
-// CLOSE BUTTONS
-// ========================================
-
-if (signalLogClose) {
-
-    signalLogClose.addEventListener(
-        "click",
-        function () {
-
-            animatedClose(
-                signalLogWindow
-            );
-        }
-    );
-}
-
-
-if (customizationClose) {
-
-    customizationClose.addEventListener(
-        "click",
-        function () {
-
-            animatedClose(
-                customizationWindow
-            );
-        }
-    );
-}
-
-
 // ========================================
 // SIGNAL LOG DATABASE
 // ========================================
 
 const logs = [
-
     {
-        code:
-            "LOG // 001",
-
-        title:
-            "SYSTEM INIT",
-
-        status:
-            "TRANSMISSION // 001",
+        code: "LOG // 001",
+        title: "SYSTEM INIT",
+        status: "TRANSMISSION // 001",
 
         content: `
             <h2>
@@ -822,16 +1674,10 @@ const logs = [
         `
     },
 
-
     {
-        code:
-            "LOG // 002",
-
-        title:
-            "PROJECT PULSAR",
-
-        status:
-            "TRANSMISSION // 002",
+        code: "LOG // 002",
+        title: "PROJECT PULSAR",
+        status: "TRANSMISSION // 002",
 
         content: `
             <h2>
@@ -865,66 +1711,57 @@ const logs = [
         `
     },
 
+        {
+    code: "LOG // 003",
+    title: "HARDWARE INTERFACE",
+    status: "TRANSMISSION // 003",
 
-    {
-        code:
-            "LOG // 003",
+    content: `
+        <h2>
+            HARDWARE INTERFACE
+        </h2>
 
-        title:
-            "HARDWARE INTERFACE",
+        <p>
+            Hardware communication services
+            are online.
+        </p>
 
-        status:
-            "TRANSMISSION // 003",
+        <p>
+            PULSAR can connect to supported
+            microcontrollers through Web Serial,
+            exchange serial data and manage
+            connected devices.
+        </p>
 
-        content: `
-            <h2>
-                HARDWARE INTERFACE
-            </h2>
+        <div class="signal-data">
+            SERIAL .......... ONLINE<br>
+            RX / TX .......... ENABLED<br>
+            DEVICE MANAGER .. ONLINE<br>
+            INTERFACE ....... WEB SERIAL<br>
+            LINK ............ AVAILABLE
+        </div>
 
-            <p>
-                Hardware communication services
-                are currently standing by.
-            </p>
-
-            <p>
-                Future builds will provide tools
-                for connecting to supported
-                microcontrollers and interacting
-                with serial data.
-            </p>
-
-            <div class="signal-data">
-                DEVICE .......... NONE<br>
-                SERIAL .......... STANDBY<br>
-                INTERFACE ....... READY<br>
-                LINK ............ WAITING
-            </div>
-
-            <p class="signal-muted">
-                AWAITING HARDWARE LINK.
-            </p>
-        `
-    }
-
+        <p class="signal-muted">
+            HARDWARE INTERFACE // READY.
+        </p>
+    `
+        }
+    
 ];
-
 
 // ========================================
 // CREATE SIGNAL LOG INDEX
 // ========================================
 
 function createSignalEntries() {
-
     if (!signalEntries) {
         return;
     }
 
-    signalEntries.innerHTML =
-        "";
+    signalEntries.innerHTML = "";
 
     logs.forEach(
         function (log, index) {
-
             const entry =
                 document.createElement(
                     "div"
@@ -947,10 +1784,7 @@ function createSignalEntries() {
             entry.addEventListener(
                 "click",
                 function () {
-
-                    displayLog(
-                        index
-                    );
+                    displayLog(index);
                 }
             );
 
@@ -961,34 +1795,29 @@ function createSignalEntries() {
     );
 }
 
-
 // ========================================
 // DISPLAY LOG
 // ========================================
 
 function displayLog(index) {
+    const log = logs[index];
 
-    const log =
-        logs[index];
-
-    if (!log) {
+    if (
+        !log ||
+        !signalReader
+    ) {
         return;
     }
 
-    if (signalReader) {
-
-        signalReader.innerHTML =
-            log.content;
-    }
+    signalReader.innerHTML =
+        log.content;
 
     if (signalReaderStatus) {
-
         signalReaderStatus.textContent =
             log.status;
     }
 
     if (signalLogTitle) {
-
         signalLogTitle.textContent =
             `PULSAR // SIGNAL LOG // ${log.title}`;
     }
@@ -1000,7 +1829,6 @@ function displayLog(index) {
 
     entries.forEach(
         function (entry) {
-
             entry.classList.remove(
                 "active"
             );
@@ -1008,253 +1836,166 @@ function displayLog(index) {
     );
 
     if (entries[index]) {
-
         entries[index].classList.add(
             "active"
         );
     }
 }
 
-
 createSignalEntries();
 
-
 // ========================================
-// WALLPAPER ENGINE
+// WALLPAPER DATABASE
 // ========================================
 
 const wallpapers = {
-
     pulsar: {
-        label:
-            "PULSAR CORE",
-
-        image:
-            "images/Wallpapers/Pulsar-wllp.png"
+        className: "wallpaper-pulsar",
+        label: "PULSAR CORE"
     },
 
     galaxy: {
-        label:
-            "GALAXY",
-
-        image:
-            "images/Wallpapers/galaxy-wllp.png"
+        className: "wallpaper-galaxy",
+        label: "GALAXY"
     },
 
     saturn: {
-        label:
-            "SATURN",
-
-        image:
-            "images/Wallpapers/saturn-wllp.png"
+        className: "wallpaper-saturn",
+        label: "SATURN"
     },
 
     void: {
-        label:
-            "VOID",
+        className: "wallpaper-void",
+        label: "VOID"
+    },
 
-        image:
-            "images/Wallpapers/void-wllp.png"
+    grid: {
+        className: "wallpaper-grid",
+        label: "SIGNAL GRID"
     }
-
 };
 
-
-let wallpaperTransitionRunning =
-    false;
-
-
-// ========================================
-// GET SAVED WALLPAPER
-// ========================================
-
-function getSavedWallpaper() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                "pulsar-wallpaper"
-            );
-
-        if (
-            saved &&
-            wallpapers[saved]
-        ) {
-
-            return saved;
+const wallpaperClasses =
+    Object.values(
+        wallpapers
+    ).map(
+        function (wallpaper) {
+            return wallpaper.className;
         }
-
-    } catch (error) {
-
-        console.warn(
-            "PULSAR // LOCAL STORAGE UNAVAILABLE",
-            error
-        );
-    }
-
-    return "pulsar";
-}
-
+    );
 
 // ========================================
 // APPLY WALLPAPER
 // ========================================
 
-function applyWallpaper(
-    name,
-    persist = true
-) {
-
-    if (
-        !wallpapers[name]
-    ) {
-
-        name =
-            "pulsar";
-    }
-
-    const wallpaper =
-        wallpapers[name];
-
-    if (desktop) {
-
-        desktop.style.setProperty(
-            "--wallpaper-image",
-            `url("${wallpaper.image}")`
-        );
-    }
-
-    wallpaperCards.forEach(
-        function (card) {
-
-            const isActive =
-                card.dataset.wallpaper ===
-                name;
-
-            card.classList.toggle(
-                "active",
-                isActive
-            );
-        }
-    );
-
-    if (wallpaperStatus) {
-
-        wallpaperStatus.textContent =
-            `ACTIVE // ${wallpaper.label}`;
-    }
-
-    if (customizationFooter) {
-
-        customizationFooter.textContent =
-            `WALLPAPER // ${wallpaper.label}`;
-    }
-
-    if (persist) {
-
-        try {
-
-            localStorage.setItem(
-                "pulsar-wallpaper",
-                name
-            );
-
-        } catch (error) {
-
-            console.warn(
-                "PULSAR // WALLPAPER COULD NOT BE SAVED",
-                error
-            );
-        }
-    }
-}
-
-
-// ========================================
-// WALLPAPER TRANSITION
-// ========================================
+let wallpaperTransitionRunning =
+    false;
 
 function setWallpaper(
     name,
     animate = true
 ) {
-
-    if (
-        !wallpapers[name]
-    ) {
+    if (!wallpapers[name]) {
         return;
     }
 
     if (
-        wallpaperTransitionRunning
+        wallpaperTransitionRunning &&
+        animate
     ) {
         return;
     }
 
-    if (
-        !animate ||
-        !screenFade
-    ) {
+    const applyWallpaper =
+        function () {
+            wallpaperClasses.forEach(
+                function (className) {
+                    desktop.classList.remove(
+                        className
+                    );
+                }
+            );
 
-        applyWallpaper(
-            name
-        );
+            desktop.classList.add(
+                wallpapers[name].className
+            );
 
+            wallpaperCards.forEach(
+                function (card) {
+                    card.classList.toggle(
+                        "active",
+                        card.dataset.wallpaper ===
+                            name
+                    );
+                }
+            );
+
+            if (wallpaperStatus) {
+                wallpaperStatus.textContent =
+                    `ACTIVE // ${wallpapers[name].label}`;
+            }
+
+            if (customizationFooter) {
+                customizationFooter.textContent =
+                    `WALLPAPER // ${wallpapers[name].label}`;
+            }
+
+            PulsarStorage.set(
+                "system.wallpaper",
+                name
+            );
+        };
+
+    if (!animate) {
+        applyWallpaper();
         return;
     }
 
     wallpaperTransitionRunning =
         true;
 
-    screenFade.classList.add(
-        "active"
-    );
+    if (screenFade) {
+        screenFade.classList.add(
+            "active"
+        );
+    }
 
     setTimeout(
         function () {
-
-            applyWallpaper(
-                name
-            );
+            applyWallpaper();
 
             setTimeout(
                 function () {
-
-                    screenFade.classList.remove(
-                        "active"
-                    );
+                    if (screenFade) {
+                        screenFade.classList.remove(
+                            "active"
+                        );
+                    }
 
                     setTimeout(
                         function () {
-
                             wallpaperTransitionRunning =
                                 false;
                         },
-                        250
+                        230
                     );
-
                 },
-                100
+                80
             );
-
         },
         220
     );
 }
 
-
 // ========================================
-// WALLPAPER CARDS
+// WALLPAPER BUTTONS
 // ========================================
 
 wallpaperCards.forEach(
     function (card) {
-
         card.addEventListener(
             "click",
             function () {
-
                 const wallpaper =
                     card.dataset.wallpaper;
 
@@ -1267,16 +2008,3172 @@ wallpaperCards.forEach(
     }
 );
 
+// ========================================
+// LOAD SAVED WALLPAPER
+// ========================================
+
+function loadWallpaper() {
+    let savedWallpaper =
+        PulsarStorage.get(
+            "system.wallpaper",
+            null
+        );
+
+    // MIGRATION FROM OLD STORAGE KEY
+    if (!savedWallpaper) {
+        try {
+            const legacyWallpaper =
+                localStorage.getItem(
+                    "pulsar-wallpaper"
+                );
+
+            if (
+                legacyWallpaper &&
+                wallpapers[
+                    legacyWallpaper
+                ]
+            ) {
+                savedWallpaper =
+                    legacyWallpaper;
+
+                PulsarStorage.set(
+                    "system.wallpaper",
+                    legacyWallpaper
+                );
+
+                localStorage.removeItem(
+                    "pulsar-wallpaper"
+                );
+
+                console.log(
+                    "PULSAR STORAGE // LEGACY WALLPAPER MIGRATED"
+                );
+            }
+        } catch (error) {
+            console.warn(
+                "PULSAR STORAGE // WALLPAPER MIGRATION FAILED",
+                error
+            );
+        }
+    }
+
+    if (
+        !savedWallpaper ||
+        !wallpapers[
+            savedWallpaper
+        ]
+    ) {
+        savedWallpaper =
+            "pulsar";
+    }
+
+    setWallpaper(
+        savedWallpaper,
+        false
+    );
+}
+
+loadWallpaper();
 
 // ========================================
-// RESTORE WALLPAPER
+// PULSAR OS // NOTES
+// BUILD 1.0
 // ========================================
 
-applyWallpaper(
-    getSavedWallpaper(),
-    false
+const NOTES_STORAGE_KEY =
+    "apps.notes.content";
+
+let notesSaveTimer = null;
+
+function loadNotes() {
+    if (!notesEditor) {
+        return;
+    }
+
+    notesEditor.value =
+        PulsarStorage.get(
+            NOTES_STORAGE_KEY,
+            ""
+        );
+
+    if (notesStatus) {
+        notesStatus.textContent =
+            "READY";
+    }
+}
+
+function saveNotes() {
+    if (!notesEditor) {
+        return;
+    }
+
+    PulsarStorage.set(
+        NOTES_STORAGE_KEY,
+        notesEditor.value
+    );
+
+    if (notesStatus) {
+        notesStatus.textContent =
+            "SAVED";
+    }
+}
+
+function scheduleNotesSave() {
+    if (notesStatus) {
+        notesStatus.textContent =
+            "EDITING";
+    }
+
+    clearTimeout(
+        notesSaveTimer
+    );
+
+    notesSaveTimer =
+        setTimeout(
+            function () {
+                saveNotes();
+            },
+            350
+        );
+}
+
+if (notesEditor) {
+    notesEditor.addEventListener(
+        "input",
+        scheduleNotesSave
+    );
+}
+
+loadNotes();
+
+if (clearNotes) {
+    clearNotes.addEventListener(
+        "click",
+        function () {
+            if (!notesEditor) {
+                return;
+            }
+
+            notesEditor.value = "";
+
+            saveNotes();
+
+            notesEditor.focus();
+        }
+    );
+}
+
+// ========================================
+// PULSAR OS // CALCULATOR
+// BUILD 1.0
+// ========================================
+
+let calculatorCurrent = "0";
+let calculatorStored = null;
+let calculatorOperator = null;
+let calculatorWaiting = false;
+
+if (calculatorWindow) {
+    calculatorWindow.tabIndex = -1;
+}
+
+function getCalculatorOperatorSymbol(operator) {
+    const symbols = {
+        "+": "+",
+        "-": "−",
+        "*": "×",
+        "/": "÷"
+    };
+
+    return symbols[operator] || operator;
+}
+
+function setCalculatorStatus(status) {
+    if (calculatorStatus) {
+        calculatorStatus.textContent = status;
+    }
+}
+
+function renderCalculator() {
+    if (!calculatorResult || !calculatorExpression) {
+        return;
+    }
+
+    calculatorResult.textContent =
+        calculatorCurrent;
+
+    if (
+        calculatorStored !== null &&
+        calculatorOperator
+    ) {
+        calculatorExpression.textContent =
+            `${calculatorStored} ${getCalculatorOperatorSymbol(
+                calculatorOperator
+            )}`;
+    } else {
+        calculatorExpression.textContent = "";
+    }
+}
+
+function inputCalculatorDigit(digit) {
+    if (calculatorWaiting) {
+        calculatorCurrent = digit;
+        calculatorWaiting = false;
+    } else if (calculatorCurrent === "0") {
+        calculatorCurrent = digit;
+    } else {
+        calculatorCurrent += digit;
+    }
+
+    setCalculatorStatus("READY");
+    renderCalculator();
+}
+
+function inputCalculatorDecimal() {
+    if (calculatorWaiting) {
+        calculatorCurrent = "0.";
+        calculatorWaiting = false;
+    } else if (!calculatorCurrent.includes(".")) {
+        calculatorCurrent += ".";
+    }
+
+    setCalculatorStatus("READY");
+    renderCalculator();
+}
+
+function calculateValues(
+    first,
+    second,
+    operator
+) {
+    let result;
+
+    switch (operator) {
+        case "+":
+            result = first + second;
+            break;
+
+        case "-":
+            result = first - second;
+            break;
+
+        case "*":
+            result = first * second;
+            break;
+
+        case "/":
+            if (second === 0) {
+                return null;
+            }
+
+            result = first / second;
+            break;
+
+        default:
+            return second;
+    }
+
+    return Math.round(
+        (result + Number.EPSILON) *
+        1000000000000
+    ) / 1000000000000;
+}
+
+function chooseCalculatorOperator(operator) {
+    const inputValue =
+        Number(calculatorCurrent);
+
+    if (
+        calculatorOperator &&
+        calculatorWaiting
+    ) {
+        calculatorOperator = operator;
+        renderCalculator();
+        return;
+    }
+
+    if (calculatorStored === null) {
+        calculatorStored = inputValue;
+    } else if (calculatorOperator) {
+        const result = calculateValues(
+            calculatorStored,
+            inputValue,
+            calculatorOperator
+        );
+
+        if (result === null) {
+            calculatorError();
+            return;
+        }
+
+        calculatorCurrent = String(result);
+        calculatorStored = result;
+    }
+
+    calculatorOperator = operator;
+    calculatorWaiting = true;
+
+    setCalculatorStatus("OPERATOR");
+    renderCalculator();
+}
+
+function calculatorEquals() {
+    if (
+        calculatorStored === null ||
+        !calculatorOperator
+    ) {
+        return;
+    }
+
+    const secondValue =
+        Number(calculatorCurrent);
+
+    const firstValue =
+        calculatorStored;
+
+    const operator =
+        calculatorOperator;
+
+    const result = calculateValues(
+        firstValue,
+        secondValue,
+        operator
+    );
+
+    if (result === null) {
+        calculatorError();
+        return;
+    }
+
+    calculatorExpression.textContent =
+        `${firstValue} ${getCalculatorOperatorSymbol(
+            operator
+        )} ${secondValue} =`;
+
+    calculatorCurrent = String(result);
+    calculatorStored = null;
+    calculatorOperator = null;
+    calculatorWaiting = true;
+
+    calculatorResult.textContent =
+        calculatorCurrent;
+
+    setCalculatorStatus("SOLVED");
+}
+
+function clearCalculator() {
+    calculatorCurrent = "0";
+    calculatorStored = null;
+    calculatorOperator = null;
+    calculatorWaiting = false;
+
+    setCalculatorStatus("READY");
+    renderCalculator();
+}
+
+function calculatorBackspace() {
+    if (calculatorWaiting) {
+        return;
+    }
+
+    if (calculatorCurrent.length <= 1) {
+        calculatorCurrent = "0";
+    } else {
+        calculatorCurrent =
+            calculatorCurrent.slice(0, -1);
+    }
+
+    renderCalculator();
+}
+
+function calculatorError() {
+    calculatorCurrent = "0";
+    calculatorStored = null;
+    calculatorOperator = null;
+    calculatorWaiting = false;
+
+    if (calculatorExpression) {
+        calculatorExpression.textContent =
+            "INVALID OPERATION";
+    }
+
+    if (calculatorResult) {
+        calculatorResult.textContent =
+            "ERROR";
+    }
+
+    setCalculatorStatus("ERROR");
+}
+
+function handleCalculatorInput(value) {
+    if (/^[0-9]$/.test(value)) {
+        inputCalculatorDigit(value);
+        return;
+    }
+
+    if (value === ".") {
+        inputCalculatorDecimal();
+        return;
+    }
+
+    if (
+        value === "+" ||
+        value === "-" ||
+        value === "*" ||
+        value === "/"
+    ) {
+        chooseCalculatorOperator(value);
+    }
+}
+
+calculatorButtons.forEach(
+    function (button) {
+        button.addEventListener(
+            "click",
+            function () {
+                const value =
+                    button.dataset.value;
+
+                const action =
+                    button.dataset.action;
+
+                if (value !== undefined) {
+                    handleCalculatorInput(value);
+                }
+
+                if (action === "clear") {
+                    clearCalculator();
+                }
+
+                if (action === "backspace") {
+                    calculatorBackspace();
+                }
+
+                if (action === "equals") {
+                    calculatorEquals();
+                }
+            }
+        );
+    }
 );
 
+if (calculatorWindow) {
+    calculatorWindow.addEventListener(
+        "keydown",
+        function (event) {
+            const key = event.key;
+
+            if (/^[0-9]$/.test(key)) {
+                handleCalculatorInput(key);
+                event.preventDefault();
+                return;
+            }
+
+            if (key === "." || key === ",") {
+                handleCalculatorInput(".");
+                event.preventDefault();
+                return;
+            }
+
+            if (
+                key === "+" ||
+                key === "-" ||
+                key === "*" ||
+                key === "/"
+            ) {
+                handleCalculatorInput(key);
+                event.preventDefault();
+                return;
+            }
+
+            if (
+                key === "Enter" ||
+                key === "="
+            ) {
+                calculatorEquals();
+                event.preventDefault();
+                return;
+            }
+
+            if (key === "Backspace") {
+                calculatorBackspace();
+                event.preventDefault();
+                return;
+            }
+
+            if (
+                key === "Escape" ||
+                key.toLowerCase() === "c"
+            ) {
+                clearCalculator();
+                event.preventDefault();
+            }
+        }
+    );
+}
+
+renderCalculator();
+
+// ========================================
+// PULSAR OS // TERMINAL
+// BUILD 1.0
+// ========================================
+
+function terminalScrollToBottom() {
+    if (!terminalOutput) {
+        return;
+    }
+
+    terminalOutput.scrollTop =
+        terminalOutput.scrollHeight;
+}
+
+function terminalWrite(
+    text,
+    className = ""
+) {
+    if (!terminalOutput) {
+        return;
+    }
+
+    const line =
+        document.createElement("div");
+
+    line.className =
+        "terminal-line";
+
+    if (className) {
+        line.classList.add(className);
+    }
+
+    line.textContent =
+        text;
+
+    terminalOutput.appendChild(line);
+
+    terminalScrollToBottom();
+}
+
+function terminalSetStatus(status) {
+    if (terminalStatus) {
+        terminalStatus.textContent =
+            status;
+    }
+}
+
+function terminalClear() {
+    if (!terminalOutput) {
+        return;
+    }
+
+    terminalOutput.innerHTML = "";
+}
+
+function terminalSendDeviceCommand(command) {
+    if (
+        PulsarSerial.getState() !==
+        "CONNECTED"
+    ) {
+        terminalWrite(
+            "DEVICE // NOT CONNECTED"
+        );
+
+        terminalSetStatus("READY");
+        return;
+    }
+
+    terminalSetStatus("TX");
+
+    PulsarSerial.write(
+        command + "\n"
+    )
+        .then(
+    function (bytesSent) {
+        serialTxByteCount +=
+            bytesSent;
+
+        serialTxMessageCount++;
+
+        serialAppendLine(
+            command,
+            "tx"
+        );
+
+        updateSerialTxCounters();
+
+        terminalWrite(
+            `TX // ${command}`
+        );
+
+        terminalSetStatus(
+            "READY"
+        );
+    }
+)
+        .catch(
+            function (error) {
+                terminalWrite(
+                    `DEVICE ERROR // ${
+                        error.message ||
+                        "WRITE FAILED"
+                    }`
+                );
+
+                terminalSetStatus(
+                    "ERROR"
+                );
+            }
+        );
+}
+
+function executeTerminalCommand(rawCommand) {
+    const command =
+        rawCommand.trim();
+
+    const normalized =
+        command.toLowerCase();
+
+    if (!command) {
+        return;
+    }
+
+    terminalSetStatus("EXEC");
+
+    if (normalized === "open notes") {
+    terminalWrite("OPENING // NOTES");
+
+    openWindow(notesWindow);
+
+    setTimeout(
+        function () {
+            if (notesEditor) {
+                notesEditor.focus();
+            }
+        },
+        50
+    );
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open calculator") {
+    terminalWrite("OPENING // CALCULATOR");
+
+    openWindow(calculatorWindow);
+
+    setTimeout(
+        function () {
+            calculatorWindow.focus();
+        },
+        50
+    );
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open signal") {
+    terminalWrite("OPENING // SIGNAL LOG");
+
+    openWindow(signalLogWindow);
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open customization") {
+    terminalWrite("OPENING // CUSTOMIZATION");
+
+    openWindow(customizationWindow);
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open web") {
+    terminalWrite("OPENING // PULSAR WEB");
+
+    openWindow(webWindow);
+
+    setTimeout(
+        function () {
+            if (webAddress) {
+                webAddress.focus();
+            }
+        },
+        50
+    );
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open serial") {
+    terminalWrite(
+        "OPENING // SERIAL MONITOR"
+    );
+
+    openWindow(serialWindow);
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open devices") {
+    terminalWrite(
+        "OPENING // DEVICE MANAGER"
+    );
+
+    openWindow(
+        deviceManagerWindow
+    );
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "open guide") {
+    terminalWrite(
+        "OPENING // PULSAR GUIDE"
+    );
+
+    openWindow(guideWindow);
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "serial status") {
+    const state =
+        PulsarSerial.getState();
+
+    const info =
+        PulsarSerial.getInfo();
+
+    terminalWrite(
+        `SERIAL STATE .... ${state}`
+    );
+
+    terminalWrite(
+        `BAUD ............ ${
+            PulsarSerial.getBaudRate()
+        }`
+    );
+
+    terminalWrite(
+        `VID ............. ${
+            info?.usbVendorId !== undefined
+                ? formatSerialUsbId(
+                    info.usbVendorId
+                )
+                : "UNKNOWN"
+        }`
+    );
+
+    terminalWrite(
+        `PID ............. ${
+            info?.usbProductId !== undefined
+                ? formatSerialUsbId(
+                    info.usbProductId
+                )
+                : "UNKNOWN"
+        }`
+    );
+
+    terminalWrite(
+        `LINK ............ ${
+            state === "CONNECTED"
+                ? "ACTIVE"
+                : "INACTIVE"
+        }`
+    );
+
+    terminalSetStatus("READY");
+    return;
+}
+
+if (normalized === "devices") {
+    const port =
+        PulsarSerial.getPort();
+
+    if (!port) {
+        terminalWrite(
+            "NO DEVICE SELECTED"
+        );
+
+        terminalSetStatus("READY");
+        return;
+    }
+
+    terminalWrite(
+        "DEVICE // SERIAL DEVICE"
+    );
+
+    terminalWrite(
+        `STATE .... ${
+            PulsarSerial.getState()
+        }`
+    );
+
+    if (
+        deviceManagerAlias &&
+        deviceManagerAlias.value.trim()
+    ) {
+        terminalWrite(
+            `ALIAS .... ${
+                deviceManagerAlias.value.trim()
+            }`
+        );
+    }
+
+    terminalSetStatus("READY");
+    return;
+}
+
+/* DEVICE PROTOCOL */
+
+if (normalized === "ping") {
+    terminalSendDeviceCommand(
+        "PING"
+    );
+    return;
+}
+
+if (normalized === "device info") {
+    terminalSendDeviceCommand(
+        "INFO"
+    );
+    return;
+}
+
+if (normalized === "device status") {
+    terminalSendDeviceCommand(
+        "STATUS"
+    );
+    return;
+}
+
+    switch (normalized) {
+        case "help":
+
+            terminalWrite(
+            "open serial         // OPEN SERIAL MONITOR"
+             );
+
+            terminalWrite(
+            "open devices        // OPEN DEVICE MANAGER"
+             );
+
+
+            terminalWrite(
+            "serial status       // SERIAL LINK INFORMATION"
+             );
+
+
+            terminalWrite(
+            "devices             // ACTIVE DEVICE"
+            );
+
+            terminalWrite(
+            "ping                // TEST DEVICE LINK"
+            );
+
+            terminalWrite(
+            "device info         // DEVICE INFORMATION"
+            );
+
+            terminalWrite(
+            "device status       // DEVICE STATUS"
+            );
+
+            terminalWrite(
+            "open web            // OPEN PULSAR WEB"
+             );
+
+
+            terminalWrite(
+            "open notes          // OPEN NOTES"
+            );
+
+            terminalWrite(
+            "open calculator     // OPEN CALCULATOR"
+            );
+
+            terminalWrite(
+            "open signal         // OPEN SIGNAL LOG"
+            );
+
+            terminalWrite(
+            "open customization  // OPEN CUSTOMIZATION"
+            );
+
+            terminalWrite(
+                "AVAILABLE COMMANDS:"
+            );
+
+            terminalWrite(
+                "help      // LIST COMMANDS"
+            );
+
+            terminalWrite(
+                "clear     // CLEAR TERMINAL"
+            );
+
+            terminalWrite(
+                "date      // SYSTEM DATE"
+            );
+
+            terminalWrite(
+                "system    // PULSAR INFORMATION"
+            );
+
+            terminalWrite(
+                "apps      // LIST APPLICATIONS"
+            );
+
+            terminalWrite(
+                "open guide          // OPEN PULSAR GUIDE"
+            );
+
+            break;
+
+        case "clear":
+            terminalClear();
+            break;
+
+        case "date":
+            terminalWrite(
+                new Date().toString()
+            );
+            break;
+
+        case "system":
+            terminalWrite(
+                "PULSAR OS // BUILD 1.0"
+            );
+
+            terminalWrite(
+                "CORE ............ ONLINE"
+            );
+
+            terminalWrite(
+                "WINDOW MANAGER .. ONLINE"
+            );
+
+            terminalWrite(
+                "STORAGE ......... ONLINE"
+            );
+
+            terminalWrite(
+                "SHELL ........... ONLINE"
+            );
+            terminalWrite(
+    `SERIAL CORE ..... ${
+        PulsarSerial.isSupported()
+            ? "ONLINE"
+            : "UNSUPPORTED"
+    }`
+);
+
+terminalWrite(
+    `HARDWARE LINK ... ${
+        PulsarSerial.getState() ===
+        "CONNECTED"
+            ? "ACTIVE"
+            : "STANDBY"
+    }`
+);
+            break;
+
+        case "apps":
+
+            terminalWrite(
+            "PULSAR WEB"
+            );
+            terminalWrite(
+                "SIGNAL LOG"
+            );
+
+            terminalWrite(
+                "NOTES"
+            );
+
+            terminalWrite(
+                "CALCULATOR"
+            );
+
+            terminalWrite(
+                "TERMINAL"
+            );
+
+            terminalWrite(
+            "SERIAL MONITOR"
+            );
+
+            terminalWrite(
+            "DEVICE MANAGER"
+            );
+
+            //GUIDE AQ
+
+            break;
+
+        default:
+            terminalWrite(
+                `COMMAND NOT FOUND // ${command}`
+            );
+            break;
+    }
+
+    terminalSetStatus("READY");
+}
+
+const terminalHistory = [];
+let terminalHistoryIndex = 0;
+
+if (terminalInput) {
+    terminalInput.addEventListener(
+        "keydown",
+        function (event) {
+            if (event.key !== "Enter") {
+                return;
+            }
+
+            event.preventDefault();
+
+            const command =
+                terminalInput.value;
+
+            terminalWrite(
+                `pulsar@core:~$ ${command}`
+            );
+
+            terminalInput.value = "";
+
+            executeTerminalCommand(
+                command
+            );
+        }
+    );
+}
+
+// ========================================
+// PULSAR OS // WEB
+// BUILD 1.0
+// ========================================
+
+const webNavigationHistory = [];
+let webHistoryIndex = -1;
+let webCurrentUrl = "";
+let webLoadTimer = null;
+
+const WEB_EMBED_BLOCKED_HOSTS = [
+    "google.com",
+    "www.google.com",
+    "accounts.google.com"
+];
+
+function setWebStatus(status) {
+    if (webStatus) {
+        webStatus.textContent = status;
+    }
+}
+
+function setWebProtocol(status) {
+    if (webProtocol) {
+        webProtocol.textContent = status;
+    }
+}
+
+function setWebFooter(status) {
+    if (webFooterStatus) {
+        webFooterStatus.textContent = status;
+    }
+}
+
+function updateWebNetworkStatus() {
+    setWebFooter(
+        navigator.onLine
+            ? "NETWORK // ONLINE"
+            : "NETWORK // OFFLINE"
+    );
+}
+
+function hideWebViews() {
+    if (webHomeScreen) {
+        webHomeScreen.hidden = true;
+    }
+
+    if (webFrame) {
+        webFrame.hidden = true;
+    }
+
+    if (webFallback) {
+        webFallback.hidden = true;
+    }
+}
+
+function showWebHome() {
+    webCurrentUrl = "";
+
+    if (webAddress) {
+        webAddress.value = "";
+    }
+
+    hideWebViews();
+
+    if (webHomeScreen) {
+        webHomeScreen.hidden = false;
+    }
+
+    setWebStatus("READY");
+    setWebProtocol("LOCAL // HOME");
+    updateWebNetworkStatus();
+
+    updateWebNavigationButtons();
+}
+
+function showWebFallback(url) {
+    hideWebViews();
+
+    if (webFallback) {
+        webFallback.hidden = false;
+    }
+
+    if (webFallbackUrl) {
+        webFallbackUrl.textContent =
+            url || "NO URL";
+    }
+
+    setWebStatus("EMBED // BLOCKED");
+    setWebProtocol("EXTERNAL // REQUIRED");
+}
+
+function webLooksLikeUrl(value) {
+    if (
+        /^https?:\/\//i.test(value)
+    ) {
+        return true;
+    }
+
+    if (
+        /^localhost(?::\d+)?(?:\/|$)/i.test(value)
+    ) {
+        return true;
+    }
+
+    if (
+        /^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:\/|$)/.test(value)
+    ) {
+        return true;
+    }
+
+    return /^[^\s]+\.[a-z]{2,}(?::\d+)?(?:[/?#].*)?$/i.test(
+        value
+    );
+}
+
+function resolveWebInput(value) {
+    const input =
+        value.trim();
+
+    if (!input) {
+        return null;
+    }
+
+    if (
+        input.toLowerCase() === "home" ||
+        input.toLowerCase() === "pulsar://home"
+    ) {
+        return {
+            type: "home"
+        };
+    }
+
+    let url = input;
+
+    if (!webLooksLikeUrl(input)) {
+        url =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(input);
+
+        return {
+            type: "search",
+            url
+        };
+    }
+
+    if (
+        !/^https?:\/\//i.test(url)
+    ) {
+        const localAddress =
+            /^localhost/i.test(url) ||
+            /^127\./.test(url) ||
+            /^192\.168\./.test(url) ||
+            /^10\./.test(url);
+
+        url =
+            (localAddress
+                ? "http://"
+                : "https://") +
+            url;
+    }
+
+    try {
+        const parsed =
+            new URL(url);
+
+        if (
+            parsed.protocol !== "http:" &&
+            parsed.protocol !== "https:"
+        ) {
+            return null;
+        }
+
+        return {
+            type: "url",
+            url: parsed.href
+        };
+    } catch (error) {
+        return null;
+    }
+}
+
+function addWebHistory(url) {
+    if (!url) {
+        return;
+    }
+
+    if (
+        webHistoryIndex >= 0 &&
+        webNavigationHistory[
+            webHistoryIndex
+        ] === url
+    ) {
+        return;
+    }
+
+    webNavigationHistory.splice(
+        webHistoryIndex + 1
+    );
+
+    webNavigationHistory.push(url);
+
+    webHistoryIndex =
+        webNavigationHistory.length - 1;
+
+    renderWebHistory();
+}
+
+function updateWebNavigationButtons() {
+    if (webBack) {
+        webBack.disabled =
+            webHistoryIndex <= 0;
+    }
+
+    if (webForward) {
+        webForward.disabled =
+            webHistoryIndex < 0 ||
+            webHistoryIndex >=
+                webNavigationHistory.length - 1;
+    }
+
+    if (webReload) {
+        webReload.disabled =
+            !webCurrentUrl;
+    }
+}
+
+function getWebHistoryLabel(url) {
+    try {
+        const parsed =
+            new URL(url);
+
+        return (
+            parsed.hostname ||
+            url
+        );
+    } catch (error) {
+        return url;
+    }
+}
+
+function renderWebHistory() {
+    if (!webHistoryList) {
+        return;
+    }
+
+    webHistoryList.innerHTML = "";
+
+    if (
+        webNavigationHistory.length === 0
+    ) {
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "web-history-empty";
+
+        empty.textContent =
+            "NO NAVIGATION HISTORY";
+
+        webHistoryList.appendChild(
+            empty
+        );
+
+        updateWebNavigationButtons();
+        return;
+    }
+
+    webNavigationHistory
+        .slice()
+        .reverse()
+        .forEach(
+            function (url, reversedIndex) {
+                const actualIndex =
+                    webNavigationHistory.length -
+                    1 -
+                    reversedIndex;
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+                button.className =
+                    "web-history-item";
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "web-history-item-title";
+
+                title.textContent =
+                    getWebHistoryLabel(url);
+
+                const address =
+                    document.createElement(
+                        "div"
+                    );
+
+                address.className =
+                    "web-history-item-url";
+
+                address.textContent =
+                    url;
+
+                button.append(
+                    title,
+                    address
+                );
+
+                button.addEventListener(
+                    "click",
+                    function () {
+                        webHistoryIndex =
+                            actualIndex;
+
+                        navigateWeb(
+                            url,
+                            false
+                        );
+
+                        if (
+                            webHistoryPanel
+                        ) {
+                            webHistoryPanel.hidden =
+                                true;
+                        }
+                    }
+                );
+
+                webHistoryList.appendChild(
+                    button
+                );
+            }
+        );
+
+    updateWebNavigationButtons();
+}
+
+function startWebLoadTimer() {
+    if (webLoadTimer) {
+        clearTimeout(webLoadTimer);
+    }
+
+    webLoadTimer =
+        setTimeout(
+            function () {
+                if (!webCurrentUrl) {
+                    return;
+                }
+
+                setWebStatus(
+                    "CHECK VIEW // ↗ IF BLOCKED"
+                );
+            },
+            6000
+        );
+}
+
+function isKnownBlockedEmbed(url) {
+    try {
+        const parsed =
+            new URL(url);
+
+        return WEB_EMBED_BLOCKED_HOSTS.includes(
+            parsed.hostname.toLowerCase()
+        );
+    } catch (error) {
+        return false;
+    }
+}
+
+function navigateWeb(
+    url,
+    addHistory = true
+) {
+    if (
+        !url ||
+        !webFrame
+    ) {
+        return;
+    }
+
+    webCurrentUrl =
+        url;
+
+    if (webAddress) {
+        webAddress.value =
+            url;
+    }
+
+    if (addHistory) {
+        addWebHistory(url);
+    }
+    if (isKnownBlockedEmbed(url)) {
+    showWebFallback(url);
+
+    updateWebNavigationButtons();
+
+    return;
+}
+
+    hideWebViews();
+
+    webFrame.hidden = false;
+
+    setWebStatus("CONNECTING");
+
+    try {
+        const parsed =
+            new URL(url);
+
+        setWebProtocol(
+            `${parsed.protocol
+                .replace(":", "")
+                .toUpperCase()} // EMBEDDED`
+        );
+    } catch (error) {
+        setWebProtocol(
+            "WEB // EMBEDDED"
+        );
+    }
+
+    setWebFooter(
+        navigator.onLine
+            ? "NETWORK // REQUESTING"
+            : "NETWORK // OFFLINE"
+    );
+
+    webFrame.src = url;
+
+    startWebLoadTimer();
+    updateWebNavigationButtons();
+}
+
+function submitWebAddress() {
+    if (!webAddress) {
+        return;
+    }
+
+    const destination =
+        resolveWebInput(
+            webAddress.value
+        );
+
+    if (!destination) {
+        setWebStatus(
+            "INVALID ADDRESS"
+        );
+
+        return;
+    }
+
+    if (
+        destination.type === "home"
+    ) {
+        showWebHome();
+        return;
+    }
+
+    navigateWeb(
+        destination.url
+    );
+}
+
+function openWebExternal() {
+    if (!webCurrentUrl) {
+        return;
+    }
+
+    window.open(
+        webCurrentUrl,
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+if (webFrame) {
+    webFrame.setAttribute(
+        "sandbox",
+        "allow-forms allow-popups allow-scripts"
+    );
+
+    webFrame.addEventListener(
+        "load",
+        function () {
+            if (webLoadTimer) {
+                clearTimeout(
+                    webLoadTimer
+                );
+            }
+
+            setWebStatus(
+                "FRAME // RESPONSE"
+            );
+
+            updateWebNetworkStatus();
+        }
+    );
+
+    webFrame.addEventListener(
+        "error",
+        function () {
+            showWebFallback(
+                webCurrentUrl
+            );
+        }
+    );
+}
+
+if (webGo) {
+    webGo.addEventListener(
+        "click",
+        submitWebAddress
+    );
+}
+
+if (webAddress) {
+    webAddress.addEventListener(
+        "keydown",
+        function (event) {
+            if (
+                event.key !== "Enter"
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            submitWebAddress();
+        }
+    );
+}
+
+if (webHome) {
+    webHome.addEventListener(
+        "click",
+        showWebHome
+    );
+}
+
+if (webReload) {
+    webReload.addEventListener(
+        "click",
+        function () {
+            if (!webCurrentUrl) {
+                return;
+            }
+
+            navigateWeb(
+                webCurrentUrl,
+                false
+            );
+        }
+    );
+}
+
+if (webBack) {
+    webBack.addEventListener(
+        "click",
+        function () {
+            if (
+                webHistoryIndex <= 0
+            ) {
+                return;
+            }
+
+            webHistoryIndex--;
+
+            navigateWeb(
+                webNavigationHistory[
+                    webHistoryIndex
+                ],
+                false
+            );
+        }
+    );
+}
+
+if (webForward) {
+    webForward.addEventListener(
+        "click",
+        function () {
+            if (
+                webHistoryIndex >=
+                webNavigationHistory.length -
+                    1
+            ) {
+                return;
+            }
+
+            webHistoryIndex++;
+
+            navigateWeb(
+                webNavigationHistory[
+                    webHistoryIndex
+                ],
+                false
+            );
+        }
+    );
+}
+
+if (webHistoryToggle) {
+    webHistoryToggle.addEventListener(
+        "click",
+        function () {
+            if (!webHistoryPanel) {
+                return;
+            }
+
+            webHistoryPanel.hidden =
+                !webHistoryPanel.hidden;
+        }
+    );
+}
+
+if (webOpenExternal) {
+    webOpenExternal.addEventListener(
+        "click",
+        openWebExternal
+    );
+}
+
+// QUICK EXTERNAL BUTTON
+if (
+    webGo &&
+    webHistoryToggle &&
+    !document.getElementById(
+        "webExternalQuick"
+    )
+) {
+    const externalButton =
+        document.createElement(
+            "button"
+        );
+
+    externalButton.id =
+        "webExternalQuick";
+
+    externalButton.className =
+        "web-nav-button";
+
+    externalButton.type =
+        "button";
+
+    externalButton.title =
+        "Open externally";
+
+    externalButton.setAttribute(
+        "aria-label",
+        "Open current page externally"
+    );
+
+    externalButton.textContent =
+        "↗";
+
+    externalButton.addEventListener(
+        "click",
+        openWebExternal
+    );
+
+    webHistoryToggle.before(
+        externalButton
+    );
+}
+
+window.addEventListener(
+    "online",
+    updateWebNetworkStatus
+);
+
+window.addEventListener(
+    "offline",
+    updateWebNetworkStatus
+);
+
+renderWebHistory();
+showWebHome();
+
+// ========================================
+// PULSAR OS // SERIAL CORE
+// BUILD 1.0
+// ========================================
+
+const PulsarSerial = (() => {
+    let port = null;
+    let reader = null;
+    let writer = null;
+
+    let state =
+        "DISCONNECTED";
+
+    let baudRate =
+        115200;
+
+    let keepReading =
+        false;
+
+    const decoder =
+        new TextDecoder();
+
+    const encoder =
+        new TextEncoder();
+
+    const stateListeners =
+        new Set();
+
+    const dataListeners =
+        new Set();
+
+    const errorListeners =
+        new Set();
+
+    function isSupported() {
+        return (
+            "serial" in navigator
+        );
+    }
+
+    function getState() {
+        return state;
+    }
+
+    function getPort() {
+        return port;
+    }
+
+    function getBaudRate() {
+        return baudRate;
+    }
+
+    function getInfo() {
+        if (!port) {
+            return null;
+        }
+
+        try {
+            return port.getInfo();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function emitState() {
+        stateListeners.forEach(
+            function (listener) {
+                listener(state);
+            }
+        );
+    }
+
+    function setState(nextState) {
+        state =
+            nextState;
+
+        emitState();
+
+        console.log(
+            `PULSAR SERIAL // ${state}`
+        );
+    }
+
+    function emitData(data) {
+        dataListeners.forEach(
+            function (listener) {
+                listener(data);
+            }
+        );
+    }
+
+    function emitError(error) {
+        console.error(
+            "PULSAR SERIAL // ERROR",
+            error
+        );
+
+        errorListeners.forEach(
+            function (listener) {
+                listener(error);
+            }
+        );
+    }
+
+    function onStateChange(listener) {
+        stateListeners.add(listener);
+
+        return function () {
+            stateListeners.delete(
+                listener
+            );
+        };
+    }
+
+    function onData(listener) {
+        dataListeners.add(listener);
+
+        return function () {
+            dataListeners.delete(
+                listener
+            );
+        };
+    }
+
+    function onError(listener) {
+        errorListeners.add(listener);
+
+        return function () {
+            errorListeners.delete(
+                listener
+            );
+        };
+    }
+
+    async function requestPort() {
+        if (!isSupported()) {
+            setState(
+                "UNSUPPORTED"
+            );
+
+            throw new Error(
+                "WEB SERIAL UNSUPPORTED"
+            );
+        }
+
+        setState(
+            "REQUESTING"
+        );
+
+        try {
+            port =
+                await navigator.serial
+                    .requestPort();
+
+            setState(
+                "DISCONNECTED"
+            );
+
+            return port;
+        } catch (error) {
+            if (
+                error &&
+                error.name ===
+                    "NotFoundError"
+            ) {
+                setState(
+                    "DISCONNECTED"
+                );
+
+                return null;
+            }
+
+            setState(
+                "ERROR"
+            );
+
+            emitError(error);
+
+            throw error;
+        }
+    }
+
+    async function useAuthorizedPort() {
+        if (!isSupported()) {
+            return null;
+        }
+
+        try {
+            const ports =
+                await navigator.serial
+                    .getPorts();
+
+            if (
+                ports.length === 0
+            ) {
+                return null;
+            }
+
+            port =
+                ports[0];
+
+            return port;
+        } catch (error) {
+            emitError(error);
+
+            return null;
+        }
+    }
+
+    async function connect(
+        options = {}
+    ) {
+        if (!isSupported()) {
+            setState(
+                "UNSUPPORTED"
+            );
+
+            return false;
+        }
+
+        if (!port) {
+            throw new Error(
+                "NO SERIAL PORT SELECTED"
+            );
+        }
+
+        if (
+            state === "CONNECTED" ||
+            state === "CONNECTING"
+        ) {
+            return true;
+        }
+
+        baudRate =
+            Number(
+                options.baudRate ||
+                baudRate
+            );
+
+        setState(
+            "CONNECTING"
+        );
+
+        try {
+            await port.open({
+                baudRate: baudRate,
+                dataBits: 8,
+                stopBits: 1,
+                parity: "none",
+                flowControl: "none"
+            });
+
+            writer =
+                port.writable
+                    ? port.writable.getWriter()
+                    : null;
+
+            keepReading =
+                true;
+
+            setState(
+                "CONNECTED"
+            );
+
+            readLoop();
+
+            return true;
+        } catch (error) {
+            setState(
+                "ERROR"
+            );
+
+            emitError(error);
+
+            return false;
+        }
+    }
+
+    async function readLoop() {
+        if (
+            !port ||
+            !port.readable
+        ) {
+            return;
+        }
+
+        try {
+            reader =
+                port.readable.getReader();
+
+            while (
+                keepReading &&
+                state === "CONNECTED"
+            ) {
+                const {
+                    value,
+                    done
+                } =
+                    await reader.read();
+
+                if (done) {
+                    break;
+                }
+
+                if (
+                    !value ||
+                    value.length === 0
+                ) {
+                    continue;
+                }
+
+                const text =
+                    decoder.decode(
+                        value,
+                        {
+                            stream: true
+                        }
+                    );
+
+                emitData({
+                    bytes: value,
+                    text: text
+                });
+            }
+        } catch (error) {
+            if (
+                keepReading &&
+                state === "CONNECTED"
+            ) {
+                emitError(error);
+                setState("ERROR");
+            }
+        } finally {
+            if (reader) {
+                try {
+                    reader.releaseLock();
+                } catch (error) {
+                    // Reader already released.
+                }
+            }
+
+            reader = null;
+        }
+    }
+
+    async function write(data) {
+        if (
+            state !== "CONNECTED" ||
+            !writer
+        ) {
+            throw new Error(
+                "SERIAL LINK NOT CONNECTED"
+            );
+        }
+
+        const payload =
+            typeof data === "string"
+                ? encoder.encode(data)
+                : data;
+
+        try {
+            await writer.write(
+                payload
+            );
+
+            return payload.byteLength;
+        } catch (error) {
+            emitError(error);
+
+            throw error;
+        }
+    }
+
+    async function disconnect() {
+    if (
+        state === "DISCONNECTED"
+    ) {
+        return true;
+    }
+
+    setState(
+        "DISCONNECTING"
+    );
+
+    keepReading =
+        false;
+
+    const activeReader =
+        reader;
+
+    if (activeReader) {
+        try {
+            await activeReader.cancel();
+        } catch (error) {
+            // Reader may already be closed.
+        }
+
+        try {
+            activeReader.releaseLock();
+        } catch (error) {
+            // Reader lock may already be released.
+        }
+
+        if (reader === activeReader) {
+            reader = null;
+        }
+    }
+
+    if (writer) {
+        try {
+            writer.releaseLock();
+        } catch (error) {
+            // Writer may already be released.
+        }
+
+        writer = null;
+    }
+
+    if (port) {
+        try {
+            await port.close();
+        } catch (error) {
+            emitError(error);
+        }
+    }
+
+    reader = null;
+
+    setState(
+        "DISCONNECTED"
+    );
+
+    return true;
+}
+
+    async function clearPort() {
+        if (
+            state === "CONNECTED"
+        ) {
+            await disconnect();
+        }
+
+        port = null;
+    }
+
+    return {
+        isSupported,
+        getState,
+        getPort,
+        getInfo,
+        getBaudRate,
+        requestPort,
+        useAuthorizedPort,
+        connect,
+        disconnect,
+        clearPort,
+        write,
+        onStateChange,
+        onData,
+        onError
+    };
+})();
+
+// ========================================
+// PULSAR DEVICE PROTOCOL // RX BRIDGE
+// ========================================
+
+let deviceProtocolBuffer = "";
+
+PulsarSerial.onData(
+    function (packet) {
+        deviceProtocolBuffer +=
+            packet.text;
+
+        const lines =
+            deviceProtocolBuffer.split(
+                /\r?\n/
+            );
+
+        deviceProtocolBuffer =
+            lines.pop() || "";
+
+        lines.forEach(
+            function (line) {
+                if (
+                    !line.startsWith(
+                        "@PULSAR "
+                    )
+                ) {
+                    return;
+                }
+
+                terminalWrite(
+                    `DEVICE // ${
+                        line.slice(8)
+                    }`
+                );
+            }
+        );
+    }
+);
+
+// ========================================
+// PULSAR OS // SERIAL UI BRIDGE
+// ========================================
+
+function formatSerialUsbId(value) {
+    if (
+        value === undefined ||
+        value === null
+    ) {
+        return "UNKNOWN";
+    }
+
+    return (
+        "0x" +
+        Number(value)
+            .toString(16)
+            .toUpperCase()
+            .padStart(4, "0")
+    );
+}
+
+function updateSerialDeviceInfo() {
+    const port =
+        PulsarSerial.getPort();
+
+    const info =
+        PulsarSerial.getInfo();
+
+    if (!port) {
+        if (serialPortName) {
+            serialPortName.textContent =
+                "NO DEVICE";
+        }
+
+        if (serialVendorId) {
+            serialVendorId.textContent =
+                "UNKNOWN";
+        }
+
+        if (serialProductId) {
+            serialProductId.textContent =
+                "UNKNOWN";
+        }
+
+        if (serialDeviceLabel) {
+            serialDeviceLabel.textContent =
+                "NO DEVICE";
+        }
+
+        return;
+    }
+
+    if (serialPortName) {
+        serialPortName.textContent =
+            "SERIAL DEVICE";
+    }
+
+    if (serialVendorId) {
+        serialVendorId.textContent =
+            formatSerialUsbId(
+                info?.usbVendorId
+            );
+    }
+
+    if (serialProductId) {
+        serialProductId.textContent =
+            formatSerialUsbId(
+                info?.usbProductId
+            );
+    }
+
+    if (serialDeviceLabel) {
+        serialDeviceLabel.textContent =
+            "AUTHORIZED PORT";
+    }
+}
+
+function updateSerialUiState(state) {
+    const normalized =
+        state.toLowerCase();
+
+    if (serialState) {
+        serialState.dataset.state =
+            normalized;
+    }
+
+    if (serialStateText) {
+        serialStateText.textContent =
+            state;
+    }
+
+    if (serialMenuStatus) {
+        serialMenuStatus.textContent =
+            state === "CONNECTED"
+                ? "ACTIVE"
+                : "READY";
+    }
+
+    const hasPort =
+        Boolean(
+            PulsarSerial.getPort()
+        );
+
+    const connected =
+        state === "CONNECTED";
+
+    const busy =
+        state === "REQUESTING" ||
+        state === "CONNECTING" ||
+        state === "DISCONNECTING";
+
+    if (serialSelectPort) {
+    serialSelectPort.disabled =
+        busy ||
+        connected ||
+        state === "UNSUPPORTED";
+    }
+
+    if (serialConnect) {
+        serialConnect.disabled =
+            !hasPort ||
+            busy ||
+            connected ||
+            state === "UNSUPPORTED";
+    }
+
+    if (serialDisconnect) {
+        serialDisconnect.disabled =
+            !connected;
+    }
+
+    if (serialBaudRate) {
+        serialBaudRate.disabled =
+            connected || busy;
+    }
+
+    if (serialTxInput) {
+        serialTxInput.disabled =
+            !connected;
+    }
+
+    if (serialSend) {
+        serialSend.disabled =
+            !connected;
+    }
+
+    if (serialLinkStatus) {
+        serialLinkStatus.textContent =
+            connected
+                ? "ACTIVE"
+                : "INACTIVE";
+    }
+
+    if (serialCoreStatus) {
+        serialCoreStatus.textContent =
+            state === "ERROR"
+                ? "ERROR"
+                : state === "UNSUPPORTED"
+                    ? "UNSUPPORTED"
+                    : "READY";
+    }
+
+    updateSerialDeviceInfo();
+}
+
+PulsarSerial.onStateChange(
+    updateSerialUiState
+);
+
+PulsarSerial.onError(
+    function (error) {
+        console.error(
+            "PULSAR SERIAL UI //",
+            error
+        );
+    }
+);
+
+let serialRxByteCount = 0;
+let serialRxMessageCount = 0;
+let serialRxBuffer = "";
+let serialHasReceivedData = false;
+
+function getSerialTimestamp() {
+    const now =
+        new Date();
+
+    return now.toLocaleTimeString(
+        "en-GB",
+        {
+            hour12: false
+        }
+    );
+}
+
+function serialAppendLine(
+    text,
+    type = "rx"
+) {
+    if (!serialOutput) {
+        return;
+    }
+
+    if (!serialHasReceivedData) {
+        serialOutput.innerHTML = "";
+        serialHasReceivedData = true;
+    }
+
+    const line =
+        document.createElement(
+            "div"
+        );
+
+    line.classList.add(
+        "serial-line",
+        `serial-${type}`
+    );
+
+    const showTimestamp =
+        serialTimestamp?.value ===
+        "on";
+
+    const prefix =
+        showTimestamp
+            ? `[${getSerialTimestamp()}] `
+            : "";
+
+    line.textContent =
+        `${prefix}${type.toUpperCase()} // ${text}`;
+
+    serialOutput.appendChild(
+        line
+    );
+
+    if (
+        serialAutoScroll?.value ===
+        "on"
+    ) {
+        serialOutput.scrollTop =
+            serialOutput.scrollHeight;
+    }
+}
+
+function updateSerialRxCounters() {
+    if (serialRxBytes) {
+        serialRxBytes.textContent =
+            `${serialRxByteCount} B`;
+    }
+
+    if (serialRxMessages) {
+        serialRxMessages.textContent =
+            serialRxMessageCount;
+    }
+}
+
+function bytesToHex(bytes) {
+    return Array.from(bytes)
+        .map(
+            function (byte) {
+                return byte
+                    .toString(16)
+                    .toUpperCase()
+                    .padStart(2, "0");
+            }
+        )
+        .join(" ");
+}
+
+PulsarSerial.onData(
+    function (packet) {
+        serialRxByteCount +=
+            packet.bytes.byteLength;
+
+        const hexEnabled =
+            serialHexView?.value ===
+            "on";
+
+        if (hexEnabled) {
+            serialRxMessageCount++;
+
+            serialAppendLine(
+                bytesToHex(
+                    packet.bytes
+                ),
+                "rx"
+            );
+
+            updateSerialRxCounters();
+
+            return;
+        }
+
+        serialRxBuffer +=
+            packet.text;
+
+        const lines =
+            serialRxBuffer.split(
+                /\r?\n/
+            );
+
+        serialRxBuffer =
+            lines.pop() || "";
+
+        lines.forEach(
+            function (line) {
+                serialRxMessageCount++;
+
+                serialAppendLine(
+                    line,
+                    "rx"
+                );
+            }
+        );
+
+        updateSerialRxCounters();
+    }
+);
+
+if (serialClear) {
+    serialClear.addEventListener(
+        "click",
+        function () {
+            if (serialOutput) {
+                serialOutput.innerHTML = "";
+            }
+
+            serialRxByteCount = 0;
+            serialRxMessageCount = 0;
+            serialRxBuffer = "";
+
+            serialTxByteCount = 0;
+            serialTxMessageCount = 0;
+
+            serialHasReceivedData = true;
+
+            updateSerialRxCounters();
+            updateSerialTxCounters();
+        }
+    );
+}
+let serialTxByteCount = 0;
+let serialTxMessageCount = 0;
+
+function getSerialLineEnding() {
+    const mode =
+        serialLineEnding?.value ||
+        "none";
+
+    switch (mode) {
+        case "lf":
+            return "\n";
+
+        case "crlf":
+            return "\r\n";
+
+        default:
+            return "";
+    }
+}
+
+function updateSerialTxCounters() {
+    if (serialTxBytes) {
+        serialTxBytes.textContent =
+            `${serialTxByteCount} B`;
+    }
+
+    if (serialTxMessages) {
+        serialTxMessages.textContent =
+            serialTxMessageCount;
+    }
+}
+
+async function sendSerialData() {
+    if (
+        PulsarSerial.getState() !==
+        "CONNECTED"
+    ) {
+        return;
+    }
+
+    if (!serialTxInput) {
+        return;
+    }
+
+    const text =
+        serialTxInput.value;
+
+    if (!text) {
+        return;
+    }
+
+    const payload =
+        text +
+        getSerialLineEnding();
+
+    try {
+        const bytesSent =
+            await PulsarSerial.write(
+                payload
+            );
+
+        serialTxByteCount +=
+            bytesSent;
+
+        serialTxMessageCount++;
+
+        serialAppendLine(
+            text,
+            "tx"
+        );
+
+        updateSerialTxCounters();
+
+        serialTxInput.value = "";
+        serialTxInput.focus();
+    } catch (error) {
+        serialAppendLine(
+            `SEND FAILED // ${
+                error.message ||
+                "UNKNOWN ERROR"
+            }`,
+            "error"
+        );
+    }
+}
+
+if (serialSend) {
+    serialSend.addEventListener(
+        "click",
+        sendSerialData
+    );
+}
+
+if (serialTxInput) {
+    serialTxInput.addEventListener(
+        "keydown",
+        function (event) {
+            if (
+                event.key !== "Enter"
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            sendSerialData();
+        }
+    );
+}
+
+// ========================================
+// SERIAL SETTINGS // STORAGE
+// ========================================
+
+const SERIAL_SETTINGS_KEY =
+    "hardware.serial.settings";
+
+function saveSerialSettings() {
+    PulsarStorage.set(
+        SERIAL_SETTINGS_KEY,
+        {
+            baudRate:
+                serialBaudRate?.value ||
+                "115200",
+
+            lineEnding:
+                serialLineEnding?.value ||
+                "crlf",
+
+            autoScroll:
+                serialAutoScroll?.value ||
+                "on",
+
+            timestamp:
+                serialTimestamp?.value ||
+                "on",
+
+            hexView:
+                serialHexView?.value ||
+                "off"
+        }
+    );
+}
+
+function loadSerialSettings() {
+    const settings =
+        PulsarStorage.get(
+            SERIAL_SETTINGS_KEY,
+            null
+        );
+
+    if (!settings) {
+        return;
+    }
+
+    if (
+        serialBaudRate &&
+        settings.baudRate
+    ) {
+        serialBaudRate.value =
+            settings.baudRate;
+    }
+
+    if (
+        serialLineEnding &&
+        settings.lineEnding
+    ) {
+        serialLineEnding.value =
+            settings.lineEnding;
+    }
+
+    if (
+        serialAutoScroll &&
+        settings.autoScroll
+    ) {
+        serialAutoScroll.value =
+            settings.autoScroll;
+    }
+
+    if (
+        serialTimestamp &&
+        settings.timestamp
+    ) {
+        serialTimestamp.value =
+            settings.timestamp;
+    }
+
+    if (
+        serialHexView &&
+        settings.hexView
+    ) {
+        serialHexView.value =
+            settings.hexView;
+    }
+}
+
+[
+    serialBaudRate,
+    serialLineEnding,
+    serialAutoScroll,
+    serialTimestamp,
+    serialHexView
+].forEach(
+    function (control) {
+        if (!control) {
+            return;
+        }
+
+        control.addEventListener(
+            "change",
+            saveSerialSettings
+        );
+    }
+);
+
+loadSerialSettings();
+
+if (serialSelectPort) {
+    serialSelectPort.addEventListener(
+        "click",
+        async function () {
+            try {
+                await PulsarSerial.requestPort();
+
+                updateSerialDeviceInfo();
+
+                updateSerialUiState(
+                    PulsarSerial.getState()
+                );
+            } catch (error) {
+                console.error(
+                    "PULSAR SERIAL // PORT REQUEST FAILED",
+                    error
+                );
+            }
+        }
+    );
+}
+
+if (serialConnect) {
+    serialConnect.addEventListener(
+        "click",
+        async function () {
+            const baudRate =
+                Number(
+                    serialBaudRate?.value ||
+                    115200
+                );
+
+            await PulsarSerial.connect({
+                baudRate
+            });
+        }
+    );
+}
+
+if (serialDisconnect) {
+    serialDisconnect.addEventListener(
+        "click",
+        async function () {
+            await PulsarSerial.disconnect();
+        }
+    );
+}
+
+if (!PulsarSerial.isSupported()) {
+    updateSerialUiState(
+        "UNSUPPORTED"
+    );
+
+    if (serialInterfaceStatus) {
+        serialInterfaceStatus.textContent =
+            "UNSUPPORTED";
+    }
+} else {
+    updateSerialUiState(
+        "DISCONNECTED"
+    );
+}
+
+// ========================================
+// DEVICE MANAGER // DEVICE MEMORY
+// ========================================
+
+function getDeviceManagerStorageKey() {
+    const info =
+        PulsarSerial.getInfo();
+
+    if (
+        info?.usbVendorId === undefined ||
+        info?.usbProductId === undefined
+    ) {
+        return null;
+    }
+
+    const vendor =
+        info.usbVendorId
+            .toString(16)
+            .toUpperCase();
+
+    const product =
+        info.usbProductId
+            .toString(16)
+            .toUpperCase();
+
+    return `hardware.devices.${vendor}-${product}.alias`;
+}
+
+function loadDeviceManagerAlias() {
+    if (!deviceManagerAlias) {
+        return;
+    }
+
+    const key =
+        getDeviceManagerStorageKey();
+
+    if (!key) {
+        deviceManagerAlias.value = "";
+        deviceManagerAlias.disabled = true;
+        return;
+    }
+
+    deviceManagerAlias.disabled = false;
+
+    deviceManagerAlias.value =
+        PulsarStorage.get(
+            key,
+            ""
+        );
+}
+
+function saveDeviceManagerAlias() {
+    if (!deviceManagerAlias) {
+        return;
+    }
+
+    const key =
+        getDeviceManagerStorageKey();
+
+    if (!key) {
+        return;
+    }
+
+    const alias =
+        deviceManagerAlias.value.trim();
+
+    if (!alias) {
+        PulsarStorage.remove(key);
+        return;
+    }
+
+    PulsarStorage.set(
+        key,
+        alias
+    );
+}
+
+if (deviceManagerAlias) {
+    deviceManagerAlias.addEventListener(
+        "input",
+        saveDeviceManagerAlias
+    );
+}
+
+// ======================================== 
+// PULSAR OS // DEVICE MANAGER BRIDGE
+// ========================================
+
+function updateDeviceManagerUi(
+    state = PulsarSerial.getState()
+) {
+    const port =
+        PulsarSerial.getPort();
+
+    const info =
+        PulsarSerial.getInfo();
+
+    const connected =
+        state === "CONNECTED";
+
+    const busy =
+        state === "REQUESTING" ||
+        state === "CONNECTING" ||
+        state === "DISCONNECTING";
+
+    const hasPort =
+        Boolean(port);
+
+    // DEVICE NAME
+    if (deviceManagerName) {
+        deviceManagerName.textContent =
+            hasPort
+                ? "SERIAL DEVICE"
+                : "NO DEVICE";
+    }
+
+    // STATE
+    if (deviceManagerStateText) {
+        deviceManagerStateText.textContent =
+            state;
+    }
+
+    if (deviceManagerState) {
+        deviceManagerState.classList.toggle(
+            "connected",
+            connected
+        );
+
+        deviceManagerState.classList.toggle(
+            "error",
+            state === "ERROR"
+        );
+    }
+
+    // USB INFORMATION
+    if (deviceManagerVendorId) {
+        deviceManagerVendorId.textContent =
+            info?.usbVendorId !== undefined
+                ? formatSerialUsbId(
+                    info.usbVendorId
+                )
+                : "UNKNOWN";
+    }
+
+    if (deviceManagerProductId) {
+        deviceManagerProductId.textContent =
+            info?.usbProductId !== undefined
+                ? formatSerialUsbId(
+                    info.usbProductId
+                )
+                : "UNKNOWN";
+    }
+
+    // BAUD
+    if (deviceManagerBaud) {
+        deviceManagerBaud.textContent =
+            serialBaudRate?.value ||
+            PulsarSerial.getBaudRate() ||
+            "115200";
+    }
+
+    // LINK
+    if (deviceManagerLink) {
+        deviceManagerLink.textContent =
+            connected
+                ? "LINK // ACTIVE"
+                : "LINK // INACTIVE";
+    }
+
+    // MENU STATUS
+    if (deviceManagerMenuStatus) {
+        deviceManagerMenuStatus.textContent =
+            connected
+                ? "CONNECTED"
+                : hasPort
+                    ? "READY"
+                    : "READY";
+    }
+
+    // BUTTON STATES
+    if (deviceManagerSelect) {
+        deviceManagerSelect.disabled =
+            busy ||
+            connected ||
+            state === "UNSUPPORTED";
+    }
+
+    if (deviceManagerConnect) {
+        deviceManagerConnect.disabled =
+            !hasPort ||
+            busy ||
+            connected ||
+            state === "UNSUPPORTED";
+    }
+
+    if (deviceManagerDisconnect) {
+        deviceManagerDisconnect.disabled =
+            !connected;
+    }
+
+    // LAST SEEN
+        if (
+        connected &&
+        deviceManagerLastSeen
+    ) {
+        deviceManagerLastSeen.textContent =
+            new Date().toLocaleTimeString(
+                "en-GB",
+                {
+                    hour12: false
+                }
+            );
+    }
+
+    loadDeviceManagerAlias();
+}
+
+PulsarSerial.onStateChange(
+    updateDeviceManagerUi
+);
+
+if (deviceManagerSelect) {
+    deviceManagerSelect.addEventListener(
+        "click",
+        async function () {
+            try {
+                await PulsarSerial.requestPort();
+
+                updateSerialDeviceInfo();
+
+                updateSerialUiState(
+                    PulsarSerial.getState()
+                );
+
+                updateDeviceManagerUi();
+            } catch (error) {
+                console.error(
+                    "PULSAR DEVICE MANAGER // SELECT FAILED",
+                    error
+                );
+            }
+        }
+    );
+}
+
+if (deviceManagerConnect) {
+    deviceManagerConnect.addEventListener(
+        "click",
+        async function () {
+            try {
+                const baudRate =
+                    Number(
+                        serialBaudRate?.value ||
+                        115200
+                    );
+
+                await PulsarSerial.connect({
+                    baudRate
+                });
+
+                updateSerialDeviceInfo();
+                updateDeviceManagerUi();
+            } catch (error) {
+                console.error(
+                    "PULSAR DEVICE MANAGER // CONNECT FAILED",
+                    error
+                );
+            }
+        }
+    );
+}
+
+if (deviceManagerDisconnect) {
+    deviceManagerDisconnect.addEventListener(
+        "click",
+        async function () {
+            try {
+                await PulsarSerial.disconnect();
+
+                updateSerialDeviceInfo();
+                updateDeviceManagerUi();
+            } catch (error) {
+                console.error(
+                    "PULSAR DEVICE MANAGER // DISCONNECT FAILED",
+                    error
+                );
+            }
+        }
+    );
+}
+
+if (deviceManagerOpenSerial) {
+    deviceManagerOpenSerial.addEventListener(
+        "click",
+        function () {
+            openWindow(
+                serialWindow
+            );
+
+            setTimeout(
+                function () {
+                    focusWindow(
+                        serialWindow
+                    );
+                },
+                20
+            );
+        }
+    );
+}
+
+updateDeviceManagerUi();
 
 // ========================================
 // PULSAR OS // BOOT MODULE
@@ -1284,71 +5181,42 @@ applyWallpaper(
 // ========================================
 
 const pulsarBoot =
-    document.querySelector(
-        "#pulsarBoot"
-    );
+    document.querySelector("#pulsarBoot");
 
 const pulsarBootBrand =
-    document.querySelector(
-        "#pulsarBootBrand"
-    );
+    document.querySelector("#pulsarBootBrand");
 
 const pulsarBootTerminal =
-    document.querySelector(
-        "#pulsarBootTerminal"
-    );
+    document.querySelector("#pulsarBootTerminal");
 
 const pulsarBootLines =
-    document.querySelector(
-        "#pulsarBootLines"
-    );
+    document.querySelector("#pulsarBootLines");
 
 const pulsarBootCorner =
-    document.querySelector(
-        ".pulsar-boot-corner"
-    );
+    document.querySelector(".pulsar-boot-corner");
 
 const pulsarBootStatus =
-    document.querySelector(
-        "#pulsarBootStatus"
-    );
-
+    document.querySelector("#pulsarBootStatus");
 
 // ========================================
 // BOOT CONFIG
 // ========================================
 
 const PULSAR_BOOT_CONFIG = {
-
-    build:
-        "0.6",
-
-    enabled:
-        true,
-
-    totalDuration:
-        5000,
-
-    brandDuration:
-        900,
-
-    lineDelay:
-        105
-
+    build: "0.6",
+    enabled: true,
+    totalDuration: 5000,
+    brandDuration: 900,
+    lineDelay: 105
 };
-
 
 // ========================================
 // WAIT
 // ========================================
 
-function pulsarWait(
-    milliseconds
-) {
-
+function pulsarWait(milliseconds) {
     return new Promise(
         function (resolve) {
-
             setTimeout(
                 resolve,
                 milliseconds
@@ -1357,22 +5225,18 @@ function pulsarWait(
     );
 }
 
-
 // ========================================
 // HARDWARE INFORMATION
 // ========================================
 
 function getPulsarHardwareInfo() {
-
     const logicalProcessors =
         navigator.hardwareConcurrency ||
         "UNKNOWN";
 
     const memory =
         navigator.deviceMemory
-
             ? `${navigator.deviceMemory} GB+`
-
             : "BROWSER RESTRICTED";
 
     let platform =
@@ -1382,14 +5246,11 @@ function getPulsarHardwareInfo() {
         navigator.userAgentData &&
         navigator.userAgentData.platform
     ) {
-
         platform =
             navigator.userAgentData.platform;
-
     } else if (
         navigator.platform
     ) {
-
         platform =
             navigator.platform;
     }
@@ -1399,42 +5260,29 @@ function getPulsarHardwareInfo() {
 
     const pixelRatio =
         window.devicePixelRatio
-
-            ? window.devicePixelRatio
-                .toFixed(2)
-
+            ? window.devicePixelRatio.toFixed(2)
             : "1.00";
 
     const network =
         navigator.onLine
-
             ? "ONLINE"
-
             : "OFFLINE";
 
     const serial =
         "serial" in navigator
-
             ? "AVAILABLE"
-
             : "UNSUPPORTED";
 
     const usb =
         "usb" in navigator
-
             ? "AVAILABLE"
-
             : "UNSUPPORTED";
 
     let gamepad =
         "UNSUPPORTED";
 
-    if (
-        "getGamepads" in navigator
-    ) {
-
+    if ("getGamepads" in navigator) {
         try {
-
             const connectedGamepads =
                 Array.from(
                     navigator.getGamepads() ||
@@ -1443,20 +5291,15 @@ function getPulsarHardwareInfo() {
 
             gamepad =
                 connectedGamepads.length > 0
-
                     ? `${connectedGamepads.length} CONNECTED`
-
                     : "NONE";
-
         } catch (error) {
-
             gamepad =
                 "AVAILABLE";
         }
     }
 
     return {
-
         logicalProcessors,
         memory,
         platform,
@@ -1466,9 +5309,9 @@ function getPulsarHardwareInfo() {
         serial,
         usb,
         gamepad
-
     };
 }
+
 // ========================================
 // CREATE BOOT LINE
 // ========================================
@@ -1478,74 +5321,53 @@ function createPulsarBootLine(
     text,
     important = false
 ) {
-
     if (!pulsarBootLines) {
         return;
     }
 
     const line =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
     line.className =
         "pulsar-boot-line";
 
     if (important) {
-
         line.classList.add(
             "pulsar-boot-line-important"
         );
     }
 
-
     const prefix =
-        document.createElement(
-            "span"
-        );
+        document.createElement("span");
 
     prefix.className =
         `pulsar-boot-prefix ${type.toLowerCase()}`;
 
-
     switch (type) {
-
         case "OK":
-
             prefix.textContent =
                 "[  OK  ]";
-
             break;
-
 
         case "WARN":
-
             prefix.textContent =
                 "[ WARN ]";
-
             break;
 
-
         default:
-
             prefix.textContent =
                 "[ INFO ]";
-
             break;
     }
 
-
     const message =
-        document.createElement(
-            "span"
-        );
+        document.createElement("span");
 
     message.className =
         "pulsar-boot-line-text";
 
     message.textContent =
         text;
-
 
     line.append(
         prefix,
@@ -1556,41 +5378,29 @@ function createPulsarBootLine(
         line
     );
 
-
-    // Keep newest boot lines visible
-    // on smaller displays.
-
     if (pulsarBootTerminal) {
-
         while (
             pulsarBootLines.scrollHeight >
                 pulsarBootTerminal.clientHeight &&
-
             pulsarBootLines.children.length >
                 1
         ) {
-
             pulsarBootLines.removeChild(
-                pulsarBootLines
-                    .firstElementChild
+                pulsarBootLines.firstElementChild
             );
         }
     }
 }
-
 
 // ========================================
 // BOOT DATABASE
 // ========================================
 
 function createPulsarBootDatabase() {
-
     const hardware =
         getPulsarHardwareInfo();
 
-
     return [
-
         [
             "INFO",
             "PULSAR-OS boot sequence initiated"
@@ -1637,44 +5447,32 @@ function createPulsarBootDatabase() {
         ],
 
         [
-            hardware.network ===
-                "ONLINE"
-
+            hardware.network === "ONLINE"
                 ? "OK"
-
                 : "WARN",
 
             `Network interface ....... ${hardware.network}`
         ],
 
         [
-            hardware.serial ===
-                "AVAILABLE"
-
+            hardware.serial === "AVAILABLE"
                 ? "OK"
-
                 : "WARN",
 
             `Web Serial .............. ${hardware.serial}`
         ],
 
         [
-            hardware.usb ===
-                "AVAILABLE"
-
+            hardware.usb === "AVAILABLE"
                 ? "OK"
-
                 : "WARN",
 
             `Web USB ................. ${hardware.usb}`
         ],
 
         [
-            hardware.gamepad !==
-                "UNSUPPORTED"
-
+            hardware.gamepad !== "UNSUPPORTED"
                 ? "OK"
-
                 : "WARN",
 
             `Gamepad interface ....... ${hardware.gamepad}`
@@ -1712,7 +5510,10 @@ function createPulsarBootDatabase() {
 
         [
             "INFO",
-            `Wallpaper ............... ${getSavedWallpaper().toUpperCase()}`
+            `Wallpaper ............... ${PulsarStorage.get(
+                "system.wallpaper",
+                "pulsar"
+            ).toUpperCase()}`
         ],
 
         [
@@ -1730,86 +5531,45 @@ function createPulsarBootDatabase() {
             "Reached target: pulsar-desktop.target",
             true
         ]
-
     ];
 }
-
 
 // ========================================
 // PREPARE DESKTOP
 // ========================================
 
 function preparePulsarDesktop() {
+    document
+        .querySelectorAll(".window")
+        .forEach(
+            function (windowElement) {
+                windowElement.style.display =
+                    "none";
 
-    /*
-        Welcome is no longer shown
-        automatically during startup.
-
-        It remains available through:
-        PULSAR MENU -> SYSTEM / ABOUT
-
-        Later this can become:
-        WHAT'S NEW?
-    */
-
-    if (welcomeWindow) {
-
-        welcomeWindow.style.display =
-            "none";
-
-        welcomeWindow.classList.add(
-            "hidden"
+                windowElement.classList.add(
+                    "hidden"
+                );
+            }
         );
-    }
-
-
-    /*
-        Applications begin closed.
-        They are opened from the
-        PULSAR system menu.
-    */
-
-    if (signalLogWindow) {
-
-        signalLogWindow.style.display =
-            "none";
-    }
-
-
-    if (customizationWindow) {
-
-        customizationWindow.style.display =
-            "none";
-    }
-
 
     closeSystemMenu();
-
     deselectIcons();
 }
-
 
 // ========================================
 // RUN BOOT TERMINAL
 // ========================================
 
 async function runPulsarTerminal() {
-
     const database =
         createPulsarBootDatabase();
 
-
-    for (
-        const entry
-        of database
-    ) {
-
+    for (const entry of database) {
         createPulsarBootLine(
             entry[0],
             entry[1],
             entry[2] || false
         );
-
 
         await pulsarWait(
             PULSAR_BOOT_CONFIG.lineDelay
@@ -1817,63 +5577,34 @@ async function runPulsarTerminal() {
     }
 }
 
-
 // ========================================
 // FINISH BOOT
 // ========================================
 
 async function finishPulsarBoot() {
-
     if (!pulsarBoot) {
         return;
     }
 
-
-    /*
-        Terminal and corner identity
-        disappear first.
-    */
-
     if (pulsarBootTerminal) {
-
         pulsarBootTerminal.classList.remove(
             "active"
         );
     }
 
-
     if (pulsarBootCorner) {
-
         pulsarBootCorner.classList.remove(
             "active"
         );
     }
 
-
-    await pulsarWait(
-        260
-    );
-
-
-    /*
-        Fade the boot layer away.
-    */
+    await pulsarWait(260);
 
     pulsarBoot.classList.add(
         "boot-finished"
     );
 
-
-    await pulsarWait(
-        900
-    );
-
-
-    /*
-        Remove boot overlay completely.
-
-        Desktop is now fully interactive.
-    */
+    await pulsarWait(900);
 
     pulsarBoot.style.display =
         "none";
@@ -1881,7 +5612,6 @@ async function finishPulsarBoot() {
     pulsarBoot.style.pointerEvents =
         "none";
 }
-
 
 // ========================================
 // BOOT WARNING
@@ -1891,22 +5621,17 @@ function pulsarBootWarning(
     message,
     error
 ) {
-
     console.warn(
         `PULSAR BOOT // ${message}`,
         error || ""
     );
 
-
     try {
-
         createPulsarBootLine(
             "WARN",
             message
         );
-
     } catch (bootLineError) {
-
         console.warn(
             "PULSAR BOOT // LOG FAILURE",
             bootLineError
@@ -1914,17 +5639,14 @@ function pulsarBootWarning(
     }
 }
 
-
 // ========================================
 // EMERGENCY DESKTOP RELEASE
 // ========================================
 
 function releasePulsarDesktop() {
-
     if (!pulsarBoot) {
         return;
     }
-
 
     pulsarBoot.style.display =
         "none";
@@ -1933,31 +5655,14 @@ function releasePulsarDesktop() {
         "none";
 }
 
-
 // ========================================
 // START BOOT
 // ========================================
 
 async function startPulsarBoot() {
-
-    /*
-        Prepare the existing desktop.
-
-        IMPORTANT:
-        Boot is only an overlay.
-        Window Manager remains untouched.
-    */
-
     preparePulsarDesktop();
 
-
-    /*
-        If boot HTML doesn't exist,
-        release desktop normally.
-    */
-
     if (!pulsarBoot) {
-
         console.warn(
             "PULSAR // BOOT LAYER NOT FOUND"
         );
@@ -1965,79 +5670,43 @@ async function startPulsarBoot() {
         return;
     }
 
-
-    /*
-        DEVELOPMENT SWITCH
-
-        Change:
-
-        enabled: true
-
-        to:
-
-        enabled: false
-
-        inside PULSAR_BOOT_CONFIG
-        to skip boot during development.
-    */
-
     if (
         !PULSAR_BOOT_CONFIG.enabled
     ) {
-
         releasePulsarDesktop();
-
         return;
     }
-
 
     const bootStartedAt =
         performance.now();
 
-
     try {
-
         // ========================================
         // STAGE 01
         // PULSAR IDENTITY
         // ========================================
 
         if (pulsarBootStatus) {
-
             pulsarBootStatus.textContent =
                 "INITIALIZING SYSTEM";
         }
-
 
         await pulsarWait(
             PULSAR_BOOT_CONFIG.brandDuration
         );
 
-
-        /*
-            Logo / PULSAR-OS screen
-            leaves before terminal begins.
-        */
-
         if (pulsarBootBrand) {
-
             pulsarBootBrand.classList.add(
                 "boot-brand-leaving"
             );
         }
 
-
-        await pulsarWait(
-            420
-        );
-
+        await pulsarWait(420);
 
         if (pulsarBootBrand) {
-
             pulsarBootBrand.style.display =
                 "none";
         }
-
 
         // ========================================
         // STAGE 02
@@ -2045,37 +5714,25 @@ async function startPulsarBoot() {
         // ========================================
 
         if (pulsarBootTerminal) {
-
             pulsarBootTerminal.classList.add(
                 "active"
             );
         }
 
-
         if (pulsarBootCorner) {
-
             pulsarBootCorner.classList.add(
                 "active"
             );
         }
 
-
-        /*
-            Linux-style boot information.
-        */
-
         try {
-
             await runPulsarTerminal();
-
         } catch (error) {
-
             pulsarBootWarning(
                 "Hardware probe incomplete - continuing boot",
                 error
             );
         }
-
 
         // ========================================
         // BOOT DURATION
@@ -2085,19 +5742,16 @@ async function startPulsarBoot() {
             performance.now() -
             bootStartedAt;
 
-
         const remaining =
             Math.max(
                 350,
                 PULSAR_BOOT_CONFIG.totalDuration -
-                elapsed
+                    elapsed
             );
-
 
         await pulsarWait(
             remaining
         );
-
 
         // ========================================
         // STAGE 03
@@ -2106,58 +5760,65 @@ async function startPulsarBoot() {
 
         await finishPulsarBoot();
 
-
         console.log(
             "PULSAR OS // BUILD 0.6 // READY"
         );
-
-
     } catch (error) {
-
-        /*
-            FAIL OPEN.
-
-            Boot animation should NEVER
-            prevent access to the OS.
-        */
-
         console.error(
             "PULSAR BOOT // CRITICAL WARNING",
             error
         );
 
-
         releasePulsarDesktop();
     }
 }
-
 
 // ========================================
 // NETWORK STATE
 // ========================================
 
+function updateNetworkIndicator() {
+    if (!networkIndicator) {
+        return;
+    }
+
+    const online =
+        navigator.onLine;
+
+    networkIndicator.classList.toggle(
+        "offline",
+        !online
+    );
+
+    const status =
+        online
+            ? "NETWORK // ONLINE"
+            : "NETWORK // OFFLINE";
+
+    networkIndicator.title =
+        status;
+
+    networkIndicator.setAttribute(
+        "aria-label",
+        status
+    );
+
+    console.log(
+        `PULSAR // ${status}`
+    );
+}
+
 window.addEventListener(
     "online",
-    function () {
-
-        console.log(
-            "PULSAR // NETWORK ONLINE"
-        );
-    }
+    updateNetworkIndicator
 );
-
 
 window.addEventListener(
     "offline",
-    function () {
-
-        console.log(
-            "PULSAR // NETWORK OFFLINE"
-        );
-    }
+    updateNetworkIndicator
 );
 
-
+updateNetworkIndicator();
 // ========================================
 // WINDOW RESIZE SAFETY
 // ========================================
@@ -2165,67 +5826,81 @@ window.addEventListener(
 window.addEventListener(
     "resize",
     function () {
+        if (!desktop) {
+            return;
+        }
 
-        [
-            welcomeWindow,
-            signalLogWindow,
-            customizationWindow
+        document
+            .querySelectorAll(".window")
+            .forEach(
+                function (windowElement) {
+                    const state =
+                        PulsarWindowManager
+                            .getWindowState(
+                                windowElement
+                            );
 
-        ].forEach(
-            function (windowElement) {
+                    if (
+                        !state ||
+                        !state.open ||
+                        state.minimized
+                    ) {
+                        return;
+                    }
 
-                if (!windowElement) {
-                    return;
-                }
+                    if (state.maximized) {
+                        windowElement.style.left =
+                            "0px";
 
+                        windowElement.style.top =
+                            "0px";
 
-                if (
-                    windowElement.style.display ===
-                    "none"
-                ) {
-                    return;
-                }
+                        windowElement.style.width =
+                            desktop.clientWidth +
+                            "px";
 
+                        windowElement.style.height =
+                            desktop.clientHeight +
+                            "px";
 
-                const maxLeft =
-                    Math.max(
-                        0,
-                        desktop.clientWidth -
-                        windowElement.offsetWidth
-                    );
+                        return;
+                    }
 
+                    const maxLeft =
+                        Math.max(
+                            0,
+                            desktop.clientWidth -
+                                windowElement.offsetWidth
+                        );
 
-                const maxTop =
-                    Math.max(
-                        0,
-                        desktop.clientHeight -
-                        windowElement.offsetHeight
-                    );
-
-
-                if (
-                    windowElement.offsetLeft >
-                    maxLeft
-                ) {
+                    const maxTop =
+                        Math.max(
+                            0,
+                            desktop.clientHeight -
+                                windowElement.offsetHeight
+                        );
 
                     windowElement.style.left =
-                        maxLeft + "px";
-                }
-
-
-                if (
-                    windowElement.offsetTop >
-                    maxTop
-                ) {
+                        Math.max(
+                            0,
+                            Math.min(
+                                windowElement.offsetLeft,
+                                maxLeft
+                            )
+                        ) + "px";
 
                     windowElement.style.top =
-                        maxTop + "px";
+                        Math.max(
+                            0,
+                            Math.min(
+                                windowElement.offsetTop,
+                                maxTop
+                            )
+                        ) + "px";
                 }
-            }
-        );
+            );
     }
 );
-
 
 // ========================================
 // PULSAR POWER ON

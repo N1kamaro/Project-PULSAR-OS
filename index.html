@@ -1,1042 +1,1695 @@
 ﻿<!DOCTYPE html>
-
-
 <html lang="en">
 
-
 <head>
-
-
-    <meta charset="UTF-8">
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-        <title>PULSAR OS</title>
-
-
-    <link rel="stylesheet" href="style.css">
-
-
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        PULSAR OS
+    </title>
+    <link href="style.css" rel="stylesheet" />
 </head>
 
-
 <body>
-
-
-        <!-- ========================================
+    <!-- ========================================
          PULSAR BOOT SEQUENCE // BUILD 0.6
     ========================================= -->
-
-    <section class="pulsar-boot" id="pulsarBoot" aria-live="polite">
-
+    <section aria-live="polite" class="pulsar-boot" id="pulsarBoot">
         <div class="pulsar-boot-brand" id="pulsarBootBrand">
-            <img src="images/logos/LOGO-PULSAR.png" class="pulsar-boot-main-logo" alt="PULSAR">
-            <div class="pulsar-boot-name">PULSAR-OS</div>
+            <img alt="PULSAR" class="pulsar-boot-main-logo" src="images/logos/LOGO-PULSAR.png" />
+            <div class="pulsar-boot-name">
+                PULSAR-OS
+            </div>
             <div class="pulsar-boot-status" id="pulsarBootStatus">
                 INITIALIZING SYSTEM
             </div>
         </div>
-
         <div class="pulsar-boot-terminal" id="pulsarBootTerminal">
-            <div class="pulsar-boot-lines" id="pulsarBootLines"></div>
-        </div>
-
-        <div class="pulsar-boot-corner">
-            <img src="images/logos/LOGO-PULSAR.png" class="pulsar-boot-corner-logo" alt="">
-            <div>
-                <strong>PULSAR-OS</strong>
-                <span>BUILD 0.6</span>
+            <div class="pulsar-boot-lines" id="pulsarBootLines">
             </div>
         </div>
-
+        <div class="pulsar-boot-corner">
+            <img alt="" class="pulsar-boot-corner-logo" src="images/logos/LOGO-PULSAR.png" />
+            <div>
+                <strong>
+                    PULSAR-OS
+                </strong>
+                <span>
+                    BUILD 0.6
+                </span>
+            </div>
+        </div>
         <div class="pulsar-boot-build">
             PULSAR SYSTEM // BUILD 0.6
         </div>
-
     </section>
-
-
     <!-- ========================================
-
-
          TOP BAR
-
-
     ========================================= -->
-
-
-        <header class="top-bar" id="topBar">
-
-    <button
-        class="top-left"
-        id="systemMenuButton"
-        type="button"
-        aria-label="Open PULSAR menu"
+    <header class="top-bar" id="topBar">
+        <button aria-label="Open PULSAR menu" class="top-left" id="systemMenuButton" type="button">
+            <img alt="" class="top-logo" src="images/logos/LOGO-PULSAR.png" />
+            <span>
+                PULSAR OS
+            </span>
+        </button>
+        <div class="top-center">
+            PULSAR OS // BUILD 0.6
+        </div>
+        <div class="top-right">
+    <span
+        class="network-indicator"
+        id="networkIndicator"
+        title="NETWORK // CHECKING"
+        aria-label="Network status"
     >
-        <img
-            src="images/logos/LOGO-PULSAR.png"
-            class="top-logo"
-            alt=""
-        >
+        <span class="network-bar"></span>
+        <span class="network-bar"></span>
+        <span class="network-bar"></span>
+        <span class="network-bar"></span>
+    </span>
 
-        <span>PULSAR OS</span>
+    <span>
+        LOCAL TIME //
+    </span>
+
+    <span id="clock">
+        00:00:00
+    </span>
+</div>
+    </header>
+    <!-- ========================================
+         PULSAR SYSTEM MENU
+    ========================================= -->
+    <nav class="system-menu" id="systemMenu">
+        <div class="menu-header">
+            <div class="menu-brand">
+                <img alt="" class="menu-logo" src="images/logos/LOGO-PULSAR.png" />
+                <span>
+                    PULSAR // SYSTEM
+                </span>
+            </div>
+            <span class="menu-status">
+                ONLINE
+            </span>
+        </div>
+        <!-- SYSTEM -->
+        <div class="menu-section">
+            <div class="menu-section-title">
+                SYSTEM
+            </div>
+            <button class="menu-item" id="openAbout" type="button">
+                <span class="menu-icon">
+                    ◇
+                </span>
+                <span>
+                    SYSTEM / ABOUT
+                </span>
+            </button>
+        </div>
+<!-- APPLICATIONS -->
+    <div class="menu-section">
+    <div class="menu-section-title">
+        APPLICATIONS
+    </div>
+
+    <button class="menu-item" id="openSignalLog" type="button">
+        <span class="menu-icon">&gt;\_</span>
+        <span>SIGNAL LOG</span>
     </button>
 
-    <div class="top-center">
-        PULSAR OS // BUILD 0.6
-    </div>
-
-    <div class="top-right">
-        <span>LOCAL TIME //</span>
-        <span id="clock">00:00:00</span>
-    </div>
-
-    </header>
-
-
-        <!-- ========================================
-
-
-         PULSAR SYSTEM MENU
-
-
-    ========================================= -->
-
-
-        <nav         class="system-menu"         id="systemMenu"    >
-
-
-                <div class="menu-header">
-
-
-                        <div class="menu-brand">
-
-
-                                <img src="images/logos/LOGO-PULSAR.png"
-                    class="menu-logo"                     alt=""                >
-
-
-                                <span>
-
-
-                                        PULSAR // SYSTEM
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                        <span class="menu-status">
-
-
-                                ONLINE
-
-
-                            </span>
-
-
-                    </div>
-
-
-                <!-- SYSTEM -->
-
-
-                <div class="menu-section">
-
-
-                        <div class="menu-section-title">
-
-
-                                SYSTEM
-
-
-                            </div>
-
-
-                        <button                 class="menu-item"                 id="openAbout"
-                type="button"            >
-
-                                <span class="menu-icon">◇</span>
-
-                                <span>SYSTEM / ABOUT</span>
-
-                            </button>
-
-                    </div>
-
-                <!-- APPLICATIONS -->
-                <div class="menu-section">
-                        <div class="menu-section-title">
-                                APPLICATIONS
-                            </div>
-
-                        <button class="menu-item" id="openSignalLog" type="button">
-                                <span class="menu-icon">&gt;_</span>
-                                <span>SIGNAL LOG</span>
-                            </button>
-                        <div class="menu-item disabled">
-
-
-                                <span class="menu-icon">◉</span>
-
-
-                                <span>
-
-
-                                        SERIAL MONITOR
-
-
-                                    </span>
-
-
-                                <span class="menu-tag">
-
-
-                                        SOON
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                        <div class="menu-item disabled">
-
-
-                                <span class="menu-icon">◫</span>
-
-
-                                <span>
-
-
-                                        DEVICE MANAGER
-
-
-                                    </span>
-
-
-                                <span class="menu-tag">
-
-
-                                        SOON
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                    </div>
-
-
-                <!-- INTERFACE -->
-
-
-                <div class="menu-section">
-
-
-                        <div class="menu-section-title">
-
-
-                                INTERFACE
-
-
-                            </div>
-
-
-                        <button                 class="menu-item"                 id="openCustomization"
-                type="button"            >
-
-
-                                <span class="menu-icon">✦</span>
-
-
-                                <span>
-
-
-                                        CUSTOMIZATION
-
-
-                                    </span>
-
-
-                                <span class="menu-arrow">
-
-
-                                        &gt;
-
-
-                                    </span>
-
-
-                            </button>
-
-
-                    </div>
-
-
-                <div class="menu-footer">
-
-
-                        <span>
-
-
-                                CORE // READY
-
-
-                            </span>
-
-
-                        <span>
-
-
-                                BUILD // 0.6
-
-
-                            </span>
-
-
-                    </div>
-
-
-            </nav>
-
-
-        <!-- ========================================
-
-
+    <button class="menu-item" id="openNotes" type="button">
+        <span class="menu-icon">✎</span>
+        <span>NOTES</span>
+    </button>
+
+    <button class="menu-item" id="openCalculator" type="button">
+        <span class="menu-icon">+−</span>
+        <span>CALCULATOR</span>
+    </button>
+
+    <button class="menu-item" id="openTerminal" type="button">
+        <span class="menu-icon">&gt;_</span>
+        <span>TERMINAL</span>
+    </button>
+
+    <button class="menu-item" id="openWeb" type="button">
+        <span class="menu-icon">⌁</span>
+        <span>WEB</span>
+    </button>
+
+    <button class="menu-item" id="openSerial" type="button">
+    <span class="menu-icon">◉</span>
+    <span>SERIAL MONITOR</span>
+    <span class="menu-tag" id="serialMenuStatus">READY</span>
+    </button>
+
+    <button class="menu-item" id="openDeviceManager" type="button">
+    <span class="menu-icon">◇</span>
+    <span>DEVICE MANAGER</span>
+    <span class="menu-tag" id="deviceManagerMenuStatus">
+        READY
+    </span>
+    </button>
+
+    <button class="menu-item" id="openGuide" type="button">
+    <span class="menu-icon">?</span>
+    <span>GUIDE</span>
+      <span class="menu-tag">READY</span>
+    </button>
+
+        <!-- INTERFACE -->
+        <div class="menu-section">
+            <div class="menu-section-title">
+                INTERFACE
+            </div>
+            <button class="menu-item" id="openCustomization" type="button">
+                <span class="menu-icon">
+                    ✦
+                </span>
+                <span>
+                    CUSTOMIZATION
+                </span>
+                <span class="menu-arrow">
+                    &gt;
+                </span>
+            </button>
+        </div>
+        <div class="menu-footer">
+            <span>
+                CORE // READY
+            </span>
+            <span>
+                BUILD // 0.6
+            </span>
+        </div>
+    </nav>
+    <!-- ========================================
          SCREEN TRANSITION
-
-
     ========================================= -->
-
-
-        <div         class="screen-fade"         id="screenFade"    ></div>
-
-
-        <!-- ========================================
-
-
+    <div class="screen-fade" id="screenFade">
+    </div>
+    <!-- ========================================
          DESKTOP
-
-
     ========================================= -->
+    <main class="desktop" id="desktop">
+        <div class="desktop-label">
+            <span>
+                PULSAR NETWORK
+            </span>
+            <span>
+                DESKTOP // 01
+            </span>
+        </div>
+
+        <!-- PULSAR NOTES -->
+    <section class="window notes-window" id="notesWindow">
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // NOTES
+        </div>
+
+        <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+                ─
+            </button>
+
+            <button class="window-maximize" type="button" aria-label="Maximize">
+                □
+            </button>
+
+            <button class="window-close" type="button" aria-label="Close">
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="notes-toolbar">
+        <span id="notesStatus">
+            READY
+        </span>
+
+        <button id="clearNotes" type="button">
+            CLEAR
+        </button>
+    </div>
+
+    <textarea
+        id="notesEditor"
+        spellcheck="false"
+        placeholder="WRITE SOMETHING..."
+    ></textarea>
+
+    <div class="notes-footer">
+        LOCAL STORAGE // AUTOSAVE ENABLED
+    </div>
+    </section>
+
+        <!-- PULSAR CALCULATOR -->
+<section class="window calculator-window" id="calculatorWindow">
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // CALCULATOR
+        </div>
+
+        <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+                ─
+            </button>
+
+            <button class="window-maximize" type="button" aria-label="Maximize">
+                □
+            </button>
+
+            <button class="window-close" type="button" aria-label="Close">
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="calculator-header">
+        <span>CALCULATION // LOCAL</span>
+        <span id="calculatorStatus">READY</span>
+    </div>
+
+    <div class="calculator-display">
+        <div class="calculator-expression" id="calculatorExpression"></div>
+        <div class="calculator-result" id="calculatorResult">0</div>
+    </div>
+
+    <div class="calculator-grid">
+        <button class="calculator-button calculator-action" data-action="clear">
+            C
+        </button>
+
+        <button class="calculator-button calculator-action" data-action="backspace">
+            ⌫
+        </button>
+
+        <button class="calculator-button calculator-operator" data-value="/">
+            ÷
+        </button>
+
+        <button class="calculator-button calculator-operator" data-value="*">
+            ×
+        </button>
+
+        <button class="calculator-button" data-value="7">7</button>
+        <button class="calculator-button" data-value="8">8</button>
+        <button class="calculator-button" data-value="9">9</button>
+
+        <button class="calculator-button calculator-operator" data-value="-">
+            −
+        </button>
+
+        <button class="calculator-button" data-value="4">4</button>
+        <button class="calculator-button" data-value="5">5</button>
+        <button class="calculator-button" data-value="6">6</button>
+
+        <button class="calculator-button calculator-operator" data-value="+">
+            +
+        </button>
+
+        <button class="calculator-button" data-value="1">1</button>
+        <button class="calculator-button" data-value="2">2</button>
+        <button class="calculator-button" data-value="3">3</button>
+
+        <button class="calculator-button calculator-equals" data-action="equals">
+            =
+        </button>
+
+        <button class="calculator-button calculator-zero" data-value="0">
+            0
+        </button>
+
+        <button class="calculator-button" data-value=".">
+            .
+        </button>
+    </div>
+
+    <div class="calculator-footer">
+        CORE // READY
+    </div>
+    </section>
+
+        <!-- PULSAR TERMINAL -->
+<section class="window terminal-window" id="terminalWindow">
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // TERMINAL
+        </div>
+
+        <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+                ─
+            </button>
+
+            <button class="window-maximize" type="button" aria-label="Maximize">
+                □
+            </button>
+
+            <button class="window-close" type="button" aria-label="Close">
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="terminal-header">
+        <span>LOCAL SHELL // PULSAR CORE</span>
+        <span id="terminalStatus">READY</span>
+    </div>
+
+    <div class="terminal-output" id="terminalOutput">
+        <div class="terminal-line terminal-muted">
+            PULSAR TERMINAL // BUILD 1.0
+        </div>
+
+        <div class="terminal-line">
+            TYPE "help" TO LIST AVAILABLE COMMANDS.
+        </div>
+    </div>
+
+    <div class="terminal-input-row">
+        <span class="terminal-prompt">
+            pulsar@core:~$
+        </span>
+
+        <input
+            id="terminalInput"
+            class="terminal-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Terminal command"
+        >
+    </div>
+
+    <div class="terminal-footer">
+        SHELL // LOCAL
+    </div>
+    </section>
+
+    <!-- PULSAR WEB -->
+    <section class="window web-window" id="webWindow">
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // WEB
+        </div>
+
+        <div class="window-controls">
+            <button
+                class="window-minimize"
+                type="button"
+                aria-label="Minimize"
+            >
+                ─
+            </button>
+
+            <button
+                class="window-maximize"
+                type="button"
+                aria-label="Maximize"
+            >
+                □
+            </button>
+
+            <button
+                class="window-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="web-toolbar">
+        <button
+            class="web-nav-button"
+            id="webBack"
+            type="button"
+            aria-label="Back"
+            title="Back"
+        >
+            ←
+        </button>
+
+        <button
+            class="web-nav-button"
+            id="webForward"
+            type="button"
+            aria-label="Forward"
+            title="Forward"
+        >
+            →
+        </button>
+
+        <button
+            class="web-nav-button"
+            id="webReload"
+            type="button"
+            aria-label="Reload"
+            title="Reload"
+        >
+            ↻
+        </button>
+
+        <button
+            class="web-nav-button"
+            id="webHome"
+            type="button"
+            aria-label="Home"
+            title="Home"
+        >
+            ⌂
+        </button>
+
+        <div class="web-address-wrapper">
+            <span class="web-address-prefix">
+                WEB //
+            </span>
+
+            <input
+                id="webAddress"
+                class="web-address"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="ENTER URL OR SEARCH..."
+                aria-label="Web address or search"
+            >
+        </div>
+
+        <button
+            class="web-go-button"
+            id="webGo"
+            type="button"
+        >
+            GO
+        </button>
+
+        <button
+            class="web-nav-button"
+            id="webHistoryToggle"
+            type="button"
+            aria-label="History"
+            title="Session history"
+        >
+            ≡
+        </button>
+    </div>
+
+    <div class="web-status-bar">
+        <span id="webStatus">
+            READY
+        </span>
+
+        <span id="webProtocol">
+            LOCAL // HOME
+        </span>
+    </div>
+
+    <div class="web-content">
+        <aside
+            class="web-history-panel"
+            id="webHistoryPanel"
+            hidden
+        >
+            <div class="web-history-header">
+                SESSION HISTORY
+            </div>
+
+            <div
+                class="web-history-list"
+                id="webHistoryList"
+            >
+                <div class="web-history-empty">
+                    NO NAVIGATION HISTORY
+                </div>
+            </div>
+        </aside>
+
+        <div class="web-view">
+            <div
+                class="web-home-screen"
+                id="webHomeScreen"
+            >
+                <div class="web-home-mark">
+                    ⌁
+                </div>
+
+                <div class="web-home-title">
+                    PULSAR WEB
+                </div>
+
+                <div class="web-home-subtitle">
+                    NETWORK INTERFACE // STANDBY
+                </div>
+
+                <div class="web-home-line"></div>
+
+                <div class="web-home-text">
+                    ENTER A URL OR SEARCH QUERY TO BEGIN.
+                </div>
+            </div>
+
+            <iframe
+                id="webFrame"
+                class="web-frame"
+                title="PULSAR Web content"
+                referrerpolicy="strict-origin-when-cross-origin"
+                hidden
+            ></iframe>
+
+            <div
+                class="web-fallback"
+                id="webFallback"
+                hidden
+            >
+                <div class="web-fallback-code">
+                    EMBED // UNAVAILABLE
+                </div>
+
+                <div class="web-fallback-title">
+                    PAGE CANNOT BE DISPLAYED INSIDE PULSAR
+                </div>
+
+                <div class="web-fallback-text">
+                    THIS WEBSITE MAY BLOCK EMBEDDED VIEWING.
+                </div>
+
+                <div
+                    class="web-fallback-url"
+                    id="webFallbackUrl"
+                >
+                    NO URL
+                </div>
+
+                <button
+                    class="web-external-button"
+                    id="webOpenExternal"
+                    type="button"
+                >
+                    OPEN EXTERNALLY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="web-footer">
+        <span>
+            PULSAR WEB // SESSION
+        </span>
+
+        <span id="webFooterStatus">
+            NETWORK // READY
+        </span>
+    </div>
+    </section>
+
+    <!-- ========================================
+     PULSAR SERIAL MONITOR
+======================================== -->
+<section class="window serial-window" id="serialWindow">
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // SERIAL MONITOR
+        </div>
+
+        <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+                ─
+            </button>
+
+            <button class="window-maximize" type="button" aria-label="Maximize">
+                □
+            </button>
+
+            <button class="window-close" type="button" aria-label="Close">
+                ×
+            </button>
+        </div>
+    </div>
 
 
-        <main         class="desktop"         id="desktop"    >
 
+    <!-- CONNECTION BAR -->
+    <div class="serial-connection-bar">
+        <div class="serial-port-display">
+            <span class="serial-label">
+                PORT //
+            </span>
 
-                <div class="desktop-label">
+            <span id="serialPortName">
+                NO DEVICE
+            </span>
+        </div>
 
+        <label class="serial-baud-control">
+            <span>
+                BAUD //
+            </span>
 
-                        <span>
+            <select id="serialBaudRate">
+                <option value="9600">9600</option>
+                <option value="19200">19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="115200" selected>115200</option>
+                <option value="230400">230400</option>
+                <option value="460800">460800</option>
+                <option value="921600">921600</option>
+            </select>
+        </label>
 
+        <div
+            class="serial-state"
+            id="serialState"
+            data-state="disconnected"
+        >
+            <span class="serial-state-dot"></span>
+            <span id="serialStateText">
+                DISCONNECTED
+            </span>
+        </div>
 
-                                PULSAR NETWORK
+        <div class="serial-connection-actions">
+            <button
+                class="serial-button"
+                id="serialSelectPort"
+                type="button"
+            >
+                SELECT PORT
+            </button>
 
+            <button
+                class="serial-button"
+                id="serialConnect"
+                type="button"
+                disabled
+            >
+                CONNECT
+            </button>
 
-                            </span>
+            <button
+                class="serial-button serial-danger"
+                id="serialDisconnect"
+                type="button"
+                disabled
+            >
+                DISCONNECT
+            </button>
+        </div>
+    </div>
 
+    <!-- DEVICE + SETTINGS -->
+    <div class="serial-information">
+        <div class="serial-device-info">
+            <div class="serial-section-title">
+                DEVICE INFORMATION
+            </div>
 
-                        <span>
+            <div class="serial-info-row">
+                <span>USB VENDOR ID</span>
+                <span>//</span>
+                <strong id="serialVendorId">
+                    UNKNOWN
+                </strong>
+            </div>
 
+            <div class="serial-info-row">
+                <span>USB PRODUCT ID</span>
+                <span>//</span>
+                <strong id="serialProductId">
+                    UNKNOWN
+                </strong>
+            </div>
 
-                                DESKTOP // 01
+            <div class="serial-info-row">
+                <span>DEVICE</span>
+                <span>//</span>
+                <strong id="serialDeviceLabel">
+                    NO DEVICE
+                </strong>
+            </div>
 
+            <div class="serial-info-row">
+                <span>INTERFACE</span>
+                <span>//</span>
+                <strong id="serialInterfaceStatus">
+                    WEB SERIAL
+                </strong>
+            </div>
+        </div>
 
-                            </span>
+        <div class="serial-settings">
+            <div class="serial-section-title">
+                SERIAL SETTINGS
+            </div>
 
+            <div class="serial-settings-grid">
+                <div class="serial-setting-static">
+                    <span>DATA BITS</span>
+                    <strong>8</strong>
+                </div>
 
-                    </div>
+                <div class="serial-setting-static">
+                    <span>STOP BITS</span>
+                    <strong>1</strong>
+                </div>
 
+                <div class="serial-setting-static">
+                    <span>PARITY</span>
+                    <strong>NONE</strong>
+                </div>
 
-                <!-- ========================================
+                <label>
+                    <span>LINE ENDING</span>
 
+                    <select id="serialLineEnding">
+                        <option value="none">
+                            NONE
+                        </option>
 
+                        <option value="lf">
+                            LF
+                        </option>
+
+                        <option value="crlf" selected>
+                            CRLF
+                        </option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>AUTO SCROLL</span>
+
+                    <select id="serialAutoScroll">
+                        <option value="on" selected>
+                            ON
+                        </option>
+
+                        <option value="off">
+                            OFF
+                        </option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>TIMESTAMP</span>
+
+                    <select id="serialTimestamp">
+                        <option value="on" selected>
+                            ON
+                        </option>
+
+                        <option value="off">
+                            OFF
+                        </option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>HEX VIEW</span>
+
+                    <select id="serialHexView">
+                        <option value="off" selected>
+                            OFF
+                        </option>
+
+                        <option value="on">
+                            ON
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERIAL CONSOLE -->
+    <div class="serial-console-header">
+        <span>
+            SERIAL STREAM
+        </span>
+
+        <button
+            id="serialClear"
+            class="serial-console-action"
+            type="button"
+        >
+            CLEAR LOG
+        </button>
+    </div>
+
+    <div
+        class="serial-console"
+        id="serialOutput"
+        aria-live="polite"
+    >
+        <div class="serial-line serial-system">
+            PULSAR SERIAL CORE // STANDBY
+        </div>
+
+        <div class="serial-line serial-muted">
+            SELECT A SERIAL PORT TO BEGIN.
+        </div>
+    </div>
+
+    <!-- TX -->
+    <div class="serial-transmit">
+        <span class="serial-tx-label">
+            TX //
+        </span>
+
+        <input
+            id="serialTxInput"
+            class="serial-tx-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="SEND DATA TO DEVICE..."
+            disabled
+        >
+
+        <button
+            id="serialSend"
+            class="serial-send-button"
+            type="button"
+            disabled
+        >
+            SEND
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="serial-footer">
+        <div class="serial-counters">
+            <span>
+                RX //
+                <strong id="serialRxBytes">
+                    0 B
+                </strong>
+            </span>
+
+            <span>
+                TX //
+                <strong id="serialTxBytes">
+                    0 B
+                </strong>
+            </span>
+
+            <span>
+                RX MSG //
+                <strong id="serialRxMessages">
+                    0
+                </strong>
+            </span>
+
+            <span>
+                TX MSG //
+                <strong id="serialTxMessages">
+                    0
+                </strong>
+            </span>
+        </div>
+
+        <div class="serial-footer-status">
+            <span>
+                LINK //
+                <strong id="serialLinkStatus">
+                    INACTIVE
+                </strong>
+            </span>
+
+            <span>
+                CORE //
+                <strong id="serialCoreStatus">
+                    READY
+                </strong>
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     PULSAR // DEVICE MANAGER
+======================================== -->
+
+<section
+    class="window device-manager-window"
+    id="deviceManagerWindow"
+>
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // DEVICE MANAGER
+        </div>
+
+        <div class="window-controls">
+            <button
+                class="window-minimize"
+                type="button"
+                aria-label="Minimize"
+            >
+                −
+            </button>
+
+            <button
+                class="window-maximize"
+                type="button"
+                aria-label="Maximize"
+            >
+                □
+            </button>
+
+            <button
+                class="window-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="device-manager-content">
+
+        <div class="device-manager-header">
+            <div class="device-manager-title">
+                <span class="device-manager-label">
+                    CURRENT DEVICE
+                </span>
+
+                <strong id="deviceManagerName">
+                    NO DEVICE
+                </strong>
+            </div>
+
+            <div
+                class="device-manager-state"
+                id="deviceManagerState"
+            >
+                <span
+                    class="device-manager-state-dot"
+                ></span>
+
+                <span id="deviceManagerStateText">
+                    DISCONNECTED
+                </span>
+            </div>
+        </div>
+
+        <div class="device-manager-section">
+            <div class="device-manager-section-title">
+                DEVICE INFORMATION
+            </div>
+
+            <div class="device-manager-grid">
+
+                <div class="device-manager-field">
+                    <span>
+                        USB VENDOR ID
+                    </span>
+
+                    <strong id="deviceManagerVendorId">
+                        UNKNOWN
+                    </strong>
+                </div>
+
+                <div class="device-manager-field">
+                    <span>
+                        USB PRODUCT ID
+                    </span>
+
+                    <strong id="deviceManagerProductId">
+                        UNKNOWN
+                    </strong>
+                </div>
+
+                <div class="device-manager-field">
+                    <span>
+                        INTERFACE
+                    </span>
+
+                    <strong id="deviceManagerInterface">
+                        WEB SERIAL
+                    </strong>
+                </div>
+
+                <div class="device-manager-field">
+                    <span>
+                        BAUD RATE
+                    </span>
+
+                    <strong id="deviceManagerBaud">
+                        115200
+                    </strong>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="device-manager-section">
+            <div class="device-manager-section-title">
+                DEVICE MEMORY
+            </div>
+
+            <div class="device-manager-grid">
+
+                <div
+                    class="device-manager-field device-manager-field-wide"
+                >
+                    <span>
+                        DEVICE ALIAS
+                    </span>
+
+                    <input
+                        id="deviceManagerAlias"
+                        type="text"
+                        placeholder="NAME THIS DEVICE..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                </div>
+
+                <div class="device-manager-field">
+                    <span>
+                        LAST SEEN
+                    </span>
+
+                    <strong id="deviceManagerLastSeen">
+                        NEVER
+                    </strong>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="device-manager-actions">
+
+            <button
+                id="deviceManagerSelect"
+                type="button"
+            >
+                SELECT DEVICE
+            </button>
+
+            <button
+                id="deviceManagerConnect"
+                type="button"
+                disabled
+            >
+                CONNECT
+            </button>
+
+            <button
+                id="deviceManagerDisconnect"
+                type="button"
+                disabled
+            >
+                DISCONNECT
+            </button>
+
+            <button
+                id="deviceManagerOpenSerial"
+                type="button"
+            >
+                OPEN SERIAL MONITOR
+            </button>
+
+        </div>
+
+        <div class="device-manager-footer">
+            <span id="deviceManagerLink">
+                LINK // INACTIVE
+            </span>
+
+            <span>
+                CORE // PULSAR SERIAL
+            </span>
+        </div>
+
+    </div>
+</section>
+
+<!-- ========================================
+     PULSAR GUIDE
+========================================= -->
+
+<section class="window guide-window" id="guideWindow">
+
+    <div class="window-bar">
+        <div class="window-title">
+            PULSAR // GUIDE
+        </div>
+
+        <div class="window-controls">
+            <button
+                class="window-minimize"
+                type="button"
+                aria-label="Minimize window"
+            >
+                −
+            </button>
+
+            <button
+                class="window-maximize"
+                type="button"
+                aria-label="Maximize window"
+            >
+                □
+            </button>
+
+            <button
+                class="window-close"
+                type="button"
+                aria-label="Close window"
+            >
+                ×
+            </button>
+        </div>
+    </div>
+
+    <div class="guide-layout">
+
+        <aside class="guide-sidebar">
+
+            <div class="guide-sidebar-title">
+                DOCUMENTATION
+            </div>
+
+            <button
+                class="guide-nav active"
+                data-guide="start"
+                type="button"
+            >
+                GETTING STARTED
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="system"
+                type="button"
+            >
+                SYSTEM
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="terminal"
+                type="button"
+            >
+                TERMINAL
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="web"
+                type="button"
+            >
+                WEB
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="serial"
+                type="button"
+            >
+                SERIAL MONITOR
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="devices"
+                type="button"
+            >
+                DEVICE MANAGER
+            </button>
+
+            <button
+                class="guide-nav"
+                data-guide="shortcuts"
+                type="button"
+            >
+                SHORTCUTS
+            </button>
+
+        </aside>
+
+        <main class="guide-content">
+
+            <!-- GETTING STARTED -->
+            <div
+                class="guide-page active"
+                data-guide-page="start"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 001
+                </span>
+
+                <h1>GETTING STARTED</h1>
+
+                <p>
+                    Welcome to PULSAR OS.
+                </p>
+
+                <p>
+                    PULSAR is a browser-based desktop
+                    environment designed around system
+                    tools, hardware communication and
+                    experimentation.
+                </p>
+
+                <div class="guide-block">
+                    <strong>BUILD</strong>
+                    <span>1.0</span>
+
+                    <strong>CORE</strong>
+                    <span>READY</span>
+
+                    <strong>INTERFACE</strong>
+                    <span>WEB</span>
+                </div>
+
+                <p class="guide-muted">
+                    Use the system menu or Terminal to
+                    launch applications.
+                </p>
+            </div>
+
+            <!-- SYSTEM -->
+            <div
+                class="guide-page"
+                data-guide-page="system"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 002
+                </span>
+
+                <h1>SYSTEM</h1>
+
+                <p>
+                    Applications run inside independent
+                    desktop windows.
+                </p>
+
+                <p>
+                    Windows can be moved, minimized,
+                    maximized and closed using their
+                    title-bar controls.
+                </p>
+
+                <div class="guide-command">
+                    SYSTEM MENU // APPLICATION ACCESS
+                </div>
+            </div>
+
+            <!-- TERMINAL -->
+            <div
+                class="guide-page"
+                data-guide-page="terminal"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 003
+                </span>
+
+                <h1>TERMINAL</h1>
+
+                <p>
+                    The PULSAR Terminal provides access
+                    to system and hardware commands.
+                </p>
+
+                <div class="guide-command">help</div>
+                <div class="guide-command">apps</div>
+                <div class="guide-command">system</div>
+                <div class="guide-command">open serial</div>
+                <div class="guide-command">open devices</div>
+                <div class="guide-command">serial status</div>
+                <div class="guide-command">devices</div>
+                <div class="guide-command">ping</div>
+                <div class="guide-command">device info</div>
+                <div class="guide-command">device status</div>
+            </div>
+
+            <!-- WEB -->
+            <div
+                class="guide-page"
+                data-guide-page="web"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 004
+                </span>
+
+                <h1>PULSAR WEB</h1>
+
+                <p>
+                    PULSAR Web provides an integrated
+                    network interface for browsing.
+                </p>
+
+                <p>
+                    Websites that block embedded viewing
+                    can be opened externally using the
+                    external navigation control.
+                </p>
+            </div>
+
+            <!-- SERIAL -->
+            <div
+                class="guide-page"
+                data-guide-page="serial"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 005
+                </span>
+
+                <h1>SERIAL MONITOR</h1>
+
+                <p>
+                    Serial Monitor provides bidirectional
+                    communication with supported serial
+                    hardware through Web Serial.
+                </p>
+
+                <div class="guide-block">
+                    <strong>SELECT PORT</strong>
+                    <span>Choose hardware</span>
+
+                    <strong>CONNECT</strong>
+                    <span>Open serial link</span>
+
+                    <strong>TX</strong>
+                    <span>Send data</span>
+
+                    <strong>RX</strong>
+                    <span>Receive data</span>
+                </div>
+
+                <p class="guide-muted">
+                    Web Serial support depends on the
+                    browser being used.
+                </p>
+            </div>
+
+            <!-- DEVICE MANAGER -->
+            <div
+                class="guide-page"
+                data-guide-page="devices"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 006
+                </span>
+
+                <h1>DEVICE MANAGER</h1>
+
+                <p>
+                    Device Manager displays information
+                    about the active serial device.
+                </p>
+
+                <p>
+                    Device aliases can be stored locally
+                    and associated with recognized
+                    hardware.
+                </p>
+
+                <div class="guide-command">
+                    DEVICE MEMORY // ENABLED
+                </div>
+            </div>
+
+            <!-- SHORTCUTS -->
+            <div
+                class="guide-page"
+                data-guide-page="shortcuts"
+            >
+                <span class="guide-kicker">
+                    PULSAR DOCUMENTATION // 007
+                </span>
+
+                <h1>SHORTCUTS</h1>
+
+                <div class="guide-block">
+                    <strong>ENTER</strong>
+                    <span>Execute terminal command</span>
+
+                    <strong>↑ / ↓</strong>
+                    <span>Terminal history</span>
+
+                    <strong>DOUBLE CLICK</strong>
+                    <span>Open desktop application</span>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <div class="guide-footer">
+        <span>PULSAR GUIDE // BUILD 1.0</span>
+        <span>DOCUMENTATION // LOCAL</span>
+    </div>
+
+</section>
+      
+        <!-- ========================================
              WELCOME WINDOW
-
-
         ========================================= -->
-
-
-                <section             class="window"             id="welcome"        >
-
-
-                        <div                 class="window-bar"                 id="welcomeheader"            >
-
-
-                                <span>
-
-
-                                        PULSAR // SYSTEM
-
-
-                                    </span>
-
-
-                                <div class="window-controls">
-
-
-                                        <span>─</span>
-
-
-                                        <span>□</span>
-
-
-                                        <button                         class="close-button"
-                        id="welcomeclose"                         type="button"                    >
-
-
-                                                ×
-
-
-                                            </button>
-
-
-                                    </div>
-
-
-                            </div>
-
-
-                        <div class="window-content welcome-content">
-
-
-                                <p class="system-code">
-
-
-                                        PULSAR // WEB HARDWARE INTERFACE
-
-
-                                    </p>
-
-
-                                <img                     src="images/logos/LOGO-PULSAR.png"
-                    class="welcome-logo"                     alt="PULSAR"                >
-
-
-                                <p class="status">
-
-
-                                        [ SIGNAL ACQUIRED ]
-
-
-                                    </p>
-
-
-                                <h1>
-
-
-                                        PULSAR
-
-
-                                    </h1>
-
-
-                                <p class="os-label">
-
-
-                                        OPERATING SYSTEM
-
-
-                                    </p>
-
-
-                                <div class="separator">
-
-
-                                        <span>+</span>
-
-
-                                        <div class="line"></div>
-
-
-                                        <span>+</span>
-
-
-                                    </div>
-
-
-                                <p class="description">
-
-
-                                        A web-based operating system designed to connect,
-
-
-                                        monitor and interact with microcontrollers.
-
-
-                                    </p>
-
-
-                                <p class="quote">
-
-
-                                        A STAR. A SIGNAL. AN INTERFACE.
-
-
-                                    </p>
-
-
-                                <button                     class="enter-button"                     id="enterSystem"
-                                      type="button"                >
-
-
-                                        [ ENTER SYSTEM ]
-
-
-                                    </button>
-
-
-                            </div>
-
-
-                        <div class="window-footer">
-
-
-                                <span>
-
-
-                                        CORE // READY
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        NO DEVICE
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        BUILD // 0.6
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                    </section>
-
-
-                <!-- ========================================
-
-
+        <section class="window" id="welcome">
+            <div class="window-bar">
+                <span>
+                    PULSAR // SYSTEM
+                </span>
+                <div class="window-controls">
+                    <button aria-label="Minimize window" class="window-minimize" type="button">
+                        ─
+                    </button>
+                    <button aria-label="Maximize window" class="window-maximize" type="button">
+                        □
+                    </button>
+                    <button aria-label="Close window" class="window-close" type="button">
+                        ×
+                    </button>
+                </div>
+            </div>
+            <div class="window-content welcome-content">
+                <p class="system-code">
+                    PULSAR // WEB HARDWARE INTERFACE
+                </p>
+                <img alt="PULSAR" class="welcome-logo" src="images/logos/LOGO-PULSAR.png" />
+                <p class="status">
+                    [ SIGNAL ACQUIRED ]
+                </p>
+                <h1>
+                    PULSAR
+                </h1>
+                <p class="os-label">
+                    OPERATING SYSTEM
+                </p>
+                <div class="separator">
+                    <span>
+                        +
+                    </span>
+                    <div class="line">
+                    </div>
+                    <span>
+                        +
+                    </span>
+                </div>
+                <p class="description">
+                    A web-based operating system designed to connect,
+                    monitor and interact with microcontrollers.
+                </p>
+                <p class="quote">
+                    A STAR. A SIGNAL. AN INTERFACE.
+                </p>
+                <button class="enter-button" id="enterSystem" type="button">
+                    [ ENTER SYSTEM ]
+                </button>
+            </div>
+            <div class="window-footer">
+                <span>
+                    CORE // READY
+                </span>
+                <span>
+                    NO DEVICE
+                </span>
+                <span>
+                    BUILD // 0.6
+                </span>
+            </div>
+        </section>
+        <!-- ========================================
              SIGNAL LOG WINDOW
-
-
         ========================================= -->
-
-
-                <section             class="window signal-window"             id="signalLog"        >
-
-
-                        <div                 class="window-bar"                 id="signalLogHeader"            >
-
-
-                                <span id="signalLogTitle">
-
-
-                                        PULSAR // SIGNAL LOG
-
-
-                                    </span>
-
-
-                                <div class="window-controls">
-
-
-                                        <span>─</span>
-
-
-                                        <span>□</span>
-
-
-                                        <button                         class="close-button"
-                        id="signalLogClose"                         type="button"                    >
-
-
-                                                ×
-
-
-                                            </button>
-
-
-                                    </div>
-
-
-                            </div>
-
-
-                        <div class="signal-content">
-
-
-                                <aside class="signal-index">
-
-
-                                        <div class="signal-index-title">
-
-
-                                                LOG INDEX
-
-
-                                            </div>
-
-
-                                        <div id="signalEntries">
-
-
-                                            </div>
-
-
-                                    </aside>
-
-
-                                <div class="signal-reader">
-
-
-                                        <div                         class="signal-reader-status"
-                          id="signalReaderStatus"                    >
-
-
-                                                TRANSMISSION // SELECT LOG
-
-
-                                            </div>
-
-
-                                        <div id="signalReader">
-
-
-                                                <h2>
-
-
-                                                        SIGNAL LOG
-
-
-                                                    </h2>
-
-
-                                                <p>
-
-
-                                                        PULSAR SYSTEM RECORD DATABASE.
-
-
-                                                    </p>
-
-
-                                                <p class="signal-muted">
-
-
-                                                        SELECT A TRANSMISSION FROM THE LOG INDEX.
-
-
-                                                    </p>
-
-
-                                            </div>
-
-
-                                    </div>
-
-
-                            </div>
-
-
-                        <div class="window-footer">
-
-
-                                <span>
-
-
-                                        ARCHIVE // ONLINE
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        3 RECORDS
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        BUILD // 0.6
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                    </section>
-
-
-                <!-- ========================================
-
-
+        <section class="window signal-window" id="signalLog">
+            <div class="window-bar">
+                <span id="signalLogTitle">
+                    PULSAR // SIGNAL LOG
+                </span>
+                <div class="window-controls">
+                    <button aria-label="Minimize window" class="window-minimize" type="button">
+                        ─
+                    </button>
+                    <button aria-label="Maximize window" class="window-maximize" type="button">
+                        □
+                    </button>
+                    <button aria-label="Close window" class="window-close" type="button">
+                        ×
+                    </button>
+                </div>
+            </div>
+            <div class="signal-content">
+                <aside class="signal-index">
+                    <div class="signal-index-title">
+                        LOG INDEX
+                    </div>
+                    <div id="signalEntries">
+                    </div>
+                </aside>
+                <div class="signal-reader">
+                    <div class="signal-reader-status" id="signalReaderStatus">
+                        TRANSMISSION // SELECT LOG
+                    </div>
+                    <div id="signalReader">
+                        <h2>
+                            SIGNAL LOG
+                        </h2>
+                        <p>
+                            PULSAR SYSTEM RECORD DATABASE.
+                        </p>
+                        <p class="signal-muted">
+                            SELECT A TRANSMISSION FROM THE LOG INDEX.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="window-footer">
+                <span>
+                    ARCHIVE // ONLINE
+                </span>
+                <span>
+                    3 RECORDS
+                </span>
+                <span>
+                    BUILD // 0.6
+                </span>
+            </div>
+        </section>
+        <!-- ========================================
              CUSTOMIZATION WINDOW
-
-
         ========================================= -->
-
-
-                <section             class="window customization-window"             id="customization"        >
-
-
-                        <div                 class="window-bar"                 id="customizationHeader"            >
-
-
-                                <span>
-
-
-                                        PULSAR // CUSTOMIZATION
-
-
-                                    </span>
-
-
-                                <div class="window-controls">
-
-
-                                        <span>─</span>
-
-
-                                        <span>□</span>
-
-
-                                        <button                         class="close-button"
-                        id="customizationClose"                         type="button"                    >
-
-
-                                                ×
-
-
-                                            </button>
-
-
-                                    </div>
-
-
-                            </div>
-
-
-                        <div class="customization-content">
-
-
-                                <!-- SIDEBAR -->
-
-
-                                <aside class="customization-sidebar">
-
-
-                                        <button                         class="custom-nav active"
-                          type="button"                    >
-
-
-                                                WALLPAPERS
-
-
-                                            </button>
-
-
-                                        <button                         class="custom-nav disabled"
-                            type="button"                    >
-
-
-                                                APPEARANCE
-
-
-                                            </button>
-
-
-                                        <button                         class="custom-nav disabled"
-                            type="button"                    >
-
-
-                                                SYSTEM
-
-
-                                            </button>
-
-
-                                    </aside>
-
-
-                                <!-- WALLPAPERS -->
-
-
-                                <div class="customization-main">
-
-
-                                        <div class="customization-heading">
-
-
-                                                <div>
-
-
-                                                        <span class="customization-code">
-
-
-                                                                INTERFACE // VISUAL
-
-
-                                                            </span>
-
-
-                                                        <h2>
-
-
-                                                                WALLPAPERS
-
-
-                                                            </h2>
-
-
-                                                    </div>
-
-
-                                                <span id="wallpaperStatus">
-
-
-                                                        ACTIVE // PULSAR CORE
-
-
-                                                    </span>
-
-
-                                            </div>
-
-
-                                        <p class="customization-description">
-
-
-                                                SELECT A BACKGROUND FOR THE PULSAR DESKTOP ENVIRONMENT.
-
-
-                                            </p>
-
-
-                                        <div class="wallpaper-grid">
-
-
-                                                <button                             class="wallpaper-card"
-                                          data-wallpaper="pulsar"                             type="button"
-                                       >
-
-
-                                                        <img
-                                src="images/Wallpapers/Pulsar-wllp.png"                                 alt=""
-                                                 >
-
-
-                                                        <span class="wallpaper-card-info">
-
-
-                                                                <strong>
-
-
-                                                                        PULSAR CORE
-
-
-                                                                    </strong>
-
-
-                                                                <small>
-
-
-                                                                        NEUTRON STAR
-
-
-                                                                    </small>
-
-
-                                                            </span>
-
-
-                                                    </button>
-
-
-                                                <button                             class="wallpaper-card"
-                                          data-wallpaper="galaxy"                             type="button"
-                                       >
-
-
-                                                        <img
-                                src="images/Wallpapers/galaxy-wllp.png"                                 alt=""
-                                                 >
-
-
-                                                        <span class="wallpaper-card-info">
-
-
-                                                                <strong>
-
-
-                                                                        GALAXY
-
-
-                                                                    </strong>
-
-
-                                                                <small>
-
-
-                                                                        DEEP SPACE
-
-
-                                                                    </small>
-
-
-                                                            </span>
-
-
-                                                    </button>
-
-
-                                                <button                             class="wallpaper-card"
-                                          data-wallpaper="saturn"                             type="button"
-                                       >
-
-
-                                                        <img
-                                src="images/Wallpapers/saturn-wllp.png"                                 alt=""
-                                                 >
-
-
-                                                        <span class="wallpaper-card-info">
-
-
-                                                                <strong>
-
-
-                                                                        SATURN
-
-
-                                                                    </strong>
-
-
-                                                                <small>
-
-
-                                                                        PLANETARY VIEW
-
-
-                                                                    </small>
-
-
-                                                            </span>
-
-
-                                                    </button>
-
-
-                                                <button                             class="wallpaper-card"
-                                          data-wallpaper="void"                             type="button"
-                                     >
-                                                        <img
-                                src="images/Wallpapers/void-wllp.png"                                 alt=""
-                                               >
-                                                        <span class="wallpaper-card-info">
-
-                                                                <strong>
-
-
-                                                                        VOID
-
-
-                                                                    </strong>
-
-
-                                                                <small>
-
-
-                                                                        EVENT HORIZON
-
-
-                                                                    </small>
-
-
-                                                            </span>
-
-
-                                                    </button>
-
-
-                                            </div>
-
-
-                                    </div>
-
-
-                            </div>
-
-
-                        <div class="window-footer">
-
-
-                                <span id="customizationFooter">
-
-
-                                        WALLPAPER // PULSAR CORE
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        LOCAL PROFILE
-
-
-                                    </span>
-
-
-                                <span>
-
-
-                                        BUILD // 0.6
-
-
-                                    </span>
-
-
-                            </div>
-
-
-                    </section>
-
-
-            </main>
-
-
-    <script src="script.js"></script>
-
-
+        <section class="window customization-window" id="customization">
+            <div class="window-bar">
+                <span>
+                    PULSAR // CUSTOMIZATION
+                </span>
+                <div class="window-controls">
+                    <button aria-label="Minimize window" class="window-minimize" type="button">
+                        ─
+                    </button>
+                    <button aria-label="Maximize window" class="window-maximize" type="button">
+                        □
+                    </button>
+                    <button aria-label="Close window" class="window-close" type="button">
+                        ×
+                    </button>
+                </div>
+            </div>
+            <div class="customization-content">
+                <!-- SIDEBAR -->
+                <aside class="customization-sidebar">
+                    <button class="custom-nav active" type="button">
+                        WALLPAPERS
+                    </button>
+                    <button class="custom-nav disabled" type="button">
+                        APPEARANCE
+                    </button>
+                    <button class="custom-nav disabled" type="button">
+                        SYSTEM
+                    </button>
+                </aside>
+                <!-- WALLPAPERS -->
+                <div class="customization-main">
+                    <div class="customization-heading">
+                        <div>
+                            <span class="customization-code">
+                                INTERFACE // VISUAL
+                            </span>
+                            <h2>
+                                WALLPAPERS
+                            </h2>
+                        </div>
+                        <span id="wallpaperStatus">
+                            ACTIVE // PULSAR CORE
+                        </span>
+                    </div>
+                    <p class="customization-description">
+                        SELECT A BACKGROUND FOR THE PULSAR DESKTOP ENVIRONMENT.
+                    </p>
+                    <div class="wallpaper-grid">
+                        <button class="wallpaper-card" data-wallpaper="pulsar" type="button">
+                            <img alt="" src="images/Wallpapers/Pulsar-wllp.png" />
+                            <span class="wallpaper-card-info">
+                                <strong>
+                                    PULSAR CORE
+                                </strong>
+                                <small>
+                                    NEUTRON STAR
+                                </small>
+                            </span>
+                        </button>
+                        <button class="wallpaper-card" data-wallpaper="galaxy" type="button">
+                            <img alt="" src="images/Wallpapers/galaxy-wllp.png" />
+                            <span class="wallpaper-card-info">
+                                <strong>
+                                    GALAXY
+                                </strong>
+                                <small>
+                                    DEEP SPACE
+                                </small>
+                            </span>
+                        </button>
+                        <button class="wallpaper-card" data-wallpaper="saturn" type="button">
+                            <img alt="" src="images/Wallpapers/saturn-wllp.png" />
+                            <span class="wallpaper-card-info">
+                                <strong>
+                                    SATURN
+                                </strong>
+                                <small>
+                                    PLANETARY VIEW
+                                </small>
+                            </span>
+                        </button>
+                        <button class="wallpaper-card" data-wallpaper="void" type="button">
+                            <img alt="" src="images/Wallpapers/void-wllp.png" />
+                            <span class="wallpaper-card-info">
+                                <strong>
+                                    VOID
+                                </strong>
+                                <small>
+                                    EVENT HORIZON
+                                </small>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="window-footer">
+                <span id="customizationFooter">
+                    WALLPAPER // PULSAR CORE
+                </span>
+                <span>
+                    LOCAL PROFILE
+                </span>
+                <span>
+                    BUILD // 0.6
+                </span>
+            </div>
+        </section>
+    </main>
+    <script src="script.js">
+    </script>
 </body>
-
 
 </html>
