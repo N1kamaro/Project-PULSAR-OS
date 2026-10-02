@@ -1,11 +1,33 @@
-﻿// ========================================
+﻿// ============================================================
 // PULSAR OS // BUILD 1.0
-// ========================================
+// Made by N1K
+// ============================================================
+//
+// SOURCE MAP
+// ------------------------------------------------------------
+// [J1] STORAGE CORE
+// [J2] ELEMENT REGISTRY / SYSTEM SHELL
+// [J3] WINDOW MANAGER
+// [J4] DESKTOP / SYSTEM APPLICATIONS
+// [J5] NOTES / CALCULATOR
+// [J6] TERMINAL CORE
+// [J7] WEB NAVIGATOR
+// [J8] SERIAL CORE / DEVICE PROTOCOL
+// [J9] DEVICE MANAGER / BOOT / SYSTEM SERVICES
+//
+// Search "[Jx]" to navigate directly to a module.
+// ============================================================
+
+
+// ============================================================
+// [J1] STORAGE CORE
+// ============================================================
 
 // ========================================
 // PULSAR OS // STORAGE CORE
 // BUILD 1.0
 // ========================================
+
 
 const PulsarStorage = (() => {
     const PREFIX = "pulsar.";
@@ -175,6 +197,10 @@ const PulsarStorage = (() => {
 })();
 
 PulsarStorage.initialize();
+
+// ============================================================
+// [J2] ELEMENT REGISTRY / SYSTEM SHELL
+// ============================================================
 
 // ========================================
 // ELEMENTS
@@ -646,6 +672,10 @@ document.addEventListener(
     }
 );
 
+// ============================================================
+// [J3] WINDOW MANAGER
+// ============================================================
+
 // ========================================
 // PULSAR OS // WINDOW MANAGER
 // BUILD 1.0
@@ -930,15 +960,6 @@ const PulsarWindowManager = (() => {
         );
     }
 
-    function isMinimized(element) {
-        const state = getState(element);
-
-        return Boolean(
-            state &&
-            state.minimized
-        );
-    }
-
     function getWindowState(element) {
         const state = getState(element);
 
@@ -963,7 +984,6 @@ const PulsarWindowManager = (() => {
         toggleMaximize,
         animatedClose,
         isMaximized,
-        isMinimized,
         getWindowState
     };
 })();
@@ -972,16 +992,8 @@ const PulsarWindowManager = (() => {
 // LEGACY COMPATIBILITY
 // ========================================
 
-function focusWindow(element) {
-    PulsarWindowManager.focus(element);
-}
-
 function openWindow(element) {
     PulsarWindowManager.open(element);
-}
-
-function closeWindow(element) {
-    PulsarWindowManager.close(element);
 }
 
 function animatedClose(element) {
@@ -1291,6 +1303,10 @@ function registerPulsarWindows() {
 
 registerPulsarWindows();
 
+// ============================================================
+// [J4] DESKTOP / SYSTEM APPLICATIONS
+// ============================================================
+
 // ========================================
 // WELCOME / ABOUT WINDOW
 // ========================================
@@ -1569,46 +1585,6 @@ function toggleIcon(element) {
     } else {
         selectIcon(element);
     }
-}
-
-function bindDesktopApp(
-    icon,
-    windowElement
-) {
-    if (
-        !icon ||
-        !windowElement
-    ) {
-        return;
-    }
-
-    icon.addEventListener(
-        "click",
-        function () {
-            toggleIcon(icon);
-        }
-    );
-
-    icon.addEventListener(
-        "dblclick",
-        function () {
-            openWindow(windowElement);
-            deselectIcons();
-        }
-    );
-
-    icon.addEventListener(
-        "keydown",
-        function (event) {
-            if (event.key === "Enter") {
-                openWindow(
-                    windowElement
-                );
-
-                deselectIcons();
-            }
-        }
-    );
 }
 
 // EMPTY DESKTOP
@@ -2075,6 +2051,10 @@ function loadWallpaper() {
 
 loadWallpaper();
 
+// ============================================================
+// [J5] NOTES / CALCULATOR
+// ============================================================
+
 // ========================================
 // PULSAR OS // NOTES
 // BUILD 1.0
@@ -2513,6 +2493,10 @@ if (calculatorWindow) {
 }
 
 renderCalculator();
+
+// ============================================================
+// [J6] TERMINAL CORE
+// ============================================================
 
 // ========================================
 // PULSAR OS // TERMINAL
@@ -3029,9 +3013,6 @@ terminalWrite(
     terminalSetStatus("READY");
 }
 
-const terminalHistory = [];
-let terminalHistoryIndex = 0;
-
 if (terminalInput) {
     terminalInput.addEventListener(
         "keydown",
@@ -3057,6 +3038,10 @@ if (terminalInput) {
         }
     );
 }
+
+// ============================================================
+// [J7] WEB NAVIGATOR
+// ============================================================
 
 // ========================================
 // PULSAR OS // WEB
@@ -3739,6 +3724,10 @@ window.addEventListener(
 
 renderWebHistory();
 showWebHome();
+
+// ============================================================
+// [J8] SERIAL CORE / DEVICE PROTOCOL
+// ============================================================
 
 // ========================================
 // PULSAR OS // SERIAL CORE
@@ -4946,6 +4935,10 @@ if (deviceManagerAlias) {
     );
 }
 
+// ============================================================
+// [J9] DEVICE MANAGER / BOOT / SYSTEM SERVICES
+// ============================================================
+
 // ======================================== 
 // PULSAR OS // DEVICE MANAGER BRIDGE
 // ========================================
@@ -5162,15 +5155,15 @@ if (deviceManagerOpenSerial) {
             );
 
             setTimeout(
-                function () {
-                    focusWindow(
-                        serialWindow
-                    );
-                },
-                20
-            );
-        }
-    );
+    function () {
+        PulsarWindowManager.focus(
+            serialWindow
+        );
+    },
+    20
+);
+}
+);
 }
 
 updateDeviceManagerUi();
