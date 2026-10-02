@@ -1,6 +1,6 @@
 ﻿/* ========================================
 
-   PULSAR OS // BUILD 0.6
+   PULSAR OS // BUILD 1.0
 
 ======================================== */
 
@@ -302,7 +302,7 @@ body {
     color: #eeeef5;
 
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.12em;
 
@@ -406,7 +406,7 @@ body {
 
     font-family: inherit;
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.1em;
 
@@ -726,7 +726,7 @@ body {
         rgba(170, 170, 190, 0.45);
 
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.15em;
 
@@ -1037,7 +1037,7 @@ body {
     color: #8e8e9c;
 
 
-    font-size: 0.65rem;
+    font-size: 1.05rem;
 
     letter-spacing: 0.12em;
 
@@ -1159,7 +1159,7 @@ body {
     color: #737382;
 
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.28em;
 
@@ -1200,7 +1200,7 @@ body {
     color: #9999aa;
 
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.3em;
 
@@ -1314,7 +1314,7 @@ h1 {
     color: #696979;
 
 
-    font-size: 0.62rem;
+    font-size: 1.02rem;
 
     letter-spacing: 0.22em;
 
@@ -1347,7 +1347,7 @@ h1 {
     font-family: inherit;
 
 
-    font-size: 0.65rem;
+    font-size: 1.05rem;
 
     letter-spacing: 0.15em;
 
@@ -1551,7 +1551,7 @@ h1 {
     margin-bottom: 5px;
 
 
-    font-size: 0.65rem;
+    font-size: 1.05rem;
 
     letter-spacing: 0.1em;
 
@@ -1670,7 +1670,7 @@ h1 {
     color: #777786;
 
 
-    font-size: 0.6rem;
+    font-size: 1.0rem;
 
     line-height: 1.8;
 
@@ -1742,7 +1742,7 @@ h1 {
 
     background:
 
-        rgba(8, 8, 13, 0.62);
+        rgba(8, 8, 13, 1.02);
 
 }
 
@@ -2228,7 +2228,7 @@ h1 {
 /**/
 
 /* ========================================
-   PULSAR BOOT SEQUENCE // BUILD 0.6
+   PULSAR BOOT SEQUENCE // BUILD 1.0
 ======================================== */
 
 .boot-screen {
@@ -2348,7 +2348,7 @@ h1 {
 .boot-init {
     margin: 22px 0 17px;
     color: #c4c4ce;
-    font-size: 0.61rem;
+    font-size: 1.01rem;
     letter-spacing: 0.14em;
 }
 
@@ -2482,7 +2482,7 @@ h1 {
 .boot-percent {
     margin-bottom: 10px;
     color: #bdbdc8;
-    font-size: 0.66rem;
+    font-size: 1.06rem;
     letter-spacing: 0.16em;
 }
 
@@ -2577,7 +2577,7 @@ body.pulsar-booting .desktop {
 }
 
 /* ========================================
-   PULSAR WINDOW MANAGER // BUILD 0.9
+   PULSAR WINDOW MANAGER // BUILD 1.0
    ======================================== */
 
 .window-maximized {
@@ -2635,7 +2635,7 @@ body.pulsar-booting .desktop {
 }
 
 /* ========================================
-   PULSAR OS // BOOT 0.6
+   PULSAR OS // BOOT 1.0
    LINUX STYLE INITIALIZATION
 ======================================== */
 .pulsar-boot {
@@ -2948,7 +2948,7 @@ body.pulsar-booting .desktop {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     font-family: monospace;
     font-size: 10px;
-    opacity: 0.6;
+    opacity: 1.0;
 }
 
 /* ========================================
@@ -3055,7 +3055,7 @@ body.pulsar-booting .desktop {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     font-family: monospace;
     font-size: 10px;
-    opacity: 0.6;
+    opacity: 1.0;
 }
 
 /* ========================================
@@ -3133,7 +3133,7 @@ body.pulsar-booting .desktop {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     font-family: monospace;
     font-size: 10px;
-    opacity: 0.6;
+    opacity: 1.0;
 }
 
 .terminal-output::-webkit-scrollbar {
@@ -3458,7 +3458,7 @@ body.pulsar-booting .desktop {
     padding: 9px 12px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     font-size: 10px;
-    opacity: 0.62;
+    opacity: 1.02;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -3683,7 +3683,7 @@ body.pulsar-booting .desktop {
 
 .serial-danger:not(:disabled) {
     border-color:
-        rgba(218, 99, 72, 0.65);
+        rgba(218, 99, 72, 1.05);
 }
 
 /* DEVICE INFORMATION */
@@ -3801,7 +3801,7 @@ body.pulsar-booting .desktop {
     font-family: monospace;
     font-size: 9px;
     letter-spacing: 0.1em;
-    opacity: 0.65;
+    opacity: 1.05;
 }
 
 .serial-console-action {
@@ -3811,7 +3811,7 @@ body.pulsar-booting .desktop {
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
-    opacity: 0.65;
+    opacity: 1.05;
 }
 
 .serial-console-action:hover {
@@ -3895,7 +3895,7 @@ body.pulsar-booting .desktop {
     flex-shrink: 0;
     font-family: monospace;
     font-size: 11px;
-    opacity: 0.65;
+    opacity: 1.05;
 }
 
 .serial-tx-input {
@@ -4133,7 +4133,7 @@ body.pulsar-booting .desktop {
 .device-manager-state.error .device-manager-state-dot {
     background: #d26b6b;
     box-shadow:
-        0 0 5px rgba(210, 107, 107, 0.6);
+        0 0 5px rgba(210, 107, 107, 1.0);
 }
 
 .device-manager-section {
@@ -4275,7 +4275,7 @@ body.pulsar-booting .desktop {
     color: #777780;
     font-size: 9px;
     font-weight: 700;
-    letter-spacing: 0.6px;
+    letter-spacing: 1.0px;
 }
 
 /* ========================================

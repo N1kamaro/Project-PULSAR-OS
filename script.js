@@ -1,15 +1,15 @@
 ﻿// ========================================
-// PULSAR OS // BUILD 0.6
+// PULSAR OS // BUILD 1.0
 // ========================================
 
 // ========================================
 // PULSAR OS // STORAGE CORE
-// BUILD 0.9
+// BUILD 1.0
 // ========================================
 
 const PulsarStorage = (() => {
     const PREFIX = "pulsar.";
-    const VERSION = "0.9";
+    const VERSION = "1.0";
 
     function createKey(key) {
         return PREFIX + key;
@@ -1702,7 +1702,7 @@ const logs = [
                 PROJECT ......... PULSAR OS<br>
                 PLATFORM ........ WEB<br>
                 INTERFACE ....... HARDWARE<br>
-                BUILD ........... 0.6
+                BUILD ........... 1.0
             </div>
 
             <p class="signal-muted">
@@ -5177,7 +5177,7 @@ updateDeviceManagerUi();
 
 // ========================================
 // PULSAR OS // BOOT MODULE
-// BUILD 0.6
+// BUILD 1.0
 // ========================================
 
 const pulsarBoot =
@@ -5203,7 +5203,7 @@ const pulsarBootStatus =
 // ========================================
 
 const PULSAR_BOOT_CONFIG = {
-    build: "0.6",
+    build: "1.0",
     enabled: true,
     totalDuration: 5000,
     brandDuration: 900,
@@ -5761,7 +5761,7 @@ async function startPulsarBoot() {
         await finishPulsarBoot();
 
         console.log(
-            "PULSAR OS // BUILD 0.6 // READY"
+            "PULSAR OS // BUILD 1.0 // READY"
         );
     } catch (error) {
         console.error(
