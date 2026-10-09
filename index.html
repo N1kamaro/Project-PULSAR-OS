@@ -1,37 +1,65 @@
 ﻿<!--
 ============================================================
-PULSAR OS // BUILD 1.0
+PULSAR OS // BUILD 1.0 (Remake)
 Made by N1K
 ============================================================
-SOURCE MAP
+Hey there! thanks for checking out my Web OS!
+
+To help you get started, i done some things that might be userful for you!
+
+I made an tiny guide so you can understand were some thing are,
+just like an map of the whole code, so you can find what you need faster and easier.
+
+And that also includes the other files, like the CSS and JS.
+
+I looked into it, and everything used in the code is definitely open source,
+so you can use it without any worries!
+
+Throughout the code, you'll see some tips, covering the parts
+that gave me the most headaches, so you can avoid them and save time!
+
+Alright, without further ado, here is the HTML map!
+
 ------------------------------------------------------------
-[H1] DOCUMENT / METADATA
-[H2] BOOT INTERFACE
-[H3] SYSTEM SHELL / DESKTOP
-  [H3.1] TOP BAR
-  [H3.2] SYSTEM MENU
-  [H3.3] SCREEN TRANSITION
-  [H3.4] DESKTOP
-[H4] CORE APPLICATIONS
-  [H4.1] NOTES
-  [H4.2] CALCULATOR
-  [H4.3] TERMINAL
-  [H4.4] PULSAR WEB
-[H5] SERIAL MONITOR
-[H6] DEVICE MANAGER
-[H7] GUIDE / DOCUMENTATION
-[H8] SYSTEM WINDOWS
-  [H8.1] WELCOME / ABOUT
-  [H8.2] SIGNAL LOG
-  [H8.3] CUSTOMIZATION
-[H9] SCRIPT ENTRYPOINT
+HERE IS THE MAP OF THE HTML FILE
+------------------------------------------------------------
+MAP <---- u are here :D
 
-Search "[Hx]" to navigate directly to a section.
+DOCUMENT & METADATA  
+--------------------------
+BOOT INTERFACE
+--------------------------
+SYSTEM SHELL
+  TOP BAR
+  SYSTEM MENU
+  SCREEN TRANSITION
+  DESKTOP
+--------------------------
+CORE APPLICATIONS
+  NOTES
+  CALCULATOR
+  TERMINAL
+  PULSAR WEB
+--------------------------
+SERIAL MONITOR
+DEVICE MANAGER
+GUIDE / DOCUMENTATION
+--------------------------
+SYSTEM WINDOWS
+  WELCOME WINDOW
+  SIGNAL LOG WINDOW
+  CUSTOMIZATION WINDOW
+--------------------------
+SCRIPT ENTRYPOINT
+
+------------------------------------------------------------
+-But how do i use it?
+
+Press Ctrl + F; this will open a small bar in the top right corner,
+and then you can type in the block you want to see!
+
 ============================================================
--->
-
-<!-- ============================================================
-     [H1] DOCUMENT / METADATA
+ DOCUMENT & METADATA
 ============================================================ -->
 
 <!DOCTYPE html>
@@ -47,16 +75,13 @@ Search "[Hx]" to navigate directly to a section.
 </head>
 
 <body>
-<!-- ============================================================
-     [H2] BOOT INTERFACE
-============================================================ -->
 
     <!-- ========================================
-         PULSAR BOOT SEQUENCE // BUILD 1.0
+     PULSAR BOOT SEQUENCE // BUILD 1.0 (Remake)
     ========================================= -->
     <section aria-live="polite" class="pulsar-boot" id="pulsarBoot">
         <div class="pulsar-boot-brand" id="pulsarBootBrand">
-            <img alt="PULSAR" class="pulsar-boot-main-logo" src="images/logos/LOGO-PULSAR.png" />
+            <span class="pulsar-symbol bootlogo" aria-hidden="true">⌁</span> <!--bootlogo-->
             <div class="pulsar-boot-name">
                 PULSAR-OS
             </div>
@@ -69,38 +94,39 @@ Search "[Hx]" to navigate directly to a section.
             </div>
         </div>
         <div class="pulsar-boot-corner">
-            <img alt="" class="pulsar-boot-corner-logo" src="images/logos/LOGO-PULSAR.png" />
+            <span class="pulsar-symbol inferiorLogo" aria-hidden="true">⌁</span> <!--inferiorLogo-->
             <div>
                 <strong>
                     PULSAR-OS
                 </strong>
                 <span>
-                    BUILD 1.0
+                    BUILD 1.0 (Remake)
                 </span>
             </div>
         </div>
-        <div class="pulsar-boot-build">
-            PULSAR SYSTEM // BUILD 1.0
-        </div>
     </section>
 <!-- ============================================================
-     [H3] SYSTEM SHELL / DESKTOP
-============================================================ -->
+       SYSTEM SHELL
+============================================================ --> 
 
-<!-- [H3.1] TOP BAR -->
     <!-- ========================================
          TOP BAR
     ========================================= -->
     <header class="top-bar" id="topBar">
         <button aria-label="Open PULSAR menu" class="top-left" id="systemMenuButton" type="button">
-            <img alt="" class="top-logo" src="images/logos/LOGO-PULSAR.png" />
             <span>
-                PULSAR OS
+                APPLICATIONS
             </span>
+             <span class="pulsar-symbol applications-topbar-symbol" aria-hidden="true">▼</span> <!--applications-topbar-symbol-->
         </button>
+
         <div class="top-center">
-            PULSAR OS // BUILD 1.0
+            <span>
+                PULSAR OS 
+            </span>
+            <span class="pulsar-symbol center-topbar-symbol" aria-hidden="true">⌁</span> <!--center-topbar-symbol-->
         </div>
+
         <div class="top-right">
     <span
         class="network-indicator"
@@ -123,22 +149,16 @@ Search "[Hx]" to navigate directly to a section.
     </span>
 </div>
     </header>
-
-<!-- [H3.2] SYSTEM MENU -->
     <!-- ========================================
-         PULSAR SYSTEM MENU
+         PULSAR SYSTEM MENU 
     ========================================= -->
     <nav class="system-menu" id="systemMenu">
         <div class="menu-header">
             <div class="menu-brand">
-                <img alt="" class="menu-logo" src="images/logos/LOGO-PULSAR.png" />
                 <span>
-                    PULSAR // SYSTEM
+                    MENU
                 </span>
             </div>
-            <span class="menu-status">
-                ONLINE
-            </span>
         </div>
         <!-- SYSTEM -->
         <div class="menu-section">
@@ -154,7 +174,6 @@ Search "[Hx]" to navigate directly to a section.
                 </span>
             </button>
         </div>
-<!-- APPLICATIONS -->
     <div class="menu-section">
     <div class="menu-section-title">
         APPLICATIONS
@@ -181,7 +200,7 @@ Search "[Hx]" to navigate directly to a section.
     </button>
 
     <button class="menu-item" id="openWeb" type="button">
-        <span class="menu-icon">⌁</span>
+        <span class="menu-icon-logo">⌁</span> <!--menu-icon-logo-->
         <span>WEB</span>
     </button>
 
@@ -205,7 +224,9 @@ Search "[Hx]" to navigate directly to a section.
       <span class="menu-tag">READY</span>
     </button>
 
-        <!-- INTERFACE -->
+        <!-- ====================================
+                    INTERFACE 
+        ======================================-->
         <div class="menu-section">
             <div class="menu-section-title">
                 INTERFACE
@@ -226,27 +247,22 @@ Search "[Hx]" to navigate directly to a section.
             <span>
                 CORE // READY
             </span>
-            <span>
-                BUILD // 1.0
-            </span>
         </div>
     </nav>
 
-<!-- [H3.3] SCREEN TRANSITION -->
     <!-- ========================================
          SCREEN TRANSITION
     ========================================= -->
     <div class="screen-fade" id="screenFade">
     </div>
 
-<!-- [H3.4] DESKTOP -->
     <!-- ========================================
          DESKTOP
     ========================================= -->
     <main class="desktop" id="desktop">
         <div class="desktop-label">
             <span>
-                PULSAR NETWORK
+                BUILD 1.0 (Remake)
             </span>
             <span>
                 DESKTOP // 01
@@ -255,11 +271,12 @@ Search "[Hx]" to navigate directly to a section.
 
 
 <!-- ============================================================
-     [H4] CORE APPLICATIONS
+     CORE APPLICATIONS
 ============================================================ -->
 
-<!-- [H4.1] NOTES -->
-        <!-- PULSAR NOTES -->
+    <!-- ========================================
+         NOTES
+    ========================================= -->
     <section class="window notes-window" id="notesWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -303,8 +320,9 @@ Search "[Hx]" to navigate directly to a section.
     </section>
 
 
-<!-- [H4.2] CALCULATOR -->
-        <!-- PULSAR CALCULATOR -->
+    <!-- ========================================
+         CALCULATOR
+    ========================================= -->
 <section class="window calculator-window" id="calculatorWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -392,8 +410,9 @@ Search "[Hx]" to navigate directly to a section.
     </section>
 
 
-<!-- [H4.3] TERMINAL -->
-        <!-- PULSAR TERMINAL -->
+    <!-- ========================================
+         TERMINAL
+    ========================================= -->
 <section class="window terminal-window" id="terminalWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -421,10 +440,6 @@ Search "[Hx]" to navigate directly to a section.
     </div>
 
     <div class="terminal-output" id="terminalOutput">
-        <div class="terminal-line terminal-muted">
-            PULSAR TERMINAL // BUILD 1.0
-        </div>
-
         <div class="terminal-line">
             TYPE "help" TO LIST AVAILABLE COMMANDS.
         </div>
@@ -450,9 +465,9 @@ Search "[Hx]" to navigate directly to a section.
     </div>
     </section>
 
-
-<!-- [H4.4] PULSAR WEB -->
-    <!-- PULSAR WEB -->
+    <!-- ========================================
+         PULSAR WEB
+    ========================================= -->
     <section class="window web-window" id="webWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -612,9 +627,11 @@ Search "[Hx]" to navigate directly to a section.
                 <div class="web-home-line"></div>
 
                 <div class="web-home-text">
-                    ENTER A URL OR SEARCH QUERY TO BEGIN.
+                    WARNING: SOME WEBSITES MAY BLOCK EMBEDDED VIEWING.
+                    IF A PAGE FAILS TO LOAD, TRY OPENING IT EXTERNALLY.
                 </div>
             </div>
+
 
             <iframe
                 id="webFrame"
@@ -630,11 +647,11 @@ Search "[Hx]" to navigate directly to a section.
                 hidden
             >
                 <div class="web-fallback-code">
-                    EMBED // UNAVAILABLE
+                    FAILED TO LOAD
                 </div>
 
                 <div class="web-fallback-title">
-                    PAGE CANNOT BE DISPLAYED INSIDE PULSAR
+                    OOPS!
                 </div>
 
                 <div class="web-fallback-text">
@@ -653,7 +670,7 @@ Search "[Hx]" to navigate directly to a section.
                     id="webOpenExternal"
                     type="button"
                 >
-                    OPEN EXTERNALLY
+                   TRY OPENING EXTERNALLY
                 </button>
             </div>
         </div>
@@ -672,12 +689,9 @@ Search "[Hx]" to navigate directly to a section.
 
 
 <!-- ============================================================
-     [H5] SERIAL MONITOR
+     SERIAL MONITOR
 ============================================================ -->
 
-    <!-- ========================================
-     PULSAR SERIAL MONITOR
-======================================== -->
 <section class="window serial-window" id="serialWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -1001,7 +1015,7 @@ Search "[Hx]" to navigate directly to a section.
 
 
 <!-- ============================================================
-     [H6] DEVICE MANAGER
+     DEVICE MANAGER
 ============================================================ -->
 
 <!-- ========================================
@@ -1206,7 +1220,7 @@ Search "[Hx]" to navigate directly to a section.
 
 
 <!-- ============================================================
-     [H7] GUIDE / DOCUMENTATION
+    GUIDE / DOCUMENTATION
 ============================================================ -->
 
 <!-- ========================================
@@ -1524,7 +1538,7 @@ Search "[Hx]" to navigate directly to a section.
     </div>
 
     <div class="guide-footer">
-        <span>PULSAR GUIDE // BUILD 1.0</span>
+        <span>PULSAR GUIDE // BUILD 1.0 (Remake)</span>
         <span>DOCUMENTATION // LOCAL</span>
     </div>
 
@@ -1532,10 +1546,9 @@ Search "[Hx]" to navigate directly to a section.
       
 
 <!-- ============================================================
-     [H8] SYSTEM WINDOWS
+    SYSTEM WINDOWS
 ============================================================ -->
 
-<!-- [H8.1] WELCOME / ABOUT -->
         <!-- ========================================
              WELCOME WINDOW
         ========================================= -->
@@ -1557,13 +1570,7 @@ Search "[Hx]" to navigate directly to a section.
                 </div>
             </div>
             <div class="window-content welcome-content">
-                <p class="system-code">
-                    PULSAR // WEB HARDWARE INTERFACE
-                </p>
-                <img alt="PULSAR" class="welcome-logo" src="images/logos/LOGO-PULSAR.png" />
-                <p class="status">
-                    [ SIGNAL ACQUIRED ]
-                </p>
+                 <span class="pulsar-symbol welcomelogo" aria-hidden="true">⌁</span> <!--welcomelogo-->
                 <h1>
                     PULSAR
                 </h1>
@@ -1581,11 +1588,12 @@ Search "[Hx]" to navigate directly to a section.
                     </span>
                 </div>
                 <p class="description">
-                    A web-based operating system designed to connect,
+                    A WEB-OS designed to connect,
                     monitor and interact with microcontrollers.
+                    Developed by N1kamaro.
                 </p>
                 <p class="quote">
-                    A STAR. A SIGNAL. AN INTERFACE.
+                    "Stop thinking about it - Do it."
                 </p>
                 <button class="enter-button" id="enterSystem" type="button">
                     [ ENTER SYSTEM ]
@@ -1599,12 +1607,10 @@ Search "[Hx]" to navigate directly to a section.
                     NO DEVICE
                 </span>
                 <span>
-                    BUILD // 1.0
+                    BUILD // 1.0 (Remake)
                 </span>
             </div>
         </section>
-
-<!-- [H8.2] SIGNAL LOG -->
         <!-- ========================================
              SIGNAL LOG WINDOW
         ========================================= -->
@@ -1662,8 +1668,6 @@ Search "[Hx]" to navigate directly to a section.
                 </span>
             </div>
         </section>
-
-<!-- [H8.3] CUSTOMIZATION -->
         <!-- ========================================
              CUSTOMIZATION WINDOW
         ========================================= -->
@@ -1685,20 +1689,24 @@ Search "[Hx]" to navigate directly to a section.
                 </div>
             </div>
             <div class="customization-content">
-                <!-- SIDEBAR -->
+                <!-- ========================================
+                      WALLPAPER CUSTOMIZATION SIDEBAR      
+                ========================================= -->
                 <aside class="customization-sidebar">
-                    <button class="custom-nav active" type="button">
-                        WALLPAPERS
-                    </button>
-                    <button class="custom-nav disabled" type="button">
-                        APPEARANCE
-                    </button>
-                    <button class="custom-nav disabled" type="button">
-                        SYSTEM
-                    </button>
+
+                <button class="custom-nav active" data-custom-page="wallpapers" type="button">
+                WALLPAPERS  
+                </button>
+
+                <button class="custom-nav" data-custom-page="sources" type="button">
+                WALLPAPERS SOURCES
+                </button>
                 </aside>
-                <!-- WALLPAPERS -->
-                <div class="customization-main">
+
+               <!-- ========================================
+                         WALLPAPER CUSTOMIZATION!!
+                ========================================= -->
+                <div class="customization-main custom-page active" data-custom-content="wallpapers">
                     <div class="customization-heading">
                         <div>
                             <span class="customization-code">
@@ -1709,63 +1717,306 @@ Search "[Hx]" to navigate directly to a section.
                             </h2>
                         </div>
                         <span id="wallpaperStatus">
-                            ACTIVE // PULSAR CORE
+                            ACTIVE // Tapestry of Blazing Starbirth
                         </span>
                     </div>
                     <p class="customization-description">
                         SELECT A BACKGROUND FOR THE PULSAR DESKTOP ENVIRONMENT.
                     </p>
                     <div class="wallpaper-grid">
-                        <button class="wallpaper-card" data-wallpaper="pulsar" type="button">
-                            <img alt="" src="images/Wallpapers/Pulsar-wllp.png" />
+                        <button class="wallpaper-card" data-wallpaper="TOBS" type="button">
+                            <img alt="" src="images/Wallpapers/heic2007a.jpg" />
                             <span class="wallpaper-card-info">
                                 <strong>
-                                    PULSAR CORE
+                                    Tapestry of Blazing Starbirth
                                 </strong>
                                 <small>
-                                    NEUTRON STAR
+                                    The Cosmic Reef.
                                 </small>
                             </span>
                         </button>
-                        <button class="wallpaper-card" data-wallpaper="galaxy" type="button">
-                            <img alt="" src="images/Wallpapers/galaxy-wllp.png" />
+                        <button class="wallpaper-card" data-wallpaper="TSF" type="button">
+                            <img alt="" src="images/Wallpapers/potw2049a.jpg" />
                             <span class="wallpaper-card-info">
                                 <strong>
-                                    GALAXY
+                                    The Stellar Forge
                                 </strong>
                                 <small>
-                                    DEEP SPACE
+                                    Starburst Galaxy.
                                 </small>
                             </span>
                         </button>
-                        <button class="wallpaper-card" data-wallpaper="saturn" type="button">
-                            <img alt="" src="images/Wallpapers/saturn-wllp.png" />
+                        <button class="wallpaper-card" data-wallpaper="LSP" type="button">
+                            <img alt="" src="images/Wallpapers/heic1917a.jpg" />
                             <span class="wallpaper-card-info">
                                 <strong>
-                                    SATURN
+                                    Latest Saturn Portrait (06/12/2019)
                                 </strong>
                                 <small>
-                                    PLANETARY VIEW
+                                    Saturn portrait.
                                 </small>
                             </span>
                         </button>
-                        <button class="wallpaper-card" data-wallpaper="void" type="button">
-                            <img alt="" src="images/Wallpapers/void-wllp.png" />
+                        <button class="wallpaper-card" data-wallpaper="MM" type="button">
+                            <img alt="" src="images/Wallpapers/heic1007a.jpg" />
                             <span class="wallpaper-card-info">
                                 <strong>
-                                    VOID
+                                    Mystic Mountain
                                 </strong>
                                 <small>
-                                    EVENT HORIZON
+                                    Nebula in Carina.
                                 </small>
                             </span>
                         </button>
                     </div>
                 </div>
+            <!-- ========================================
+                         WALLPAPER SOURCE
+            ========================================= -->
+            <div class="customization-main custom-page" data-custom-content="sources">
+            <div class="customization-heading">
+            <div>
+            <span class="customization-code">
+                DOCUMENTATION // SOURCES
+            </span>
+
+            <h2>
+                WALLPAPER SOURCES
+            </h2>
             </div>
+            </div>
+
+            <p class="customization-description">
+            ORIGINAL SOURCES AND CREDITS FOR PULSAR WALLPAPERS.
+            </p>
+
+           <div class="wallpaper-source-list">
+
+    <!-- ========================================
+         Tapestry of Blazing Starbirth
+    ========================================= -->
+    <article class="wallpaper-source-item">
+
+        <img
+            src="images/Wallpapers/heic2007a.jpg"
+            alt="Tapestry of Blazing Starbirth"
+        />
+
+        <div class="wallpaper-source-info">
+
+            <span class="wallpaper-source-code">
+                SOURCE // 01
+            </span>
+
+            <h3>
+                TAPESTRY OF BLAZING STARBIRTH
+            </h3>
+
+            <p>
+                THE COSMIC REEF
+            </p>
+
+            <div class="wallpaper-source-meta">
+                <span>FILE // HEIC2007A.JPG</span>
+                <span>SOURCE // ESA / HUBBLE</span>
+            </div>
+
+            <div class="wallpaper-source-actions">
+
+                <a
+                    class="wallpaper-source-link"
+                    href="https://esahubble.org/images/heic2007a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    OPEN SOURCE ↗
+                </a>
+
+                <button
+                    class="wallpaper-source-web"
+                    type="button"
+                    data-url="https://esahubble.org/images/heic2007a/"
+                >
+                    OPEN IN PULSAR WEB →
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- ========================================
+         The Stellar Forge
+    ========================================= -->
+    <article class="wallpaper-source-item">
+
+        <img
+            src="images/Wallpapers/potw2049a.jpg"
+            alt="The Stellar Forge"
+        />
+
+        <div class="wallpaper-source-info">
+
+            <span class="wallpaper-source-code">
+                SOURCE // 02
+            </span>
+
+            <h3>
+                THE STELLAR FORGE
+            </h3>
+
+            <p>
+                STARBURST GALAXY
+            </p>
+
+            <div class="wallpaper-source-meta">
+                <span>FILE // POTW2049A.JPG</span>
+                <span>SOURCE // ESA / HUBBLE</span>
+            </div>
+
+            <div class="wallpaper-source-actions">
+
+                <a
+                    class="wallpaper-source-link"
+                    href="https://esahubble.org/images/potw2049a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    OPEN SOURCE ↗
+                </a>
+
+                <button
+                    class="wallpaper-source-web"
+                    type="button"
+                    data-url="https://esahubble.org/images/potw2049a/"
+                >
+                    OPEN IN PULSAR WEB →
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- ========================================
+         Latest Saturn Portrait
+    ========================================= -->
+    <article class="wallpaper-source-item">
+
+        <img
+            src="images/Wallpapers/heic1917a.jpg"
+            alt="Latest Saturn Portrait"
+        />
+
+        <div class="wallpaper-source-info">
+
+            <span class="wallpaper-source-code">
+                SOURCE // 03
+            </span>
+
+            <h3>
+                LATEST SATURN PORTRAIT
+            </h3>
+
+            <p>
+                SATURN PORTRAIT
+            </p>
+
+            <div class="wallpaper-source-meta">
+                <span>FILE // HEIC1917A.JPG</span>
+                <span>SOURCE // ESA / HUBBLE</span>
+            </div>
+
+            <div class="wallpaper-source-actions">
+
+                <a
+                    class="wallpaper-source-link"
+                    href="https://esahubble.org/images/heic1917a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    OPEN SOURCE ↗
+                </a>
+
+                <button
+                    class="wallpaper-source-web"
+                    type="button"
+                    data-url="https://esahubble.org/images/heic1917a/"
+                >
+                    OPEN IN PULSAR WEB →
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- ========================================
+         Mystic Mountain
+    ========================================= -->
+    <article class="wallpaper-source-item">
+
+        <img
+            src="images/Wallpapers/heic1007a.jpg"
+            alt="Mystic Mountain"
+        />
+
+        <div class="wallpaper-source-info">
+
+            <span class="wallpaper-source-code">
+                SOURCE // 04
+            </span>
+
+            <h3>
+                MYSTIC MOUNTAIN
+            </h3>
+
+            <p>
+                NEBULA IN CARINA
+            </p>
+
+            <div class="wallpaper-source-meta">
+                <span>FILE // HEIC1007A.JPG</span>
+                <span>SOURCE // ESA / HUBBLE</span>
+            </div>
+
+            <div class="wallpaper-source-actions">
+
+                <a
+                    class="wallpaper-source-link"
+                    href="https://esahubble.org/images/heic1007a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    OPEN SOURCE ↗
+                </a>
+
+                <button
+                    class="wallpaper-source-web"
+                    type="button"
+                    data-url="https://esahubble.org/images/heic1007a/"
+                >
+                    OPEN IN PULSAR WEB →
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+            </div>
+        </div>
             <div class="window-footer">
                 <span id="customizationFooter">
-                    WALLPAPER // PULSAR CORE
+                    WALLPAPER //   Tapestry of Blazing Starbirth
                 </span>
                 <span>
                     LOCAL PROFILE
@@ -1778,8 +2029,8 @@ Search "[Hx]" to navigate directly to a section.
     </main>
 
 <!-- ============================================================
-     [H9] SCRIPT ENTRYPOINT
-============================================================ -->
+        SCRIPT ENTRYPOINT / THE END OF THE LINE :D 
+============================================================ --> 
 
     <script src="script.js">
     </script>
