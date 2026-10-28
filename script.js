@@ -1,45 +1,11 @@
 ﻿// ============================================================
-// PULSAR OS // BUILD 1.0 (Remake)
+// PULSAR OS // BUILD 1.0 (Ultra litefication)
 // Made by N1K
 // ============================================================
-//
-// Also check on index pliz :D
-//
-// this is the simple version of the JS :D
-// I tried to make it as clean as possible — I cleaned it up as much as I could and restructured everything.
-// Honestly, a tear even rolled down my cheek when I saw the final result; if something doesn't work, 
-// I'm going to collapse on the floor and cry lol.
-//
-//
-//------------------------------------------------------------
-// SOURCE MAP
-//------------------------------------------------------------
-//
-// MAP <- u are here ;D 
-//
-// STORAGE
-// ELEMENTS
-// WINDOWS
-// MENU AND APPS
-// NOTES
-// CALCULATOR
-// SIGNAL LOG
-// WALLPAPERS
-// SERIAL
-// DEVICE MANAGER
-// TERMINAL
-// WEB
-// BOOT
-//
-// ============================================================
-//  -But how do i use it?
-//
-// Press Ctrl + F; this will open a small bar in the top right corner,
-//  and then you can type in the block you want to see!
-//
-// ============================================================
-// STORAGE
-// ============================================================
+// Welcome to the JavaScript :D
+// Also check the index.html pliz!
+// This is where the magic happens.
+//=============================================================
 
 // ts save everything in the browser (localStorage)
 function saveData(key, value) {
@@ -98,11 +64,6 @@ if (loadData("system.createdAt", null) === null) {
     saveData("system.createdAt", new Date().toISOString());
 }
 saveData("system.lastBoot", new Date().toISOString());
-
-
-// ============================================================
-// ELEMENTS
-// ============================================================
 
 // if one of these ids is wrong the page stops and the console shows an error
 // (that is on purpose, it is easier to find the problem)
@@ -232,14 +193,9 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-
-// ============================================================
-// WINDOWS (always remember, NOT THE OS!)
-// ============================================================
-
 let zTop = 20;
 
-// when a window is maximized, its old size and position are saved here 
+// when a window is maximized, its old size and position are saved here (always remember, NOT THE OS!)
 const oldSizes = {};
 
 function focusWindow(win) {
@@ -391,11 +347,6 @@ window.addEventListener("resize", function () {
     });
 });
 
-
-// ============================================================
-// MENU AND APPS
-// ============================================================
-
 function closeMenu() {
     systemMenu.classList.remove("open");
 systemMenuButton.classList.remove("active");
@@ -517,10 +468,6 @@ customButtons.forEach(function (button) {
 });
 
 
-// ============================================================
-// NOTES
-// ============================================================
-
 let notesTimer = null;
 
 notesEditor.value = loadData("apps.notes.content", "");
@@ -542,11 +489,6 @@ clearNotes.addEventListener("click", function () {
     saveNotes();
     notesEditor.focus();
 });
-
-
-// ============================================================
-// CALCULATOR
-// ============================================================
 
 let calcCurrent = "0"; // number on the screen
 let calcStored = null; // first number
@@ -740,11 +682,6 @@ calculatorWindow.addEventListener("keydown", function (event) {
 
 showCalculator();
 
-
-// ============================================================
-// SIGNAL LOG
-// ============================================================
-
 const logs = [
     {
         code: "LOG // 001",
@@ -824,11 +761,6 @@ for (let i = 0; i < logs.length; i++) {
     signalEntries.appendChild(entry);
 }
 
-
-// ============================================================
-// WALLPAPERS
-// ============================================================
-
 // the names (TOBS, TSF...) need to be the same as the data-wallpaper in the
 // html and the .wallpaper-NAME class in the css, if not nothing happens! roger that?
 const wallpapers = {
@@ -902,11 +834,6 @@ document.querySelectorAll(".wallpaper-source-web").forEach(function (button) {
         navigateWeb(button.dataset.url, true);
     });
 });
-
-
-// ============================================================
-// SERIAL
-// ============================================================
 
 const serialSupported = "serial" in navigator;
 
@@ -1306,11 +1233,6 @@ serialAutoScroll.addEventListener("change", saveSerialSettings);
 serialTimestamp.addEventListener("change", saveSerialSettings);
 serialHexView.addEventListener("change", saveSerialSettings);
 
-
-// ============================================================
-// DEVICE MANAGER
-// ============================================================
-
 // each device has its own alias, saved with the vendor id + product id
 function getAliasKey() {
     if (!port) {
@@ -1352,10 +1274,7 @@ deviceManagerAlias.addEventListener("input", function () {
 showSerialCounters();
 updateSerialScreen();
 
-
-// ============================================================
-// TERMINAL
-// ============================================================ HEADACHE BE CAREFUL HERE
+// HEADACHE BE CAREFUL HERE
 
 const oldCommands = [];
 let oldCommandIndex = 0;
@@ -1535,11 +1454,6 @@ terminalInput.addEventListener("keydown", function (event) {
         terminalInput.value = oldCommands[oldCommandIndex] || "";
     }
 });
-
-
-// ============================================================
-// WEB
-// ============================================================
 
 const webHistory = [];
 let webIndex = -1;
@@ -1803,10 +1717,7 @@ webHistoryToggle.before(externalButton);
 renderWebHistory();
 showWebHome();
 
-
-// ============================================================
-// BOOT
-// ============================================================
+// here's all the boot stuff
 
 const BOOT_TIME = 5000; // the boot screen stays at least 5 seconds
 const SHOW_WELCOME_AFTER_BOOT = false; // true = opens the welcome window

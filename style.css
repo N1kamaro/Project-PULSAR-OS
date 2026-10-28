@@ -1,32 +1,10 @@
 ﻿/*==========================================================
-PULSAR OS // BUILD 1.0 (Remake)
+PULSAR OS // BUILD 1.0 (Ultra litefication)
 Made by N1K
 ============================================================
-
 Welcome to the CSS :D 
-
 Also take a look at the HTML header!
-
-------------------------------------------------------------
-SOURCE MAP
-------------------------------------------------------------
-GLOBAL FOUNDATION
-GLOBAL DESIGN SYSTEM
-TOP BAR / SYSTEM MENU
-DESKTOP / WALLPAPERS
-WINDOW SYSTEM
-CORE APPLICATIONS
-BOOT INTERFACE
-SERIAL MONITOR / DEVICE MANAGER
-GUIDE
-RESPONSIVE / UTILITIES
-
-Press Ctrl + F; this will open a small bar in the top right corner,
-and then you can type in the block you want to see!
-============================================================
-
-============================================================
-     GLOBAL FOUNDATION
+Simpler code, less clutter, same Pulsar.
 ============================================================ */
 
 * {
@@ -47,10 +25,6 @@ body {
     font-family: var(--font-mono);
 }
 
-/* ========================================
-   GLOBAL DESIGN SYSTEM
-======================================== */
-
 /* esse rework vai ser o seguinte, eu vou meio que fazer um rework total de como funciona 
 o sistema dos apps, no sentido de que eu vou criar um sistema de padronizacao, com o objetivo de
 simplificar o sistema como um todo, resumidamente, tudo oq possui umas 5 linhas de codigo somente para definir cores,
@@ -60,10 +34,10 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
 /* PULSAR // DESIGN TOKENS */
 :root {
     /* janelas */
-    --win-bg: rgba(5, 5, 9, 0.94);
-    --win-border: #454554;
-    --win-shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
-    --win-blur: blur(5px);
+    --win-bg: rgba(5, 5, 9, 1);
+    --win-border: #333333;
+    /*--win-shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
+    --win-blur: blur(100%);
 
     /* texto, do mais claro pro mais apagado */
     --text: #eeeef5;
@@ -90,9 +64,9 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
     /* fundos */
     --panel: #08080d;
     --panel-deep: #050509;
-    --bar-bg: rgba(0, 0, 0, 0.24);
-    --field-bg: rgba(0, 0, 0, 0.4);
-    --well-bg: rgba(0, 0, 0, 0.48);
+    --bar-bg: rgba(0, 0, 0, 1);
+    --field-bg: rgba(0, 0, 0, 1);
+    --well-bg: rgb(0, 0, 0);
 
     /* status (serial, device manager...) */
     --ok: #5fe08b;
@@ -115,10 +89,6 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
     --z-boot: 999999;
 }
 
-/* ============================================================
-    TOP BAR / SYSTEM MENU
-============================================================ */
-
 .network-indicator {
     width: 18px;
     height: 14px;
@@ -131,9 +101,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
 .network-bar {
     width: 2px;
     background: currentColor;
-    transition:
-        opacity 0.2s ease,
-        height 0.2s ease;
+    transition: opacity 0.2s ease, height 0.2s ease;
 }
 
 .network-bar:nth-child(1) {
@@ -156,18 +124,12 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
     opacity: 0.15;
 }
 
-
-/* ========================================
-   PULSAR OS // TOP BAR
-======================================== */
-
 .top-bar {
     position: relative;
     z-index: var(--z-topbar);
     width: 100%;
     height: var(--topbar-h);
-    background: rgba(8, 8, 13, 0.8);
-    backdrop-filter: blur(12px);
+    background: var(--win-bg);
     border-bottom: 1px solid var(--ui-panel-border);
     font-size: 0.7rem;
     letter-spacing: 0.12em;
@@ -401,15 +363,6 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
 
 }
 
-
-/* ============================================================
-    DESKTOP / WALLPAPERS
-============================================================ */
-
-/* ========================================
-   DESKTOP
-======================================== */
-
 /* o --desktop-dim é aquela camada escura em cima do wallpaper,
 se quiser ele mais limpo troca no :root por linear-gradient(transparent, transparent) */
 .desktop {
@@ -440,11 +393,6 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     pointer-events: none;
 }
 
-
-/* ========================================
-   WALLPAPERS
-======================================== */
-
 /* corrigindo os nomes dos wallpapers aqui*/
 
 #desktop.wallpaper-grid {
@@ -467,12 +415,6 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     --wallpaper-image: url("images/Wallpapers/heic1007a.jpg");
 }
 
-
-/* ========================================
-   DESKTOP INFORMATION
-======================================== */
-
-
 .desktop-label {
     position: absolute;
     top: 18px;
@@ -488,16 +430,7 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     text-shadow: 0 1px 5px #000;
 }
 
-/* ============================================================
-   WINDOW SYSTEM
-============================================================ */
-
-/* ========================================
-   WINDOWS ( not the 10 or 11 :D )
-======================================== */
-
-
-.window {
+.window { /*not the 10 or 11 :D */
     width: min(720px, 88vw);
     height: min(650px, 82vh);
     position: absolute;
@@ -512,11 +445,9 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     box-shadow: var(--win-shadow);
 }
 
-
 .window.window-exit {
     animation: windowExit 0.22s ease forwards;
 }
-
 
 @keyframes windowExit {
     to {
@@ -524,12 +455,6 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
         transform: scale(0.985);
     }
 }
-
-
-/* ========================================
-   WINDOW BAR
-======================================== */
-
 
 .window-bar {
     height: 38px;
@@ -547,11 +472,9 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     touch-action: none;
 }
 
-
 .window-bar:active {
     cursor: grabbing;
 }
-
 
 .window-controls {
     display: flex;
@@ -576,12 +499,6 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
 .window-controls button:hover {
     color: #fff;
 }
-
-
-/* ========================================
-   WELCOME
-======================================== */
-
 
 .window-content {
     flex: 1;
@@ -684,12 +601,6 @@ h1 {
     color: #050507;
 }
 
-
-/* ========================================
-   WINDOW FOOTER
-======================================== */
-
-
 .window-footer { 
     height: 36px;
     flex-shrink: 0;
@@ -703,11 +614,6 @@ h1 {
     letter-spacing: 0.12em;
 
 }
-
-
-/* ========================================
-   SIGNAL LOG
-======================================== */
 
 /* o left agora tem um clamp pra janela nao passar da tela em monitor pequeno */
 .signal-window {
@@ -817,11 +723,6 @@ h1 {
     font-size: 1.0rem;
     line-height: 1.8;
 }
-
-
-/* ========================================
-   CUSTOMIZATION
-======================================== */
 
 .customization-window {
     width: min(860px, 88vw);
@@ -971,11 +872,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     letter-spacing: 0.13em;
 }
 
-
-/* ========================================
-   CUSTOMIZATION // INTERNAL PAGES
-======================================== */
-
 .custom-page {
     display: none;
 }
@@ -984,9 +880,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     display: block;
 }
 
-/* ========================================
-   CUSTOMIZATION // source
-======================================== */
 .wallpaper-source-list {
     display: flex;
     flex-direction: column;
@@ -1080,11 +973,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     color: #ffffff;
 }
 
-
-/* ========================================
-   PULSAR WINDOW MANAGER // BUILD 1.0
-   ======================================== */
-
 .window-maximized {
     transition:
         width 0.18s ease,
@@ -1096,13 +984,6 @@ entao agora ele so vale la dentro da janela de customizacao */
 .window-minimized {
     pointer-events: none;
 }
-
-
-/* ========================================
-   MOBILE // janelas e top bar
-   (precisa ficar antes dos apps, senao o left/width de cada app ganha daqui)
-======================================== */
-
 
 @media (max-width: 700px) {
 
@@ -1157,14 +1038,6 @@ entao agora ele so vale la dentro da janela de customizacao */
 
 }
 
-/* ============================================================
-    CORE APPLICATIONS
-============================================================ */
-
-/* ========================================
-   PULSAR NOTES
-======================================== */
-
 .notes-window {
     width: min(720px, 85vw);
     height: min(520px, 72vh);
@@ -1213,9 +1086,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     color: var(--ui-placeholder);
 }
 
-/* ========================================
-   PULSAR CALCULATOR
-======================================== */
 .calculator-window {
     width: min(420px, 90vw);
     height: min(560px, 78vh);
@@ -1310,9 +1180,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     grid-column: span 2;
 }
 
-/* ========================================
-   PULSAR TERMINAL
-======================================== */
 .terminal-window {
     width: min(760px, 88vw);
     height: min(540px, 74vh);
@@ -1398,10 +1265,6 @@ entao agora ele so vale la dentro da janela de customizacao */
 .serial-console::-webkit-scrollbar-thumb:hover {
     background: var(--ui-button-border);
 }
-
-/* ========================================
-   PULSAR WEB
-======================================== */
 
 .web-window {
     width: min(980px, calc(100vw - 40px));
@@ -1759,15 +1622,7 @@ entao agora ele so vale la dentro da janela de customizacao */
         font-size: 8px;
     }
 }
-
-/* ============================================================
-    BOOT INTERFACE
-============================================================ */
-
-/* ========================================
-   PULSAR OS // BOOT 1.0
-   LINUX STYLE INITIALIZATION
-======================================== */
+/*this is the boot stuff*/
 .pulsar-boot {
     position: fixed;
     inset: 0;
@@ -1958,15 +1813,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     }
 
 }
-
-/* ============================================================
-    SERIAL MONITOR / DEVICE MANAGER
-============================================================ */
-
-/* ========================================
-   PULSAR SERIAL MONITOR
-======================================== */
-
 .serial-window {
     width: min(1160px, calc(100vw - 40px));
     height: min(760px, calc(100vh - 90px));
@@ -2398,9 +2244,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     }
 }
 
-/* ========================================
-   PULSAR // DEVICE MANAGER
-======================================== */
 
 /* o left aqui ta centralizando de verdade (antes herdava o do .window, de 720px) */
 .device-manager-window {
@@ -2622,10 +2465,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     letter-spacing: 0.11em;
 }
 
-/* ========================================
-   DEVICE MANAGER // RESPONSIVE
-======================================== */
-
 @media (max-width: 760px) {
     .device-manager-window {
         min-width: 0;
@@ -2651,14 +2490,6 @@ entao agora ele so vale la dentro da janela de customizacao */
         margin-left: 0;
     }
 }
-
-/* ============================================================
-    GUIDE
-============================================================ */
-
-/* ========================================
-   PULSAR GUIDE
-========================================= */
 
 /* mesmo esquema do device manager: o left agora centraliza a janela de verdade */
 .guide-window {
@@ -2804,10 +2635,6 @@ entao agora ele so vale la dentro da janela de customizacao */
     }
 }
 
-/* ============================================================
-    RESPONSIVE / UTILITIES
-============================================================ */
-
 /* notes, calculator e terminal nao tinham regra de celular nenhuma,
 entao ficavam com o left de pc (120px, 180px, 150px) e passavam da tela.
 fica aqui no final de proposito, pra ganhar das regras la de cima */
@@ -2820,4 +2647,4 @@ fica aqui no final de proposito, pra ganhar das regras la de cima */
     }
 }
 
-/* FINAL OF THE CSS FILE :D */
+/* FINAL OF THE CSS FILE :D / FINAL DO CSS :DD*/

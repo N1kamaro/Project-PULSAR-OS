@@ -1,66 +1,19 @@
 ﻿<!--
 ============================================================
-PULSAR OS // BUILD 1.0 (Remake)
+PULSAR OS // BUILD 1.0 (Ultra litefication)
 Made by N1K
 ============================================================
 Hey there! thanks for checking out my Web OS!
 
 To help you get started, i done some things that might be userful for you!
 
-I made an tiny guide so you can understand were some thing are,
-just like an map of the whole code, so you can find what you need faster and easier.
-
-And that also includes the other files, like the CSS and JS.
-
-I looked into it, and everything used in the code is definitely open source,
-so you can use it without any worries!
-
 Throughout the code, you'll see some tips, covering the parts
 that gave me the most headaches, so you can avoid them and save time!
 
-Alright, without further ado, here is the HTML map!
+Alright, without further ado, enjoy the code :D
 
-------------------------------------------------------------
-HERE IS THE MAP OF THE HTML FILE
-------------------------------------------------------------
-MAP <---- u are here :D
-
-DOCUMENT & METADATA  
---------------------------
-BOOT INTERFACE
---------------------------
-SYSTEM SHELL
-  TOP BAR
-  SYSTEM MENU
-  SCREEN TRANSITION
-  DESKTOP
---------------------------
-CORE APPLICATIONS
-  NOTES
-  CALCULATOR
-  TERMINAL
-  PULSAR WEB
---------------------------
-SERIAL MONITOR
-DEVICE MANAGER
-GUIDE / DOCUMENTATION
---------------------------
-SYSTEM WINDOWS
-  WELCOME WINDOW
-  SIGNAL LOG WINDOW
-  CUSTOMIZATION WINDOW
---------------------------
-SCRIPT ENTRYPOINT
-
-------------------------------------------------------------
--But how do i use it?
-
-Press Ctrl + F; this will open a small bar in the top right corner,
-and then you can type in the block you want to see!
-
-============================================================
- DOCUMENT & METADATA
-============================================================ -->
+============================================================ 
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,9 +29,7 @@ and then you can type in the block you want to see!
 
 <body>
 
-    <!-- ========================================
-     PULSAR BOOT SEQUENCE // BUILD 1.0 (Remake)
-    ========================================= -->
+    <!-- here's the boot sequence stuff -->
     <section aria-live="polite" class="pulsar-boot" id="pulsarBoot">
         <div class="pulsar-boot-brand" id="pulsarBootBrand">
             <span class="pulsar-symbol bootlogo" aria-hidden="true">⌁</span> <!--bootlogo-->
@@ -105,13 +56,6 @@ and then you can type in the block you want to see!
             </div>
         </div>
     </section>
-<!-- ============================================================
-       SYSTEM SHELL
-============================================================ --> 
-
-    <!-- ========================================
-         TOP BAR
-    ========================================= -->
     <header class="top-bar" id="topBar">
         <button aria-label="Open PULSAR menu" class="top-left" id="systemMenuButton" type="button">
             <span>
@@ -149,9 +93,6 @@ and then you can type in the block you want to see!
     </span>
 </div>
     </header>
-    <!-- ========================================
-         PULSAR SYSTEM MENU 
-    ========================================= -->
     <nav class="system-menu" id="systemMenu">
         <div class="menu-header">
             <div class="menu-brand">
@@ -160,7 +101,6 @@ and then you can type in the block you want to see!
                 </span>
             </div>
         </div>
-        <!-- SYSTEM -->
         <div class="menu-section">
             <div class="menu-section-title">
                 SYSTEM
@@ -223,10 +163,6 @@ and then you can type in the block you want to see!
     <span>GUIDE</span>
       <span class="menu-tag">READY</span>
     </button>
-
-        <!-- ====================================
-                    INTERFACE 
-        ======================================-->
         <div class="menu-section">
             <div class="menu-section-title">
                 INTERFACE
@@ -249,34 +185,10 @@ and then you can type in the block you want to see!
             </span>
         </div>
     </nav>
-
-    <!-- ========================================
-         SCREEN TRANSITION
-    ========================================= -->
     <div class="screen-fade" id="screenFade">
     </div>
-
-    <!-- ========================================
-         DESKTOP
-    ========================================= -->
     <main class="desktop" id="desktop">
-        <div class="desktop-label">
-            <span>
-                BUILD 1.0 (Remake)
-            </span>
-            <span>
-                DESKTOP // 01
-            </span>
-        </div>
 
-
-<!-- ============================================================
-     CORE APPLICATIONS
-============================================================ -->
-
-    <!-- ========================================
-         NOTES
-    ========================================= -->
     <section class="window notes-window" id="notesWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -319,11 +231,7 @@ and then you can type in the block you want to see!
     </div>
     </section>
 
-
-    <!-- ========================================
-         CALCULATOR
-    ========================================= -->
-<section class="window calculator-window" id="calculatorWindow">
+    <section class="window calculator-window" id="calculatorWindow">
     <div class="window-bar">
         <div class="window-title">
             PULSAR // CALCULATOR
@@ -409,10 +317,6 @@ and then you can type in the block you want to see!
     </div>
     </section>
 
-
-    <!-- ========================================
-         TERMINAL
-    ========================================= -->
 <section class="window terminal-window" id="terminalWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -465,9 +369,6 @@ and then you can type in the block you want to see!
     </div>
     </section>
 
-    <!-- ========================================
-         PULSAR WEB
-    ========================================= -->
     <section class="window web-window" id="webWindow">
     <div class="window-bar">
         <div class="window-title">
@@ -686,11 +587,6 @@ and then you can type in the block you want to see!
         </span>
     </div>
     </section>
-
-
-<!-- ============================================================
-     SERIAL MONITOR
-============================================================ -->
 
 <section class="window serial-window" id="serialWindow">
     <div class="window-bar">
@@ -1013,15 +909,6 @@ and then you can type in the block you want to see!
     </div>
 </section>
 
-
-<!-- ============================================================
-     DEVICE MANAGER
-============================================================ -->
-
-<!-- ========================================
-     PULSAR // DEVICE MANAGER
-======================================== -->
-
 <section
     class="window device-manager-window"
     id="deviceManagerWindow"
@@ -1217,15 +1104,6 @@ and then you can type in the block you want to see!
 
     </div>
 </section>
-
-
-<!-- ============================================================
-    GUIDE / DOCUMENTATION
-============================================================ -->
-
-<!-- ========================================
-     PULSAR GUIDE
-========================================= -->
 
 <section class="window guide-window" id="guideWindow">
 
@@ -1544,14 +1422,6 @@ and then you can type in the block you want to see!
 
 </section>
       
-
-<!-- ============================================================
-    SYSTEM WINDOWS
-============================================================ -->
-
-        <!-- ========================================
-             WELCOME WINDOW
-        ========================================= -->
         <section class="window" id="welcome">
             <div class="window-bar">
                 <span>
@@ -1611,9 +1481,7 @@ and then you can type in the block you want to see!
                 </span>
             </div>
         </section>
-        <!-- ========================================
-             SIGNAL LOG WINDOW
-        ========================================= -->
+        
         <section class="window signal-window" id="signalLog">
             <div class="window-bar">
                 <span id="signalLogTitle">
@@ -1668,9 +1536,7 @@ and then you can type in the block you want to see!
                 </span>
             </div>
         </section>
-        <!-- ========================================
-             CUSTOMIZATION WINDOW
-        ========================================= -->
+        
         <section class="window customization-window" id="customization">
             <div class="window-bar">
                 <span>
@@ -1689,9 +1555,7 @@ and then you can type in the block you want to see!
                 </div>
             </div>
             <div class="customization-content">
-                <!-- ========================================
-                      WALLPAPER CUSTOMIZATION SIDEBAR      
-                ========================================= -->
+                
                 <aside class="customization-sidebar">
 
                 <button class="custom-nav active" data-custom-page="wallpapers" type="button">
@@ -1703,9 +1567,6 @@ and then you can type in the block you want to see!
                 </button>
                 </aside>
 
-               <!-- ========================================
-                         WALLPAPER CUSTOMIZATION!!
-                ========================================= -->
                 <div class="customization-main custom-page active" data-custom-content="wallpapers">
                     <div class="customization-heading">
                         <div>
@@ -1770,9 +1631,7 @@ and then you can type in the block you want to see!
                         </button>
                     </div>
                 </div>
-            <!-- ========================================
-                         WALLPAPER SOURCE
-            ========================================= -->
+            
             <div class="customization-main custom-page" data-custom-content="sources">
             <div class="customization-heading">
             <div>
@@ -1792,9 +1651,7 @@ and then you can type in the block you want to see!
 
            <div class="wallpaper-source-list">
 
-    <!-- ========================================
-         Tapestry of Blazing Starbirth
-    ========================================= -->
+
     <article class="wallpaper-source-item">
 
         <img
@@ -1846,10 +1703,6 @@ and then you can type in the block you want to see!
 
     </article>
 
-
-    <!-- ========================================
-         The Stellar Forge
-    ========================================= -->
     <article class="wallpaper-source-item">
 
         <img
@@ -1901,10 +1754,6 @@ and then you can type in the block you want to see!
 
     </article>
 
-
-    <!-- ========================================
-         Latest Saturn Portrait
-    ========================================= -->
     <article class="wallpaper-source-item">
 
         <img
@@ -1955,13 +1804,6 @@ and then you can type in the block you want to see!
         </div>
 
     </article>
-
-
-    <!-- ========================================
-         Mystic Mountain
-    ========================================= -->
-    <article class="wallpaper-source-item">
-
         <img
             src="images/Wallpapers/heic1007a.jpg"
             alt="Mystic Mountain"
