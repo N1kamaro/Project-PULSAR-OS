@@ -179,12 +179,7 @@ const deviceManagerDisconnect = document.getElementById("deviceManagerDisconnect
 const deviceManagerOpenSerial = document.getElementById("deviceManagerOpenSerial");
 const deviceManagerLink = document.getElementById("deviceManagerLink");
 
-// boot
-const pulsarBoot = document.getElementById("pulsarBoot");
-const pulsarBootBrand = document.getElementById("pulsarBootBrand");
-const pulsarBootTerminal = document.getElementById("pulsarBootTerminal");
-const pulsarBootLines = document.getElementById("pulsarBootLines");
-const pulsarBootCorner = document.querySelector(".pulsar-boot-corner");
+//boot here deleted :D
 
 // clock
 function updateClock() {
@@ -1717,137 +1712,12 @@ webHistoryToggle.before(externalButton);
 renderWebHistory();
 showWebHome();
 
-// here's all the boot stuff
+// no more boot screen, straight to PULSAR :D
+allWindows.forEach(function (win) {
+    closeWindow(win);
+});
 
-const BOOT_TIME = 5000; // the boot screen stays at least 5 seconds
-const SHOW_WELCOME_AFTER_BOOT = false; // true = opens the welcome window
-
-function addBootLine(type, text, important) {
-    const line = makeElement("div", "pulsar-boot-line");
-
-    if (important) {
-        line.classList.add("pulsar-boot-line-important");
-    }
-
-    let prefix = "[ INFO ]";
-    if (type === "OK") prefix = "[  OK  ]";
-    if (type === "WARN") prefix = "[ WARN ]";
-
-    line.appendChild(makeElement("span", "pulsar-boot-prefix " + type.toLowerCase(), prefix));
-    line.appendChild(makeElement("span", "pulsar-boot-line-text", text));
-
-    pulsarBootLines.appendChild(line);
-
-    // the boot terminal doesnt scroll, so the old lines are removed
-    while (
-        pulsarBootLines.scrollHeight > pulsarBootTerminal.clientHeight &&
-        pulsarBootLines.children.length > 1
-    ) {
-        pulsarBootLines.removeChild(pulsarBootLines.firstElementChild);
-    }
-}
-
-function getBootLines() {
-    let platform = navigator.platform || "UNKNOWN";
-    if (navigator.userAgentData && navigator.userAgentData.platform) {
-        platform = navigator.userAgentData.platform;
-    }
-
-    const processors = navigator.hardwareConcurrency || "UNKNOWN";
-    const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB+" : "BROWSER RESTRICTED";
-    const display = screen.width + "x" + screen.height;
-    const ratio = (window.devicePixelRatio || 1).toFixed(2);
-
-    const online = navigator.onLine;
-    const hasSerial = "serial" in navigator;
-    const hasUsb = "usb" in navigator;
-
-    let gamepads = "UNSUPPORTED";
-    if ("getGamepads" in navigator) {
-        try {
-            const count = Array.from(navigator.getGamepads()).filter(Boolean).length;
-            gamepads = count > 0 ? count + " CONNECTED" : "NONE";
-        } catch (error) {
-            gamepads = "AVAILABLE";
-        }
-    }
-
-    return [
-        ["INFO", "PULSAR-OS boot sequence initiated"],
-        ["INFO", "Loading PULSAR core // BUILD 1.0"],
-        ["OK", "pulsar-core.service"],
-        ["OK", "local-storage.service"],
-        ["INFO", dotted("Platform", platform, 25)],
-        ["INFO", dotted("Logical processors", processors, 25)],
-        ["INFO", dotted("Memory interface", memory, 25)],
-        ["INFO", dotted("Display", display, 25)],
-        ["INFO", dotted("Pixel ratio", ratio, 25)],
-        [online ? "OK" : "WARN", dotted("Network interface", online ? "ONLINE" : "OFFLINE", 25)],
-        [hasSerial ? "OK" : "WARN", dotted("Web Serial", hasSerial ? "AVAILABLE" : "UNSUPPORTED", 25)],
-        [hasUsb ? "OK" : "WARN", dotted("Web USB", hasUsb ? "AVAILABLE" : "UNSUPPORTED", 25)],
-        [gamepads !== "UNSUPPORTED" ? "OK" : "WARN", dotted("Gamepad interface", gamepads, 25)],
-        ["INFO", "Loading desktop environment"],
-        ["OK", "window-manager.service"],
-        ["OK", "desktop-session.service"],
-        ["OK", "signal-log.service"],
-        ["OK", "customisation.service"],
-        ["OK", "wallpaper-engine.service"],
-        ["INFO", dotted("Wallpaper", currentWallpaper, 25)],
-        ["INFO", "Restoring local user environment"],
-        ["OK", "PULSAR desktop session initialized"],
-        ["OK", "Reached target: pulsar-desktop.target", true]
-    ];
-}
-
-async function startBoot() {
-    // all windows start closed
-    allWindows.forEach(function (win) {
-        closeWindow(win);
-    });
-    closeMenu();
-
-    const startTime = performance.now();
-
-    try {
-        // 1. only the logo
-        await wait(900);
-        pulsarBootBrand.classList.add("boot-brand-leaving");
-        await wait(420);
-        pulsarBootBrand.style.display = "none";
-
-        // 2. the boot text
-        pulsarBootTerminal.classList.add("active");
-        pulsarBootCorner.classList.add("active");
-
-        const lines = getBootLines();
-        for (let i = 0; i < lines.length; i++) {
-            addBootLine(lines[i][0], lines[i][1], lines[i][2]);
-            await wait(105);
-        }
-
-        // waits until the 5 seconds are over
-        const passed = performance.now() - startTime;
-        await wait(Math.max(350, BOOT_TIME - passed));
-
-        // 3. the desktop
-        pulsarBootTerminal.classList.remove("active");
-        pulsarBootCorner.classList.remove("active");
-        await wait(260);
-
-        pulsarBoot.classList.add("boot-finished");
-        await wait(900);
-        pulsarBoot.style.display = "none";
-
-        if (SHOW_WELCOME_AFTER_BOOT) {
-            openWindow(welcomeWindow);
-        }
-    } catch (error) {
-        // if something breaks, dont leave the user stuck on the boot screen (a way to avoid a headache :D)
-        console.error("boot failed", error);
-        pulsarBoot.style.display = "none";
-    }
-}
-
-startBoot();
+closeMenu();
+openWindow(welcomeWindow);
 
 //the end of the code :D, see? its not really that hard :D, just impossible^10 .
