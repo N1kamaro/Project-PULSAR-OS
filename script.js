@@ -75,7 +75,6 @@ const clock = document.getElementById("clock");
 const screenFade = document.getElementById("screenFade");
 const networkIndicator = document.getElementById("networkIndicator");
 const systemMenu = document.getElementById("systemMenu");
-const systemMenuButton = document.getElementById("systemMenuButton");
 
 // windows
 const welcomeWindow = document.getElementById("welcome");
@@ -344,23 +343,11 @@ window.addEventListener("resize", function () {
 
 function closeMenu() {
     systemMenu.classList.remove("open");
-systemMenuButton.classList.remove("active");
 }
-
-systemMenuButton.addEventListener("click", function () {
-    if (systemMenu.classList.contains("open")) {
-        closeMenu();
-    } else {
-        systemMenu.classList.add("open");
-        systemMenuButton.classList.add("active");
-    }
-});
 
 // click outside = close the menu
 document.addEventListener("pointerdown", function (event) {
-    const insideMenu = systemMenu.contains(event.target);
-    const insideButton = systemMenuButton.contains(event.target);
-    if (!insideMenu && !insideButton) {
+    if (!systemMenu.contains(event.target)) {
         closeMenu();
     }
 });
@@ -765,6 +752,25 @@ const wallpapers = {
     MM: "MYSTIC MOUNTAIN"
 };
 
+const wallpaperCredits = {
+    TOBS: {
+        name: "Tapestry of Blazing Starbirth",
+        url: "https://esahubble.org/images/heic2007a/"
+    },
+    TSF: {
+        name: "The Stellar Forge",
+        url: "https://esahubble.org/images/potw2049a/"
+    },
+    LSP: {
+        name: "Latest Saturn Portrait (06/12/2019)",
+        url: "https://esahubble.org/images/heic1917a/"
+    },
+    MM: {
+        name: "Mystic Mountain",
+        url: "https://esahubble.org/images/heic1007a/"
+    }
+};
+
 let currentWallpaper = "TOBS";
 let wallpaperChanging = false;
 
@@ -787,6 +793,10 @@ function applyWallpaper(name) {
 
     currentWallpaper = name;
     saveData("system.wallpaper", name);
+    const credit = wallpaperCredits[name];
+
+    document.getElementById("wallpaperCreditName").textContent = credit.name;
+    document.getElementById("wallpaperCredit").href = credit.url;
 }
 
 // screen goes black, changes, and comes back
@@ -828,6 +838,16 @@ document.querySelectorAll(".wallpaper-source-web").forEach(function (button) {
         closeMenu();
         navigateWeb(button.dataset.url, true);
     });
+});
+
+// wallpaper credits open in PULSAR WEB :D
+document.getElementById("wallpaperCredit").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const url = wallpaperCredits[currentWallpaper].url;
+
+    openWindow(webWindow);
+    navigateWeb(url, true);
 });
 
 const serialSupported = "serial" in navigator;
@@ -1719,5 +1739,40 @@ allWindows.forEach(function (win) {
 
 closeMenu();
 openWindow(welcomeWindow);
+
+//apps stuff down here 
+
+// desktop shortcut :D
+document.getElementById("desktopNotes").addEventListener("click", function () {
+    openWindow(notesWindow);
+});
+
+document.getElementById("desktopCalculator").addEventListener("click", function () {
+    openWindow(calculatorWindow);
+});
+
+document.getElementById("desktopTerminal").addEventListener("click", function () {
+    openWindow(terminalWindow);
+});
+
+document.getElementById("desktopWeb").addEventListener("click", function () {
+    openWindow(webWindow);
+});
+
+document.getElementById("desktopSerial").addEventListener("click", function () {
+    openWindow(serialWindow);
+});
+
+document.getElementById("desktopDeviceManager").addEventListener("click", function () {
+    openWindow(deviceManagerWindow);
+});
+
+document.getElementById("desktopCustomization").addEventListener("click", function () {
+    openWindow(customizationWindow);
+});
+
+document.getElementById("desktopGuide").addEventListener("click", function () {
+    openWindow(guideWindow);
+});
 
 //the end of the code :D, see? its not really that hard :D, just impossible^10 .

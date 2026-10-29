@@ -130,7 +130,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
     height: var(--topbar-h);
     background: var(--win-bg);
     border-bottom: 1px solid var(--ui-panel-border);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
 }
 
@@ -379,18 +379,7 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
     min-height: 100vh;
 }
 
-.desktop::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px,transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px,
-    transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-}
+/*TAMO LIVREE, CHEGA DE GRADEES*/
 
 /* corrigindo os nomes dos wallpapers aqui*/
 
@@ -2456,4 +2445,77 @@ fica aqui no final de proposito, pra ganhar das regras la de cima */
     }
 }
 
-/* FINAL OF THE CSS FILE :D / FINAL DO CSS :DD*/
+/* desktop apps :D */
+
+.desktop-apps {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(90px);
+    gap: 10px;
+}
+
+.desktop-app {
+    width: 90px;
+    padding: 12px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.desktop-app:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--ui-soft);
+}
+
+.desktop-app-icon {
+    font-size: 30px;
+}
+
+.desktop-app-name {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
+
+/*customization stuff new!*/
+
+/* wallpaper credits */
+
+.wallpaper-credit {
+    position: absolute;
+    right: 24px;
+    bottom: 20px;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+
+    color: var(--text-soft);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-shadow: 0 1px 5px #000;
+}
+
+.wallpaper-credit:hover {
+    color: var(--text);
+}
+
+.wallpaper-credit-source {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+
+
+/* FINAL OF THE CSS FILE :D / FINAL DO CSS :DD */
