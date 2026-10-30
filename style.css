@@ -42,7 +42,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   --win-bg: rgba(5, 5, 9, 1);
   --win-border: #333333;
 
-    /* texto, do mais claro pro mais apagado */
+  /* texto, do mais claro pro mais apagado */
   --text: #eeeef5;
   --text-soft: #aaaab5;
   --muted: #8e8e9c;
@@ -163,8 +163,8 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   color: #ffffff;
 }
 
-.invisible{
-    color: rgba(0, 0,0, 0);
+.invisible {
+  color: rgba(0, 0, 0, 0);
 }
 
 /* CENTER */
@@ -340,7 +340,6 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   align-items: center;
   display: flex;
 }
-
 
 /* o --desktop-dim é aquela camada escura em cima do wallpaper,
 se quiser ele mais limpo troca no :root por linear-gradient(transparent, transparent) */
@@ -1109,13 +1108,6 @@ entao agora ele so vale la dentro da janela de customizacao */
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(255, 255, 255, 0.035),
-      transparent 38%
-    ),
-    var(--field-bg);
 }
 
 /* HOME */
@@ -1142,13 +1134,6 @@ entao agora ele so vale la dentro da janela de customizacao */
   font-size: clamp(24px, 4vw, 38px);
   font-weight: bold;
   letter-spacing: 0.18em;
-}
-
-.web-home-subtitle {
-  margin-top: 10px;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  opacity: 0.42;
 }
 
 .web-home-line {
@@ -2148,7 +2133,5 @@ fica aqui no final de proposito, pra ganhar das regras la de cima */
   color: var(--muted);
   font-size: 9px;
 }
-
-
 
 /* FINAL OF THE CSS FILE :D / FINAL DO CSS :DD */

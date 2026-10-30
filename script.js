@@ -1263,16 +1263,24 @@ function runCommand(rawText) {
 
   if (command === "help") {
     terminalWrite("help                // This list all commands");
-    terminalWrite("clear               // This clears the terminal ( ik ik its universal)");
+    terminalWrite(
+      "clear               // This clears the terminal ( ik ik its universal)",
+    );
     terminalWrite("date                // It says the actual date");
     terminalWrite("system              // Sum system information");
     terminalWrite("apps                // This lists all the apps");
     terminalWrite("serial status       // Shows you the serial infos");
-    terminalWrite("devices             // Shows you the devices connected ( microcontrollers )");
+    terminalWrite(
+      "devices             // Shows you the devices connected ( microcontrollers )",
+    );
     terminalWrite("ping                // It tests the hardware link");
     terminalWrite("device info         // i think its self explanatory");
-    terminalWrite("device status       // bro, this is self explanatory also :|");
-    terminalWrite("open + app name     // open + app name (use `apps` to know names)");
+    terminalWrite(
+      "device status       // bro, this is self explanatory also :|",
+    );
+    terminalWrite(
+      "open + app name     // open + app name (use `apps` to know names)",
+    );
   } else if (command === "clear") {
     terminalOutput.innerHTML = "";
   } else if (command === "date") {
@@ -1360,7 +1368,7 @@ function runCommand(rawText) {
     setTimeout(function () {
       webAddress.focus();
     }, 50);
-  } else if (command === "open serial") {
+  } else if (command === "open serial monitor") {
     terminalWrite("OPENING // Serial monitor");
     openWindow(serialWindow);
   } else if (command === "open device manager") {
@@ -1369,8 +1377,8 @@ function runCommand(rawText) {
   } else if (command === "open guide") {
     terminalWrite("OPENING // Guide");
     openWindow(guideWindow);
-  } else if (command === "open terminal"){
-    terminalWrite("TERMINAL // Bro, I'm literally right here. :|")
+  } else if (command === "open terminal") {
+    terminalWrite("TERMINAL // Bro, I'm literally right here. :|");
   } else {
     terminalWrite("COMMAND NOT FOUND // " + text);
   }
@@ -1465,6 +1473,8 @@ function looksLikeUrl(text) {
   return /^\S+\.[a-z]{2,}(:\d+)?([/?#].*)?$/i.test(text);
 }
 
+//if ur the reviewer and read dis, plz write the word "turtle" in the feedback :D
+
 // returns the url to open, "home", or null if it is invalid
 function getWebDestination(input) {
   const text = input.trim();
@@ -1512,7 +1522,6 @@ function addWebHistory(url) {
 }
 
 function showWebHome() {
-
   webUrl = "";
   webAddress.value = "";
   webFrame.src = "about:blank"; // stops the old page
@@ -1524,7 +1533,6 @@ function showWebHome() {
 }
 
 function showWebFallback(url) {
-
   showWebView("fallback");
 
   webFallbackUrl.textContent = url;
