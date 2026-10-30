@@ -121,14 +121,11 @@ const webReload = document.getElementById("webReload");
 const webHome = document.getElementById("webHome");
 const webAddress = document.getElementById("webAddress");
 const webGo = document.getElementById("webGo");
-const webStatus = document.getElementById("webStatus");
-const webProtocol = document.getElementById("webProtocol");
 const webHomeScreen = document.getElementById("webHomeScreen");
 const webFrame = document.getElementById("webFrame");
 const webFallback = document.getElementById("webFallback");
 const webFallbackUrl = document.getElementById("webFallbackUrl");
 const webOpenExternal = document.getElementById("webOpenExternal");
-const webFooterStatus = document.getElementById("webFooterStatus");
 
 // serial monitor
 const serialMenuStatus = document.getElementById("serialMenuStatus");
@@ -758,15 +755,6 @@ if (savedWallpaper === "saturn") savedWallpaper = "LSP";
 if (savedWallpaper === "void") savedWallpaper = "MM";
 if (!wallpapers[savedWallpaper]) savedWallpaper = "TOBS";
 applyWallpaper(savedWallpaper);
-
-// "OPEN IN PULSAR WEB" buttons
-document.querySelectorAll(".wallpaper-source-web").forEach(function (button) {
-  button.addEventListener("click", function () {
-    openWindow(webWindow);
-    closeMenu();
-    navigateWeb(button.dataset.url, true);
-  });
-});
 
 // wallpaper credits open in PULSAR WEB :D
 document
@@ -1427,7 +1415,6 @@ terminalInput.addEventListener("keydown", function (event) {
 const webHistory = [];
 let webIndex = -1;
 let webUrl = "";
-let webTimer = null;
 
 // no allow-same-origin on purpose, if not the sites inside the frame
 // could read the notes from localStorage
@@ -1445,7 +1432,6 @@ function updateNetwork() {
 
   networkIndicator.title = label;
   networkIndicator.setAttribute("aria-label", label);
-  webFooterStatus.textContent = label;
 }
 
 window.addEventListener("online", updateNetwork);
@@ -1526,7 +1512,6 @@ function addWebHistory(url) {
 }
 
 function showWebHome() {
-  clearTimeout(webTimer);
 
   webUrl = "";
   webAddress.value = "";
@@ -1534,21 +1519,15 @@ function showWebHome() {
 
   showWebView("home");
 
-  webStatus.textContent = "READY";
-  webProtocol.textContent = "LOCAL // HOME";
-
   updateNetwork();
   updateWebButtons();
 }
 
 function showWebFallback(url) {
-  clearTimeout(webTimer);
 
   showWebView("fallback");
 
   webFallbackUrl.textContent = url;
-  webStatus.textContent = "EMBED // BLOCKED";
-  webProtocol.textContent = "EXTERNAL // REQUIRED";
 }
 
 function navigateWeb(url, saveInHistory) {
@@ -1558,6 +1537,7 @@ function navigateWeb(url, saveInHistory) {
   if (saveInHistory) {
     addWebHistory(url);
   }
+
   updateWebButtons();
 
   if (isBlockedSite(url)) {
@@ -1567,30 +1547,14 @@ function navigateWeb(url, saveInHistory) {
 
   showWebView("frame");
 
-  webStatus.textContent = "CONNECTING";
-  webProtocol.textContent =
-    new URL(url).protocol.replace(":", "").toUpperCase() + " // EMBEDDED";
-  webFooterStatus.textContent = navigator.onLine
-    ? "NETWORK // REQUESTING"
-    : "NETWORK // OFFLINE";
-
   webFrame.src = url;
-
-  // the browser doesnt tell us if the site blocked the iframe, so after 6s
-  // we just show a hint about the ↗ button
-  clearTimeout(webTimer);
-  webTimer = setTimeout(function () {
-    if (webUrl !== "") {
-      webStatus.textContent = "CHECK VIEW // ↗ IF BLOCKED";
-    }
-  }, 6000);
 }
 
 function submitWebAddress() {
   const destination = getWebDestination(webAddress.value);
 
   if (destination === null) {
-    webStatus.textContent = "INVALID ADDRESS";
+    return;
   } else if (destination === "home") {
     showWebHome();
   } else {
@@ -1608,8 +1572,7 @@ webFrame.addEventListener("load", function () {
   if (webUrl === "") {
     return; // it was only the blank page from going home
   }
-  clearTimeout(webTimer);
-  webStatus.textContent = "FRAME // RESPONSE";
+
   updateNetwork();
 });
 

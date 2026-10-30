@@ -41,8 +41,6 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   /* janelas */
   --win-bg: rgba(5, 5, 9, 1);
   --win-border: #333333;
-  /*--win-shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
-    --win-blur: blur(100%);
 
     /* texto, do mais claro pro mais apagado */
   --text: #eeeef5;
@@ -420,9 +418,7 @@ se quiser ele mais limpo troca no :root por linear-gradient(transparent, transpa
   display: none;
   flex-direction: column;
   background: var(--win-bg);
-  backdrop-filter: var(--win-blur);
   border: 1px solid var(--win-border);
-  box-shadow: var(--win-shadow);
 }
 
 .window.window-exit {
@@ -600,18 +596,6 @@ h1 {
   overflow: hidden;
 }
 
-
-.custom-nav.active {
-  border-color: var(--line);
-  background: rgba(150, 150, 255, 0.08);
-  color: var(--text);
-}
-
-.custom-nav.disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
 .customization-main {
   min-width: 0;
   flex: 1;
@@ -692,79 +676,6 @@ entao agora ele so vale la dentro da janela de customizacao */
   color: var(--faint);
   font-size: 0.48rem;
   letter-spacing: 0.13em;
-}
-
-.wallpaper-source-item > img {
-  width: 190px;
-  min-width: 190px;
-  object-fit: cover;
-  border-right: 1px solid var(--border);
-}
-
-.wallpaper-source-number {
-  display: block;
-  margin-bottom: 7px;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--muted);
-}
-
-.wallpaper-source-info h3 {
-  margin: 0 0 9px;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-.wallpaper-source-info p {
-  margin: 3px 0;
-  font-size: 9px;
-  color: var(--muted);
-}
-
-.wallpaper-source-info p span {
-  display: inline-block;
-  width: 72px;
-  color: var(--text);
-}
-
-.wallpaper-source-code {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
-
-.wallpaper-source-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.wallpaper-source-actions {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.wallpaper-source-web {
-  padding: 6px 9px;
-
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--muted);
-
-  font: inherit;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-
-  cursor: pointer;
-}
-
-.wallpaper-source-web:hover {
-  border-color: var(--line-hover);
-  background: #171721;
-  color: #ffffff;
 }
 
 .window-maximized {
@@ -1080,35 +991,63 @@ entao agora ele so vale la dentro da janela de customizacao */
   background: var(--bar-bg);
 }
 
+/* PULSAR WEB // ULTRA LITE CONTROLS */
+
 .web-nav-button,
 .web-go-button {
   height: 32px;
   min-width: 34px;
   padding: 0 10px;
-  border: 1px solid var(--ui-divider);
-  background: rgba(255, 255, 255, 0.025);
-  color: inherit;
+  color: var(--text);
   font-family: inherit;
   cursor: pointer;
   transition:
-    background 0.12s ease,
-    border-color 0.12s ease;
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.web-nav-button:hover,
-.web-go-button:hover {
+/* Navigation: icons only */
+.web-nav-button {
+  width: 32px;
+  min-width: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.web-nav-button:hover:not(:disabled) {
   background: var(--ui-button-hover);
-  border-color: var(--ui-button-border-hover);
+  color: #fff;
 }
 
-.web-nav-button:active,
-.web-go-button:active {
+.web-nav-button:active:not(:disabled) {
   background: var(--ui-press);
 }
 
 .web-nav-button:disabled {
   opacity: 0.25;
   cursor: default;
+}
+
+/* GO remains a distinct action */
+.web-go-button {
+  border: 1px solid var(--ui-divider);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.web-go-button:hover {
+  background: var(--ui-button-hover);
+  border-color: var(--ui-button-border-hover);
+}
+
+.web-go-button:active {
+  background: var(--ui-press);
 }
 
 .web-address-wrapper {
@@ -1153,22 +1092,6 @@ entao agora ele so vale la dentro da janela de customizacao */
 .web-go-button {
   font-size: 10px;
   letter-spacing: 0.12em;
-}
-
-/* STATUS */
-
-.web-status-bar {
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0 12px;
-  flex-shrink: 0;
-  border-bottom: 1px solid var(--ui-soft);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  opacity: 0.58;
 }
 
 /* CONTENT */
@@ -1251,69 +1174,6 @@ entao agora ele so vale la dentro da janela de customizacao */
   background: #ffffff;
 }
 
-/* HISTORY */
-
-.web-history-panel {
-  width: 250px;
-  max-width: 40%;
-  flex-shrink: 0;
-  overflow: hidden;
-  border-right: 1px solid var(--ui-divider);
-  background: var(--well-bg);
-}
-
-.web-history-header {
-  padding: 12px;
-  border-bottom: 1px solid var(--ui-soft);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  opacity: 0.58;
-}
-
-.web-history-list {
-  height: calc(100% - 38px);
-  overflow-y: auto;
-}
-
-.web-history-empty {
-  padding: 18px 12px;
-  font-size: 9px;
-  line-height: 1.6;
-  opacity: 0.3;
-}
-
-.web-history-item {
-  width: 100%;
-  padding: 11px 12px;
-  border: 0;
-  border-bottom: 1px solid var(--ui-soft);
-  background: transparent;
-  color: inherit;
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.web-history-item:hover {
-  background: var(--ui-button-hover);
-}
-
-.web-history-item-title {
-  margin-bottom: 5px;
-  font-size: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.web-history-item-url {
-  font-size: 8px;
-  opacity: 0.38;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* EMBED FALLBACK */
 
 .web-fallback {
@@ -1373,22 +1233,6 @@ entao agora ele so vale la dentro da janela de customizacao */
   background: var(--ui-button-hover);
 }
 
-/* FOOTER */
-
-.web-footer {
-  min-height: 30px;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-shrink: 0;
-  border-top: 1px solid var(--ui-divider);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  opacity: 0.55;
-}
-
 /* SMALL SCREENS */
 
 @media (max-width: 700px) {
@@ -1402,17 +1246,8 @@ entao agora ele so vale la dentro da janela de customizacao */
   .web-address-prefix {
     display: none;
   }
-
-  .web-history-panel {
-    width: 190px;
-    max-width: 55%;
-  }
-
-  .web-status-bar,
-  .web-footer {
-    font-size: 8px;
-  }
 }
+
 /*this is the boot stuff... Wait, where is everything?*/
 .serial-window {
   width: min(1160px, calc(100vw - 40px));
