@@ -10,853 +10,698 @@ To help you get started, i done some things that might be userful for you!
 Throughout the code, you'll see some tips, covering the parts
 that gave me the most headaches, so you can avoid them and save time!
 
+! The html structure was fixed manually, and the code
+was formatted using the Prettier extension in vs code,
+exacly were Pulsar was born !
+ 
 Alright, without further ado, enjoy the code :D
 
 ============================================================ 
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-        PULSAR OS
-    </title>
+    <title>PULSAR OS</title>
     <link href="style.css" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
+  <body>
     <!--boot aqui removido :D -->
     <header class="top-bar" id="topBar">
-        <div class="top-left">
-            <span>
-                PULSAR OS 
-            </span>
-            <span class="pulsar-symbol center-topbar-symbol" aria-hidden="true">⌁</span> <!--center-topbar-symbol-->
-        </div>
+      <div class="top-left">
+        <span> PULSAR OS </span>
+        <span class="pulsar-symbol center-topbar-symbol" aria-hidden="true"
+          >⌁</span
+        >
+        <!--center-topbar-symbol-->
+      </div>
 
-        <div class="top-center">
-        BUILD 1.0 (Ultra Lite)
-        </div>
+      <div class="top-center">BUILD 1.0 (Ultra Lite)</div>
 
-        <div class="top-right">
-    <span class="network-indicator" id="networkIndicator" title="NETWORK // CHECKING" aria-label="Network status">
-        <span class="network-bar"></span>
-        <span class="network-bar"></span>
-        <span class="network-bar"></span>
-        <span class="network-bar"></span>
-    </span>
+      <div class="top-right">
+        <span
+          class="network-indicator"
+          id="networkIndicator"
+          title="NETWORK // CHECKING"
+          aria-label="Network status"
+        >
+          <span class="network-bar"></span>
+          <span class="network-bar"></span>
+          <span class="network-bar"></span>
+          <span class="network-bar"></span>
+        </span>
 
-    <span>
-        LOCAL TIME //
-    </span>
+        <span> LOCAL TIME // </span>
 
-    <span id="clock">
-        00:00:00
-    </span>
-</div>
+        <span id="clock"> 00:00:00 </span>
+      </div>
     </header>
     <nav class="system-menu" id="systemMenu">
-        <div class="menu-header">
-            <div class="menu-brand">
-                <span>
-                    MENU
-                </span>
-            </div>
+      <div class="menu-header">
+        <div class="menu-brand">
+          <span> MENU </span>
         </div>
-        <div class="menu-section">
-            <div class="menu-section-title">
-                SYSTEM
-            </div>
-            <button class="menu-item" id="openAbout" type="button">
-                <span class="menu-icon">
-                    ◇
-                </span>
-                <span>
-                    SYSTEM / ABOUT
-                </span>
-            </button>
-        </div>
-    <div class="menu-section">
-    <div class="menu-section-title">
-        APPLICATIONS
-    </div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-section-title">SYSTEM</div>
+        <button class="menu-item" id="openAbout" type="button">
+          <span class="menu-icon"> ◇ </span>
+          <span> SYSTEM / ABOUT </span>
+        </button>
+      </div>
+      <div class="menu-section">
+        <div class="menu-section-title">APPLICATIONS</div>
 
-    <button class="menu-item" id="openSignalLog" type="button">
-        <span class="menu-icon">&gt;\_</span>
-        <span>SIGNAL LOG</span>
-    </button>
+        <button class="menu-item" id="openSignalLog" type="button">
+          <span class="menu-icon">&gt;\_</span>
+          <span>SIGNAL LOG</span>
+        </button>
 
-    <button class="menu-item" id="openNotes" type="button">
-        <span class="menu-icon">✎</span>
-        <span>NOTES</span>
-    </button>
+        <button class="menu-item" id="openNotes" type="button">
+          <span class="menu-icon">✎</span>
+          <span>NOTES</span>
+        </button>
 
-    <button class="menu-item" id="openCalculator" type="button">
-        <span class="menu-icon">+−</span>
-        <span>CALCULATOR</span>
-    </button>
+        <button class="menu-item" id="openCalculator" type="button">
+          <span class="menu-icon">+−</span>
+          <span>CALCULATOR</span>
+        </button>
 
-    <button class="menu-item" id="openTerminal" type="button">
-        <span class="menu-icon">&gt;_</span>
-        <span>TERMINAL</span>
-    </button>
+        <button class="menu-item" id="openTerminal" type="button">
+          <span class="menu-icon">&gt;_</span>
+          <span>TERMINAL</span>
+        </button>
 
-    <button class="menu-item" id="openWeb" type="button">
-        <span class="menu-icon-logo">⌁</span> <!--menu-icon-logo-->
-        <span>WEB</span>
-    </button>
+        <button class="menu-item" id="openWeb" type="button">
+          <span class="menu-icon-logo">⌁</span>
+          <!--menu-icon-logo-->
+          <span>WEB</span>
+        </button>
 
-    <button class="menu-item" id="openSerial" type="button">
-    <span class="menu-icon">◉</span>
-    <span>SERIAL MONITOR</span>
-    <span class="menu-tag" id="serialMenuStatus">READY</span>
-    </button>
+        <button class="menu-item" id="openSerial" type="button">
+          <span class="menu-icon">◉</span>
+          <span>SERIAL MONITOR</span>
+          <span class="menu-tag" id="serialMenuStatus">READY</span>
+        </button>
 
-    <button class="menu-item" id="openDeviceManager" type="button">
-    <span class="menu-icon">◇</span>
-    <span>DEVICE MANAGER</span>
-    <span class="menu-tag" id="deviceManagerMenuStatus">
-        READY
-    </span>
-    </button>
+        <button class="menu-item" id="openDeviceManager" type="button">
+          <span class="menu-icon">◇</span>
+          <span>DEVICE MANAGER</span>
+          <span class="menu-tag" id="deviceManagerMenuStatus"> READY </span>
+        </button>
 
-    <button class="menu-item" id="openGuide" type="button">
-    <span class="menu-icon">?</span>
-    <span>GUIDE</span>
-      <span class="menu-tag">READY</span>
-    </button>
-        <div class="menu-section">
-            <div class="menu-section-title">
-                INTERFACE
-            </div>
-            <button class="menu-item" id="openCustomization" type="button">
-                <span class="menu-icon">
-                    ✦
-                </span>
-                <span>
-                    CUSTOMIZATION
-                </span>
-                <span class="menu-arrow">
-                    &gt;
-                </span>
-            </button>
-        </div>
-        <div class="menu-footer">
-            <span>
-                CORE // READY
-            </span>
-        </div>
+        <button class="menu-item" id="openGuide" type="button">
+          <span class="menu-icon">?</span>
+          <span>GUIDE</span>
+          <span class="menu-tag">READY</span>
+        </button>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-section-title">INTERFACE</div>
+        <button class="menu-item" id="openCustomization" type="button">
+          <span class="menu-icon"> ✦ </span>
+          <span> CUSTOMIZATION </span>
+          <span class="menu-arrow"> &gt; </span>
+        </button>
+      </div>
+      <div class="menu-footer">
+        <span> CORE // READY </span>
+      </div>
     </nav>
-    <div class="screen-fade" id="screenFade">
-    </div>
+    <div class="screen-fade" id="screenFade"></div>
     <div class="desktop wallpaper-TOBS" id="desktop">
+      <!-- wallpaper credits :D -->
+      <a
+        class="wallpaper-credit"
+        id="wallpaperCredit"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span id="wallpaperCreditName">Tapestry of Blazing Starbirth</span>
+        <span class="wallpaper-credit-source">SOURCE // ESA/HUBBLE ↗</span>
+      </a>
 
-        <!-- wallpaper credits :D -->
-<a class="wallpaper-credit" id="wallpaperCredit"
-   href="#" target="_blank" rel="noopener noreferrer">
-    <span id="wallpaperCreditName">Tapestry of Blazing Starbirth</span>
-    <span class="wallpaper-credit-source">SOURCE // ESA/HUBBLE ↗</span>
-</a>
-
-        <!--desktop apps :D new!-->
-<div class="desktop-apps">
-<button class="desktop-app" id="desktopNotes" type="button">
-    <span class="desktop-app-icon">✎</span>
-    <span class="desktop-app-name">NOTES</span>
-</button>
-        
-
-<button class="desktop-app" id="desktopCalculator" type="button">
-    <span class="desktop-app-icon">+−</span>
-    <span class="desktop-app-name">CALCULATOR</span>
-</button>
-
-<button class="desktop-app" id="desktopTerminal" type="button">
-    <span class="desktop-app-icon">&gt;_</span>
-    <span class="desktop-app-name">TERMINAL</span>
-</button>
-
-<button class="desktop-app" id="desktopWeb" type="button">
-    <span class="desktop-app-icon">⌁</span>
-    <span class="desktop-app-name">WEB</span>
-</button>
-
-<button class="desktop-app" id="desktopSerial" type="button">
-    <span class="desktop-app-icon">◉</span>
-    <span class="desktop-app-name">SERIAL</span>
-</button>
-
-<button class="desktop-app" id="desktopDeviceManager" type="button">
-    <span class="desktop-app-icon">◇</span>
-    <span class="desktop-app-name">DEVICES</span>
-</button>
-
-<button class="desktop-app" id="desktopGuide" type="button">
-    <span class="desktop-app-icon">?</span>
-    <span class="desktop-app-name">GUIDE</span>
-</button>
-
-<button class="desktop-app" id="desktopCustomization" type="button">
-    <span class="desktop-app-icon">✦</span>
-    <span class="desktop-app-name">CUSTOM</span>
-</button>
-
-</div>
-
-    <section class="window notes-window" id="notesWindow">
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // NOTES
-        </div>
-
-        <div class="window-controls">
-            <button class="window-minimize" type="button" aria-label="Minimize">
-                ─
-            </button>
-
-            <button class="window-maximize" type="button" aria-label="Maximize">
-                □
-            </button>
-
-            <button class="window-close" type="button" aria-label="Close">
-                ×
-            </button>
-        </div>
-    </div>
-
-    <div class="notes-toolbar">
-        <span id="notesStatus">
-            READY
-        </span>
-
-        <button id="clearNotes" type="button">
-            CLEAR
+      <!--desktop apps :D new!-->
+      <div class="desktop-apps">
+        <button class="desktop-app" id="desktopNotes" type="button">
+          <span class="desktop-app-icon">✎</span>
+          <span class="desktop-app-name">NOTES</span>
         </button>
-    </div>
 
-    <textarea
-        id="notesEditor"
-        spellcheck="false"
-        placeholder="WRITE SOMETHING..."
-    ></textarea>
+        <button class="desktop-app" id="desktopCalculator" type="button">
+          <span class="desktop-app-icon">+−</span>
+          <span class="desktop-app-name">CALCULATOR</span>
+        </button>
 
-    <div class="notes-footer">
-        LOCAL STORAGE // AUTOSAVE ENABLED
-    </div>
-    </section>
+        <button class="desktop-app" id="desktopTerminal" type="button">
+          <span class="desktop-app-icon">&gt;_</span>
+          <span class="desktop-app-name">TERMINAL</span>
+        </button>
 
-    <section class="window calculator-window" id="calculatorWindow">
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // CALCULATOR
-        </div>
+        <button class="desktop-app" id="desktopWeb" type="button">
+          <span class="desktop-app-icon">⌁</span>
+          <span class="desktop-app-name">WEB</span>
+        </button>
 
-        <div class="window-controls">
+        <button class="desktop-app" id="desktopSerial" type="button">
+          <span class="desktop-app-icon">◉</span>
+          <span class="desktop-app-name">SERIAL</span>
+        </button>
+
+        <button class="desktop-app" id="desktopDeviceManager" type="button">
+          <span class="desktop-app-icon">◇</span>
+          <span class="desktop-app-name">DEVICES</span>
+        </button>
+
+        <button class="desktop-app" id="desktopGuide" type="button">
+          <span class="desktop-app-icon">?</span>
+          <span class="desktop-app-name">GUIDE</span>
+        </button>
+
+        <button class="desktop-app" id="desktopCustomization" type="button">
+          <span class="desktop-app-icon">✦</span>
+          <span class="desktop-app-name">CUSTOM</span>
+        </button>
+      </div>
+
+      <section class="window notes-window" id="notesWindow">
+        <div class="window-bar">
+          <div class="window-title">Notes</div>
+
+          <div class="window-controls">
             <button class="window-minimize" type="button" aria-label="Minimize">
-                ─
+              ─
             </button>
 
             <button class="window-maximize" type="button" aria-label="Maximize">
-                □
+              □
             </button>
 
             <button class="window-close" type="button" aria-label="Close">
-                ×
+              ×
             </button>
+          </div>
         </div>
-    </div>
 
-    <div class="calculator-header">
-        <span>CALCULATION // LOCAL</span>
-        <span id="calculatorStatus">READY</span>
-    </div>
+        <div class="notes-toolbar">
+          <span id="notesStatus"> READY </span>
 
-    <div class="calculator-display">
-        <div class="calculator-expression" id="calculatorExpression"></div>
-        <div class="calculator-result" id="calculatorResult">0</div>
-    </div>
+          <button id="clearNotes" type="button">CLEAR</button>
+        </div>
 
-    <div class="calculator-grid">
-        <button class="calculator-button calculator-action" data-action="clear">
+        <textarea
+          id="notesEditor"
+          spellcheck="false"
+          placeholder="WRITE SOMETHING..."
+        ></textarea>
+
+        <div class="notes-footer">LOCAL STORAGE // AUTOSAVE ENABLED</div>
+      </section>
+
+      <section class="window calculator-window" id="calculatorWindow">
+        <div class="window-bar">
+          <div class="window-title">Calculator</div>
+
+          <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+              ─
+            </button>
+
+            <button class="window-maximize" type="button" aria-label="Maximize">
+              □
+            </button>
+
+            <button class="window-close" type="button" aria-label="Close">
+              ×
+            </button>
+          </div>
+        </div>
+
+        <div class="calculator-header">
+          <span>CALCULATION // LOCAL</span>
+          <span id="calculatorStatus">READY</span>
+        </div>
+
+        <div class="calculator-display">
+          <div class="calculator-expression" id="calculatorExpression"></div>
+          <div class="calculator-result" id="calculatorResult">0</div>
+        </div>
+
+        <div class="calculator-grid">
+          <button
+            class="calculator-button calculator-action"
+            data-action="clear"
+          >
             C
-        </button>
+          </button>
 
-        <button class="calculator-button calculator-action" data-action="backspace">
+          <button
+            class="calculator-button calculator-action"
+            data-action="backspace"
+          >
             ⌫
-        </button>
+          </button>
 
-        <button class="calculator-button calculator-operator" data-value="/">
+          <button class="calculator-button calculator-operator" data-value="/">
             ÷
-        </button>
+          </button>
 
-        <button class="calculator-button calculator-operator" data-value="*">
+          <button class="calculator-button calculator-operator" data-value="*">
             ×
-        </button>
+          </button>
 
-        <button class="calculator-button" data-value="7">7</button>
-        <button class="calculator-button" data-value="8">8</button>
-        <button class="calculator-button" data-value="9">9</button>
+          <button class="calculator-button" data-value="7">7</button>
+          <button class="calculator-button" data-value="8">8</button>
+          <button class="calculator-button" data-value="9">9</button>
 
-        <button class="calculator-button calculator-operator" data-value="-">
+          <button class="calculator-button calculator-operator" data-value="-">
             −
-        </button>
+          </button>
 
-        <button class="calculator-button" data-value="4">4</button>
-        <button class="calculator-button" data-value="5">5</button>
-        <button class="calculator-button" data-value="6">6</button>
+          <button class="calculator-button" data-value="4">4</button>
+          <button class="calculator-button" data-value="5">5</button>
+          <button class="calculator-button" data-value="6">6</button>
 
-        <button class="calculator-button calculator-operator" data-value="+">
+          <button class="calculator-button calculator-operator" data-value="+">
             +
-        </button>
+          </button>
 
-        <button class="calculator-button" data-value="1">1</button>
-        <button class="calculator-button" data-value="2">2</button>
-        <button class="calculator-button" data-value="3">3</button>
+          <button class="calculator-button" data-value="1">1</button>
+          <button class="calculator-button" data-value="2">2</button>
+          <button class="calculator-button" data-value="3">3</button>
 
-        <button class="calculator-button calculator-equals" data-action="equals">
+          <button
+            class="calculator-button calculator-equals"
+            data-action="equals"
+          >
             =
-        </button>
+          </button>
 
-        <button class="calculator-button calculator-zero" data-value="0">
+          <button class="calculator-button calculator-zero" data-value="0">
             0
-        </button>
+          </button>
 
-        <button class="calculator-button" data-value=".">
-            .
-        </button>
-    </div>
-
-    <div class="calculator-footer">
-        CORE // READY
-    </div>
-    </section>
-
-<section class="window terminal-window" id="terminalWindow">
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // TERMINAL
+          <button class="calculator-button" data-value=".">.</button>
         </div>
 
-        <div class="window-controls">
+        <div class="calculator-footer">CORE // READY</div>
+      </section>
+
+      <section class="window terminal-window" id="terminalWindow">
+        <div class="window-bar">
+          <div class="window-title">Terminal</div>
+
+          <div class="window-controls">
             <button class="window-minimize" type="button" aria-label="Minimize">
-                ─
+              ─
             </button>
 
             <button class="window-maximize" type="button" aria-label="Maximize">
-                □
+              □
             </button>
 
             <button class="window-close" type="button" aria-label="Close">
-                ×
+              ×
             </button>
+          </div>
         </div>
-    </div>
 
-    <div class="terminal-header">
-        <span>LOCAL SHELL // PULSAR CORE</span>
-        <span id="terminalStatus">READY</span>
-    </div>
-
-    <div class="terminal-output" id="terminalOutput">
-        <div class="terminal-line">
-            TYPE "help" TO LIST AVAILABLE COMMANDS.
+        <div class="terminal-header">
+          <span id="terminalStatus">READY</span>
         </div>
-    </div>
 
-    <div class="terminal-input-row">
-        <span class="terminal-prompt">
-            pulsar@core:~$
-        </span>
+        <div class="terminal-output" id="terminalOutput">
+          <div class="terminal-line">
+            TERMINAL // Type "help" to see all available commands. :D
+          </div>
+        </div>
 
-        <input
+        <div class="terminal-input-row">
+          <span class="terminal-prompt"> pulsar@core:~$ </span>
+
+          <input
             id="terminalInput"
             class="terminal-input"
             type="text"
             autocomplete="off"
             spellcheck="false"
             aria-label="Terminal command"
-        >
-    </div>
-
-    <div class="terminal-footer">
-        SHELL // LOCAL
-    </div>
-    </section>
-
-    <section class="window web-window" id="webWindow">
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // WEB
+          />
         </div>
 
-        <div class="window-controls">
-            <button
-                class="window-minimize"
-                type="button"
-                aria-label="Minimize"
-            >
-                ─
+        <div class="terminal-footer">OMG A HACKER!! ( or just a linux user )</div>
+      </section>
+
+      <section class="window web-window" id="webWindow">
+        <div class="window-bar">
+          <div class="window-title">Web</div>
+
+          <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+              ─
             </button>
 
-            <button
-                class="window-maximize"
-                type="button"
-                aria-label="Maximize"
-            >
-                □
+            <button class="window-maximize" type="button" aria-label="Maximize">
+              □
             </button>
 
-            <button
-                class="window-close"
-                type="button"
-                aria-label="Close"
-            >
-                ×
+            <button class="window-close" type="button" aria-label="Close">
+              ×
             </button>
+          </div>
         </div>
-    </div>
 
-    <div class="web-toolbar">
-        <button
+        <div class="web-toolbar">
+          <button
             class="web-nav-button"
             id="webBack"
             type="button"
             aria-label="Back"
             title="Back"
-        >
+          >
             ←
-        </button>
+          </button>
 
-        <button
+          <button
             class="web-nav-button"
             id="webForward"
             type="button"
             aria-label="Forward"
             title="Forward"
-        >
+          >
             →
-        </button>
+          </button>
 
-        <button
+          <button
             class="web-nav-button"
             id="webReload"
             type="button"
             aria-label="Reload"
             title="Reload"
-        >
+          >
             ↻
-        </button>
+          </button>
 
-        <button
+          <button
             class="web-nav-button"
             id="webHome"
             type="button"
             aria-label="Home"
             title="Home"
-        >
+          >
             ⌂
-        </button>
+          </button>
 
-        <div class="web-address-wrapper">
-            <span class="web-address-prefix">
-                WEB //
-            </span>
+          <div class="web-address-wrapper">
+            <span class="web-address-prefix"> WEB // </span>
 
             <input
-                id="webAddress"
-                class="web-address"
-                type="text"
-                autocomplete="off"
-                spellcheck="false"
-                placeholder="ENTER URL OR SEARCH..."
-                aria-label="Web address or search"
-            >
-        </div>
+              id="webAddress"
+              class="web-address"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="ENTER URL OR SEARCH..."
+              aria-label="Web address or search"
+            />
+          </div>
 
-        <button
-            class="web-go-button"
-            id="webGo"
-            type="button"
-        >
-            GO
-        </button>
+          <button class="web-go-button" id="webGo" type="button">GO</button>
 
-        <button
+          <button
             class="web-nav-button"
             id="webHistoryToggle"
             type="button"
             aria-label="History"
             title="Session history"
-        >
+          >
             ≡
-        </button>
-    </div>
+          </button>
+        </div>
 
-    <div class="web-status-bar">
-        <span id="webStatus">
-            READY
-        </span>
+        <div class="web-status-bar">
+          <span id="webStatus"> READY </span>
 
-        <span id="webProtocol">
-            LOCAL // HOME
-        </span>
-    </div>
+          <span id="webProtocol"> LOCAL // HOME </span>
+        </div>
 
-    <div class="web-content">
-        <aside
-            class="web-history-panel"
-            id="webHistoryPanel"
-            hidden
-        >
-            <div class="web-history-header">
-                SESSION HISTORY
+        <div class="web-content">
+          <aside class="web-history-panel" id="webHistoryPanel" hidden>
+            <div class="web-history-header">SESSION HISTORY</div>
+
+            <div class="web-history-list" id="webHistoryList">
+              <div class="web-history-empty">NO NAVIGATION HISTORY</div>
             </div>
+          </aside>
 
-            <div
-                class="web-history-list"
-                id="webHistoryList"
-            >
-                <div class="web-history-empty">
-                    NO NAVIGATION HISTORY
-                </div>
+          <div class="web-view">
+            <div class="web-home-screen" id="webHomeScreen">
+              <div class="web-home-mark">⌁</div>
+
+              <div class="web-home-title">PULSAR WEB</div>
+
+              <div class="web-home-subtitle">NETWORK INTERFACE // STANDBY</div>
+
+              <div class="web-home-line"></div>
+
+              <div class="web-home-text">
+                WARNING: SOME WEBSITES MAY BLOCK EMBEDDED VIEWING. IF A PAGE
+                FAILS TO LOAD, TRY OPENING IT EXTERNALLY.
+              </div>
             </div>
-        </aside>
-
-        <div class="web-view">
-            <div
-                class="web-home-screen"
-                id="webHomeScreen"
-            >
-                <div class="web-home-mark">
-                    ⌁
-                </div>
-
-                <div class="web-home-title">
-                    PULSAR WEB
-                </div>
-
-                <div class="web-home-subtitle">
-                    NETWORK INTERFACE // STANDBY
-                </div>
-
-                <div class="web-home-line"></div>
-
-                <div class="web-home-text">
-                    WARNING: SOME WEBSITES MAY BLOCK EMBEDDED VIEWING.
-                    IF A PAGE FAILS TO LOAD, TRY OPENING IT EXTERNALLY.
-                </div>
-            </div>
-
 
             <iframe
-                id="webFrame"
-                class="web-frame"
-                title="PULSAR Web content"
-                referrerpolicy="strict-origin-when-cross-origin"
-                hidden
+              id="webFrame"
+              class="web-frame"
+              title="PULSAR Web content"
+              referrerpolicy="strict-origin-when-cross-origin"
+              hidden
             ></iframe>
 
-            <div
-                class="web-fallback"
-                id="webFallback"
-                hidden
-            >
-                <div class="web-fallback-code">
-                    FAILED TO LOAD
-                </div>
+            <div class="web-fallback" id="webFallback" hidden>
+              <div class="web-fallback-code">FAILED TO LOAD</div>
 
-                <div class="web-fallback-title">
-                    OOPS!
-                </div>
+              <div class="web-fallback-title">OOPS!</div>
 
-                <div class="web-fallback-text">
-                    THIS WEBSITE MAY BLOCK EMBEDDED VIEWING.
-                </div>
+              <div class="web-fallback-text">
+                THIS WEBSITE MAY BLOCK EMBEDDED VIEWING.
+              </div>
 
-                <div
-                    class="web-fallback-url"
-                    id="webFallbackUrl"
-                >
-                    NO URL
-                </div>
+              <div class="web-fallback-url" id="webFallbackUrl">NO URL</div>
 
-                <button
-                    class="web-external-button"
-                    id="webOpenExternal"
-                    type="button"
-                >
-                   TRY OPENING EXTERNALLY
-                </button>
+              <button
+                class="web-external-button"
+                id="webOpenExternal"
+                type="button"
+              >
+                TRY OPENING EXTERNALLY
+              </button>
             </div>
-        </div>
-    </div>
-
-    <div class="web-footer">
-        <span>
-            PULSAR WEB // SESSION
-        </span>
-
-        <span id="webFooterStatus">
-            NETWORK // READY
-        </span>
-    </div>
-    </section>
-
-<section class="window serial-window" id="serialWindow">
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // SERIAL MONITOR
+          </div>
         </div>
 
-        <div class="window-controls">
+        <div class="web-footer">
+          <span> PULSAR WEB // SESSION </span>
+
+          <span id="webFooterStatus"> NETWORK // READY </span>
+        </div>
+      </section>
+
+      <section class="window serial-window" id="serialWindow">
+        <div class="window-bar">
+          <div class="window-title">Serial monitor</div>
+
+          <div class="window-controls">
             <button class="window-minimize" type="button" aria-label="Minimize">
-                ─
+              ─
             </button>
 
             <button class="window-maximize" type="button" aria-label="Maximize">
-                □
+              □
             </button>
 
             <button class="window-close" type="button" aria-label="Close">
-                ×
+              ×
             </button>
-        </div>
-    </div>
-
-
-
-    <!-- CONNECTION BAR -->
-    <div class="serial-connection-bar">
-        <div class="serial-port-display">
-            <span class="serial-label">
-                PORT //
-            </span>
-
-            <span id="serialPortName">
-                NO DEVICE
-            </span>
+          </div>
         </div>
 
-        <label class="serial-baud-control">
-            <span>
-                BAUD //
-            </span>
+        <!-- CONNECTION BAR -->
+        <div class="serial-connection-bar">
+          <div class="serial-port-display">
+            <span class="serial-label"> PORT // </span>
+
+            <span id="serialPortName"> NO DEVICE </span>
+          </div>
+
+          <label class="serial-baud-control">
+            <span> BAUD // </span>
 
             <select id="serialBaudRate">
-                <option value="9600">9600</option>
-                <option value="19200">19200</option>
-                <option value="38400">38400</option>
-                <option value="57600">57600</option>
-                <option value="115200" selected>115200</option>
-                <option value="230400">230400</option>
-                <option value="460800">460800</option>
-                <option value="921600">921600</option>
+              <option value="9600">9600</option>
+              <option value="19200">19200</option>
+              <option value="38400">38400</option>
+              <option value="57600">57600</option>
+              <option value="115200" selected>115200</option>
+              <option value="230400">230400</option>
+              <option value="460800">460800</option>
+              <option value="921600">921600</option>
             </select>
-        </label>
+          </label>
 
-        <div
-            class="serial-state"
-            id="serialState"
-            data-state="disconnected"
-        >
+          <div class="serial-state" id="serialState" data-state="disconnected">
             <span class="serial-state-dot"></span>
-            <span id="serialStateText">
-                DISCONNECTED
-            </span>
-        </div>
+            <span id="serialStateText"> DISCONNECTED </span>
+          </div>
 
-        <div class="serial-connection-actions">
-            <button
-                class="serial-button"
-                id="serialSelectPort"
-                type="button"
-            >
-                SELECT PORT
+          <div class="serial-connection-actions">
+            <button class="serial-button" id="serialSelectPort" type="button">
+              SELECT PORT
             </button>
 
             <button
-                class="serial-button"
-                id="serialConnect"
-                type="button"
-                disabled
+              class="serial-button"
+              id="serialConnect"
+              type="button"
+              disabled
             >
-                CONNECT
+              CONNECT
             </button>
 
             <button
-                class="serial-button serial-danger"
-                id="serialDisconnect"
-                type="button"
-                disabled
+              class="serial-button serial-danger"
+              id="serialDisconnect"
+              type="button"
+              disabled
             >
-                DISCONNECT
+              DISCONNECT
             </button>
-        </div>
-    </div>
-
-    <!-- DEVICE + SETTINGS -->
-    <div class="serial-information">
-        <div class="serial-device-info">
-            <div class="serial-section-title">
-                DEVICE INFORMATION
-            </div>
-
-            <div class="serial-info-row">
-                <span>USB VENDOR ID</span>
-                <span>//</span>
-                <strong id="serialVendorId">
-                    UNKNOWN
-                </strong>
-            </div>
-
-            <div class="serial-info-row">
-                <span>USB PRODUCT ID</span>
-                <span>//</span>
-                <strong id="serialProductId">
-                    UNKNOWN
-                </strong>
-            </div>
-
-            <div class="serial-info-row">
-                <span>DEVICE</span>
-                <span>//</span>
-                <strong id="serialDeviceLabel">
-                    NO DEVICE
-                </strong>
-            </div>
-
-            <div class="serial-info-row">
-                <span>INTERFACE</span>
-                <span>//</span>
-                <strong id="serialInterfaceStatus">
-                    WEB SERIAL
-                </strong>
-            </div>
+          </div>
         </div>
 
-        <div class="serial-settings">
-            <div class="serial-section-title">
-                SERIAL SETTINGS
+        <!-- DEVICE + SETTINGS -->
+        <div class="serial-information">
+          <div class="serial-device-info">
+            <div class="serial-section-title">DEVICE INFORMATION</div>
+
+            <div class="serial-info-row">
+              <span>USB VENDOR ID</span>
+              <span>//</span>
+              <strong id="serialVendorId"> UNKNOWN </strong>
             </div>
+
+            <div class="serial-info-row">
+              <span>USB PRODUCT ID</span>
+              <span>//</span>
+              <strong id="serialProductId"> UNKNOWN </strong>
+            </div>
+
+            <div class="serial-info-row">
+              <span>DEVICE</span>
+              <span>//</span>
+              <strong id="serialDeviceLabel"> NO DEVICE </strong>
+            </div>
+
+            <div class="serial-info-row">
+              <span>INTERFACE</span>
+              <span>//</span>
+              <strong id="serialInterfaceStatus"> WEB SERIAL </strong>
+            </div>
+          </div>
+
+          <div class="serial-settings">
+            <div class="serial-section-title">SERIAL SETTINGS</div>
 
             <div class="serial-settings-grid">
-                <div class="serial-setting-static">
-                    <span>DATA BITS</span>
-                    <strong>8</strong>
-                </div>
+              <div class="serial-setting-static">
+                <span>DATA BITS</span>
+                <strong>8</strong>
+              </div>
 
-                <div class="serial-setting-static">
-                    <span>STOP BITS</span>
-                    <strong>1</strong>
-                </div>
+              <div class="serial-setting-static">
+                <span>STOP BITS</span>
+                <strong>1</strong>
+              </div>
 
-                <div class="serial-setting-static">
-                    <span>PARITY</span>
-                    <strong>NONE</strong>
-                </div>
+              <div class="serial-setting-static">
+                <span>PARITY</span>
+                <strong>NONE</strong>
+              </div>
 
-                <label>
-                    <span>LINE ENDING</span>
+              <label>
+                <span>LINE ENDING</span>
 
-                    <select id="serialLineEnding">
-                        <option value="none">
-                            NONE
-                        </option>
+                <select id="serialLineEnding">
+                  <option value="none">NONE</option>
 
-                        <option value="lf">
-                            LF
-                        </option>
+                  <option value="lf">LF</option>
 
-                        <option value="crlf" selected>
-                            CRLF
-                        </option>
-                    </select>
-                </label>
+                  <option value="crlf" selected>CRLF</option>
+                </select>
+              </label>
 
-                <label>
-                    <span>AUTO SCROLL</span>
+              <label>
+                <span>AUTO SCROLL</span>
 
-                    <select id="serialAutoScroll">
-                        <option value="on" selected>
-                            ON
-                        </option>
+                <select id="serialAutoScroll">
+                  <option value="on" selected>ON</option>
 
-                        <option value="off">
-                            OFF
-                        </option>
-                    </select>
-                </label>
+                  <option value="off">OFF</option>
+                </select>
+              </label>
 
-                <label>
-                    <span>TIMESTAMP</span>
+              <label>
+                <span>TIMESTAMP</span>
 
-                    <select id="serialTimestamp">
-                        <option value="on" selected>
-                            ON
-                        </option>
+                <select id="serialTimestamp">
+                  <option value="on" selected>ON</option>
 
-                        <option value="off">
-                            OFF
-                        </option>
-                    </select>
-                </label>
+                  <option value="off">OFF</option>
+                </select>
+              </label>
 
-                <label>
-                    <span>HEX VIEW</span>
+              <label>
+                <span>HEX VIEW</span>
 
-                    <select id="serialHexView">
-                        <option value="off" selected>
-                            OFF
-                        </option>
+                <select id="serialHexView">
+                  <option value="off" selected>OFF</option>
 
-                        <option value="on">
-                            ON
-                        </option>
-                    </select>
-                </label>
+                  <option value="on">ON</option>
+                </select>
+              </label>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!-- SERIAL CONSOLE -->
-    <div class="serial-console-header">
-        <span>
-            SERIAL STREAM
-        </span>
+        <!-- SERIAL CONSOLE -->
+        <div class="serial-console-header">
+          <span> SERIAL STREAM </span>
 
-        <button
-            id="serialClear"
-            class="serial-console-action"
-            type="button"
-        >
+          <button id="serialClear" class="serial-console-action" type="button">
             CLEAR LOG
-        </button>
-    </div>
+          </button>
+        </div>
 
-    <div
-        class="serial-console"
-        id="serialOutput"
-        aria-live="polite"
-    >
-        <div class="serial-line serial-system">
+        <div class="serial-console" id="serialOutput" aria-live="polite">
+          <div class="serial-line serial-system">
             PULSAR SERIAL CORE // STANDBY
-        </div>
+          </div>
 
-        <div class="serial-line serial-muted">
+          <div class="serial-line serial-muted">
             SELECT A SERIAL PORT TO BEGIN.
+          </div>
         </div>
-    </div>
 
-    <!-- TX -->
-    <div class="serial-transmit">
-        <span class="serial-tx-label">
-            TX //
-        </span>
+        <!-- TX -->
+        <div class="serial-transmit">
+          <span class="serial-tx-label"> TX // </span>
 
-        <input
+          <input
             id="serialTxInput"
             class="serial-tx-input"
             type="text"
@@ -864,1035 +709,582 @@ Alright, without further ado, enjoy the code :D
             spellcheck="false"
             placeholder="SEND DATA TO DEVICE..."
             disabled
-        >
+          />
 
-        <button
+          <button
             id="serialSend"
             class="serial-send-button"
             type="button"
             disabled
-        >
+          >
             SEND
-        </button>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="serial-footer">
-        <div class="serial-counters">
-            <span>
-                RX //
-                <strong id="serialRxBytes">
-                    0 B
-                </strong>
-            </span>
-
-            <span>
-                TX //
-                <strong id="serialTxBytes">
-                    0 B
-                </strong>
-            </span>
-
-            <span>
-                RX MSG //
-                <strong id="serialRxMessages">
-                    0
-                </strong>
-            </span>
-
-            <span>
-                TX MSG //
-                <strong id="serialTxMessages">
-                    0
-                </strong>
-            </span>
+          </button>
         </div>
 
-        <div class="serial-footer-status">
+        <!-- FOOTER -->
+        <div class="serial-footer">
+          <div class="serial-counters">
             <span>
-                LINK //
-                <strong id="serialLinkStatus">
-                    INACTIVE
-                </strong>
+              RX //
+              <strong id="serialRxBytes"> 0 B </strong>
             </span>
 
             <span>
-                CORE //
-                <strong id="serialCoreStatus">
-                    READY
-                </strong>
+              TX //
+              <strong id="serialTxBytes"> 0 B </strong>
             </span>
-        </div>
-    </div>
-</section>
 
-<section
-    class="window device-manager-window"
-    id="deviceManagerWindow"
->
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // DEVICE MANAGER
-        </div>
+            <span>
+              RX MSG //
+              <strong id="serialRxMessages"> 0 </strong>
+            </span>
 
-        <div class="window-controls">
-            <button
-                class="window-minimize"
-                type="button"
-                aria-label="Minimize"
-            >
-                −
+            <span>
+              TX MSG //
+              <strong id="serialTxMessages"> 0 </strong>
+            </span>
+          </div>
+
+          <div class="serial-footer-status">
+            <span>
+              LINK //
+              <strong id="serialLinkStatus"> INACTIVE </strong>
+            </span>
+
+            <span>
+              CORE //
+              <strong id="serialCoreStatus"> READY </strong>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="window device-manager-window" id="deviceManagerWindow">
+        <div class="window-bar">
+          <div class="window-title">Device manager</div>
+
+          <div class="window-controls">
+            <button class="window-minimize" type="button" aria-label="Minimize">
+              −
             </button>
 
-            <button
-                class="window-maximize"
-                type="button"
-                aria-label="Maximize"
-            >
-                □
+            <button class="window-maximize" type="button" aria-label="Maximize">
+              □
             </button>
 
-            <button
-                class="window-close"
-                type="button"
-                aria-label="Close"
-            >
-                ×
+            <button class="window-close" type="button" aria-label="Close">
+              ×
             </button>
+          </div>
         </div>
-    </div>
 
-    <div class="device-manager-content">
-
-        <div class="device-manager-header">
+        <div class="device-manager-content">
+          <div class="device-manager-header">
             <div class="device-manager-title">
-                <span class="device-manager-label">
-                    CURRENT DEVICE
-                </span>
+              <span class="device-manager-label"> CURRENT DEVICE </span>
 
-                <strong id="deviceManagerName">
-                    NO DEVICE
-                </strong>
+              <strong id="deviceManagerName"> NO DEVICE </strong>
             </div>
 
-            <div
-                class="device-manager-state"
-                id="deviceManagerState"
-            >
-                <span
-                    class="device-manager-state-dot"
-                ></span>
+            <div class="device-manager-state" id="deviceManagerState">
+              <span class="device-manager-state-dot"></span>
 
-                <span id="deviceManagerStateText">
-                    DISCONNECTED
-                </span>
+              <span id="deviceManagerStateText"> DISCONNECTED </span>
             </div>
-        </div>
+          </div>
 
-        <div class="device-manager-section">
-            <div class="device-manager-section-title">
-                DEVICE INFORMATION
-            </div>
+          <div class="device-manager-section">
+            <div class="device-manager-section-title">DEVICE INFORMATION</div>
 
             <div class="device-manager-grid">
+              <div class="device-manager-field">
+                <span> USB VENDOR ID </span>
 
-                <div class="device-manager-field">
-                    <span>
-                        USB VENDOR ID
-                    </span>
+                <strong id="deviceManagerVendorId"> UNKNOWN </strong>
+              </div>
 
-                    <strong id="deviceManagerVendorId">
-                        UNKNOWN
-                    </strong>
-                </div>
+              <div class="device-manager-field">
+                <span> USB PRODUCT ID </span>
 
-                <div class="device-manager-field">
-                    <span>
-                        USB PRODUCT ID
-                    </span>
+                <strong id="deviceManagerProductId"> UNKNOWN </strong>
+              </div>
 
-                    <strong id="deviceManagerProductId">
-                        UNKNOWN
-                    </strong>
-                </div>
+              <div class="device-manager-field">
+                <span> INTERFACE </span>
 
-                <div class="device-manager-field">
-                    <span>
-                        INTERFACE
-                    </span>
+                <strong id="deviceManagerInterface"> WEB SERIAL </strong>
+              </div>
 
-                    <strong id="deviceManagerInterface">
-                        WEB SERIAL
-                    </strong>
-                </div>
+              <div class="device-manager-field">
+                <span> BAUD RATE </span>
 
-                <div class="device-manager-field">
-                    <span>
-                        BAUD RATE
-                    </span>
-
-                    <strong id="deviceManagerBaud">
-                        115200
-                    </strong>
-                </div>
-
+                <strong id="deviceManagerBaud"> 115200 </strong>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="device-manager-section">
-            <div class="device-manager-section-title">
-                DEVICE MEMORY
-            </div>
+          <div class="device-manager-section">
+            <div class="device-manager-section-title">DEVICE MEMORY</div>
 
             <div class="device-manager-grid">
+              <div class="device-manager-field device-manager-field-wide">
+                <span> DEVICE ALIAS </span>
 
-                <div
-                    class="device-manager-field device-manager-field-wide"
-                >
-                    <span>
-                        DEVICE ALIAS
-                    </span>
+                <input
+                  id="deviceManagerAlias"
+                  type="text"
+                  placeholder="NAME THIS DEVICE..."
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
 
-                    <input
-                        id="deviceManagerAlias"
-                        type="text"
-                        placeholder="NAME THIS DEVICE..."
-                        autocomplete="off"
-                        spellcheck="false"
-                    >
-                </div>
+              <div class="device-manager-field">
+                <span> LAST SEEN </span>
 
-                <div class="device-manager-field">
-                    <span>
-                        LAST SEEN
-                    </span>
-
-                    <strong id="deviceManagerLastSeen">
-                        NEVER
-                    </strong>
-                </div>
-
+                <strong id="deviceManagerLastSeen"> NEVER </strong>
+              </div>
             </div>
+          </div>
+
+          <div class="device-manager-actions">
+            <button id="deviceManagerSelect" type="button">
+              SELECT DEVICE
+            </button>
+
+            <button id="deviceManagerConnect" type="button" disabled>
+              CONNECT
+            </button>
+
+            <button id="deviceManagerDisconnect" type="button" disabled>
+              DISCONNECT
+            </button>
+
+            <button id="deviceManagerOpenSerial" type="button">
+              OPEN SERIAL MONITOR
+            </button>
+          </div>
+
+          <div class="device-manager-footer">
+            <span id="deviceManagerLink"> LINK // INACTIVE </span>
+
+            <span> CORE // PULSAR SERIAL </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="window guide-window" id="guideWindow">
+        <div class="window-bar">
+          <div class="window-title">Guide</div>
+
+          <div class="window-controls">
+            <button
+              class="window-minimize"
+              type="button"
+              aria-label="Minimize window"
+            >
+              −
+            </button>
+
+            <button
+              class="window-maximize"
+              type="button"
+              aria-label="Maximize window"
+            >
+              □
+            </button>
+
+            <button
+              class="window-close"
+              type="button"
+              aria-label="Close window"
+            >
+              ×
+            </button>
+          </div>
         </div>
 
-        <div class="device-manager-actions">
+        <div class="guide-layout">
+          <aside class="guide-sidebar">
+            <div class="guide-sidebar-title">DOCUMENTATION</div>
 
-            <button
-                id="deviceManagerSelect"
-                type="button"
-            >
-                SELECT DEVICE
+            <button class="guide-nav active" data-guide="start" type="button">
+              GETTING STARTED
             </button>
 
-            <button
-                id="deviceManagerConnect"
-                type="button"
-                disabled
-            >
-                CONNECT
+            <button class="guide-nav" data-guide="system" type="button">
+              SYSTEM
             </button>
 
-            <button
-                id="deviceManagerDisconnect"
-                type="button"
-                disabled
-            >
-                DISCONNECT
+            <button class="guide-nav" data-guide="terminal" type="button">
+              TERMINAL
             </button>
 
-            <button
-                id="deviceManagerOpenSerial"
-                type="button"
-            >
-                OPEN SERIAL MONITOR
+            <button class="guide-nav" data-guide="web" type="button">
+              WEB
             </button>
 
-        </div>
-
-        <div class="device-manager-footer">
-            <span id="deviceManagerLink">
-                LINK // INACTIVE
-            </span>
-
-            <span>
-                CORE // PULSAR SERIAL
-            </span>
-        </div>
-
-    </div>
-</section>
-
-<section class="window guide-window" id="guideWindow">
-
-    <div class="window-bar">
-        <div class="window-title">
-            PULSAR // GUIDE
-        </div>
-
-        <div class="window-controls">
-            <button
-                class="window-minimize"
-                type="button"
-                aria-label="Minimize window"
-            >
-                −
+            <button class="guide-nav" data-guide="serial" type="button">
+              SERIAL MONITOR
             </button>
 
-            <button
-                class="window-maximize"
-                type="button"
-                aria-label="Maximize window"
-            >
-                □
+            <button class="guide-nav" data-guide="devices" type="button">
+              DEVICE MANAGER
             </button>
 
-            <button
-                class="window-close"
-                type="button"
-                aria-label="Close window"
-            >
-                ×
+            <button class="guide-nav" data-guide="shortcuts" type="button">
+              SHORTCUTS
             </button>
-        </div>
-    </div>
+          </aside>
 
-    <div class="guide-layout">
-
-        <aside class="guide-sidebar">
-
-            <div class="guide-sidebar-title">
-                DOCUMENTATION
-            </div>
-
-            <button
-                class="guide-nav active"
-                data-guide="start"
-                type="button"
-            >
-                GETTING STARTED
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="system"
-                type="button"
-            >
-                SYSTEM
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="terminal"
-                type="button"
-            >
-                TERMINAL
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="web"
-                type="button"
-            >
-                WEB
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="serial"
-                type="button"
-            >
-                SERIAL MONITOR
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="devices"
-                type="button"
-            >
-                DEVICE MANAGER
-            </button>
-
-            <button
-                class="guide-nav"
-                data-guide="shortcuts"
-                type="button"
-            >
-                SHORTCUTS
-            </button>
-
-        </aside>
-
-        <main class="guide-content">
-
+          <main class="guide-content">
             <!-- GETTING STARTED -->
-            <div
-                class="guide-page active"
-                data-guide-page="start"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 001
-                </span>
+            <div class="guide-page active" data-guide-page="start">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 001 </span>
 
-                <h1>GETTING STARTED</h1>
+              <h1>GETTING STARTED</h1>
 
-                <p>
-                    Welcome to PULSAR OS.
-                </p>
+              <p>Welcome to PULSAR OS.</p>
 
-                <p>
-                    PULSAR is a browser-based desktop
-                    environment designed around system
-                    tools, hardware communication and
-                    experimentation.
-                </p>
+              <p>
+                PULSAR is a browser-based desktop environment designed around
+                system tools, hardware communication and experimentation.
+              </p>
 
-                <div class="guide-block">
-                    <strong>BUILD</strong>
-                    <span>1.0</span>
+              <div class="guide-block">
+                <strong>BUILD</strong>
+                <span>1.0</span>
 
-                    <strong>CORE</strong>
-                    <span>READY</span>
+                <strong>CORE</strong>
+                <span>READY</span>
 
-                    <strong>INTERFACE</strong>
-                    <span>WEB</span>
-                </div>
+                <strong>INTERFACE</strong>
+                <span>WEB</span>
+              </div>
 
-                <p class="guide-muted">
-                    Use the system menu or Terminal to
-                    launch applications.
-                </p>
+              <p class="guide-muted">
+                Use the system menu or Terminal to launch applications.
+              </p>
             </div>
 
             <!-- SYSTEM -->
-            <div
-                class="guide-page"
-                data-guide-page="system"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 002
-                </span>
+            <div class="guide-page" data-guide-page="system">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 002 </span>
 
-                <h1>SYSTEM</h1>
+              <h1>SYSTEM</h1>
 
-                <p>
-                    Applications run inside independent
-                    desktop windows.
-                </p>
+              <p>Applications run inside independent desktop windows.</p>
 
-                <p>
-                    Windows can be moved, minimized,
-                    maximized and closed using their
-                    title-bar controls.
-                </p>
+              <p>
+                Windows can be moved, minimized, maximized and closed using
+                their title-bar controls.
+              </p>
 
-                <div class="guide-command">
-                    SYSTEM MENU // APPLICATION ACCESS
-                </div>
+              <div class="guide-command">SYSTEM MENU // APPLICATION ACCESS</div>
             </div>
 
             <!-- TERMINAL -->
-            <div
-                class="guide-page"
-                data-guide-page="terminal"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 003
-                </span>
+            <div class="guide-page" data-guide-page="terminal">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 003 </span>
 
-                <h1>TERMINAL</h1>
+              <h1>TERMINAL</h1>
 
-                <p>
-                    The PULSAR Terminal provides access
-                    to system and hardware commands.
-                </p>
+              <p>
+                The PULSAR Terminal provides access to system and hardware
+                commands.
+              </p>
 
-                <div class="guide-command">help</div>
-                <div class="guide-command">apps</div>
-                <div class="guide-command">system</div>
-                <div class="guide-command">open serial</div>
-                <div class="guide-command">open devices</div>
-                <div class="guide-command">serial status</div>
-                <div class="guide-command">devices</div>
-                <div class="guide-command">ping</div>
-                <div class="guide-command">device info</div>
-                <div class="guide-command">device status</div>
+              <div class="guide-command">help</div>
+              <div class="guide-command">apps</div>
+              <div class="guide-command">system</div>
+              <div class="guide-command">open serial</div>
+              <div class="guide-command">open devices</div>
+              <div class="guide-command">serial status</div>
+              <div class="guide-command">devices</div>
+              <div class="guide-command">ping</div>
+              <div class="guide-command">device info</div>
+              <div class="guide-command">device status</div>
             </div>
 
             <!-- WEB -->
-            <div
-                class="guide-page"
-                data-guide-page="web"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 004
-                </span>
+            <div class="guide-page" data-guide-page="web">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 004 </span>
 
-                <h1>PULSAR WEB</h1>
+              <h1>PULSAR WEB</h1>
 
-                <p>
-                    PULSAR Web provides an integrated
-                    network interface for browsing.
-                </p>
+              <p>
+                PULSAR Web provides an integrated network interface for
+                browsing.
+              </p>
 
-                <p>
-                    Websites that block embedded viewing
-                    can be opened externally using the
-                    external navigation control.
-                </p>
+              <p>
+                Websites that block embedded viewing can be opened externally
+                using the external navigation control.
+              </p>
             </div>
 
             <!-- SERIAL -->
-            <div
-                class="guide-page"
-                data-guide-page="serial"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 005
-                </span>
+            <div class="guide-page" data-guide-page="serial">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 005 </span>
 
-                <h1>SERIAL MONITOR</h1>
+              <h1>SERIAL MONITOR</h1>
 
-                <p>
-                    Serial Monitor provides bidirectional
-                    communication with supported serial
-                    hardware through Web Serial.
-                </p>
+              <p>
+                Serial Monitor provides bidirectional communication with
+                supported serial hardware through Web Serial.
+              </p>
 
-                <div class="guide-block">
-                    <strong>SELECT PORT</strong>
-                    <span>Choose hardware</span>
+              <div class="guide-block">
+                <strong>SELECT PORT</strong>
+                <span>Choose hardware</span>
 
-                    <strong>CONNECT</strong>
-                    <span>Open serial link</span>
+                <strong>CONNECT</strong>
+                <span>Open serial link</span>
 
-                    <strong>TX</strong>
-                    <span>Send data</span>
+                <strong>TX</strong>
+                <span>Send data</span>
 
-                    <strong>RX</strong>
-                    <span>Receive data</span>
-                </div>
+                <strong>RX</strong>
+                <span>Receive data</span>
+              </div>
 
-                <p class="guide-muted">
-                    Web Serial support depends on the
-                    browser being used.
-                </p>
+              <p class="guide-muted">
+                Web Serial support depends on the browser being used.
+              </p>
             </div>
 
             <!-- DEVICE MANAGER -->
-            <div
-                class="guide-page"
-                data-guide-page="devices"
-            >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 006
-                </span>
+            <div class="guide-page" data-guide-page="devices">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 006 </span>
 
-                <h1>DEVICE MANAGER</h1>
+              <h1>DEVICE MANAGER</h1>
 
-                <p>
-                    Device Manager displays information
-                    about the active serial device.
-                </p>
+              <p>
+                Device Manager displays information about the active serial
+                device.
+              </p>
 
-                <p>
-                    Device aliases can be stored locally
-                    and associated with recognized
-                    hardware.
-                </p>
+              <p>
+                Device aliases can be stored locally and associated with
+                recognized hardware.
+              </p>
 
-                <div class="guide-command">
-                    DEVICE MEMORY // ENABLED
-                </div>
+              <div class="guide-command">DEVICE MEMORY // ENABLED</div>
             </div>
 
             <!-- SHORTCUTS -->
-            <div
-                class="guide-page"
-                data-guide-page="shortcuts"
+            <div class="guide-page" data-guide-page="shortcuts">
+              <span class="guide-kicker"> PULSAR DOCUMENTATION // 007 </span>
+
+              <h1>SHORTCUTS</h1>
+
+              <div class="guide-block">
+                <strong>ENTER</strong>
+                <span>Execute terminal command</span>
+
+                <strong>↑ / ↓</strong>
+                <span>Terminal history</span>
+
+                <strong>DOUBLE CLICK</strong>
+                <span>Open desktop application</span>
+              </div>
+            </div>
+          </main>
+        </div>
+
+        <div class="guide-footer">
+          <span>PULSAR GUIDE // BUILD 1.0 (Ultra lite)</span>
+          <span>DOCUMENTATION // LOCAL</span>
+        </div>
+      </section>
+
+      <section class="window" id="welcome">
+        <div class="window-bar">
+          <span> Welcome // system </span>
+          <div class="window-controls">
+            <button
+              aria-label="Minimize window"
+              class="window-minimize"
+              type="button"
             >
-                <span class="guide-kicker">
-                    PULSAR DOCUMENTATION // 007
-                </span>
+              ─
+            </button>
+            <button
+              aria-label="Maximize window"
+              class="window-maximize"
+              type="button"
+            >
+              □
+            </button>
+            <button
+              aria-label="Close window"
+              class="window-close"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <div class="window-content welcome-content">
+          <span class="pulsar-symbol welcomelogo" aria-hidden="true">⌁</span>
+          <!--welcomelogo-->
+          <h1>PULSAR</h1>
+          <p class="os-label">Operating System</p>
+          <div class="separator">
+            <span> + </span>
+            <div class="line"></div>
+            <span> + </span>
+          </div>
+          <p class="description">
+            A WEB-OS designed to connect, monitor and interact with
+            microcontrollers. Developed by N1kamaro.
+          </p>
+          <p class="quote">"Stop thinking about it - Do it."</p>
+          <button class="enter-button" id="enterSystem" type="button">
+            [ ENTER SYSTEM ]
+          </button>
+        </div>
+        <div class="window-footer">
+          <span> A Hack Club Project </span>
+          <span> Web-Os by N1k </span>
+          <span> BUILD 1.0 (Ultra Lite) </span>
+        </div>
+      </section>
 
-                <h1>SHORTCUTS</h1>
-
-                <div class="guide-block">
-                    <strong>ENTER</strong>
-                    <span>Execute terminal command</span>
-
-                    <strong>↑ / ↓</strong>
-                    <span>Terminal history</span>
-
-                    <strong>DOUBLE CLICK</strong>
-                    <span>Open desktop application</span>
-                </div>
+      <section class="window signal-window" id="signalLog">
+        <div class="window-bar">
+          <span id="signalLogTitle"> PULSAR // SIGNAL LOG </span>
+          <div class="window-controls">
+            <button
+              aria-label="Minimize window"
+              class="window-minimize"
+              type="button"
+            >
+              ─
+            </button>
+            <button
+              aria-label="Maximize window"
+              class="window-maximize"
+              type="button"
+            >
+              □
+            </button>
+            <button
+              aria-label="Close window"
+              class="window-close"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <div class="signal-content">
+          <aside class="signal-index">
+            <div class="signal-index-title">LOG INDEX</div>
+            <div id="signalEntries"></div>
+          </aside>
+          <div class="signal-reader">
+            <div class="signal-reader-status" id="signalReaderStatus">
+              TRANSMISSION // SELECT LOG
             </div>
-
-        </main>
-
-    </div>
-
-    <div class="guide-footer">
-        <span>PULSAR GUIDE // BUILD 1.0 (Remake)</span>
-        <span>DOCUMENTATION // LOCAL</span>
-    </div>
-
-</section>
-      
-        <section class="window" id="welcome">
-            <div class="window-bar">
-                <span>
-                    Welcome // system
-                </span>
-                <div class="window-controls">
-                    <button aria-label="Minimize window" class="window-minimize" type="button">
-                        ─
-                    </button>
-                    <button aria-label="Maximize window" class="window-maximize" type="button">
-                        □
-                    </button>
-                    <button aria-label="Close window" class="window-close" type="button">
-                        ×
-                    </button>
-                </div>
+            <div id="signalReader">
+              <h2>SIGNAL LOG</h2>
+              <p>PULSAR SYSTEM RECORD DATABASE.</p>
+              <p class="signal-muted">
+                SELECT A TRANSMISSION FROM THE LOG INDEX.
+              </p>
             </div>
-            <div class="window-content welcome-content">
-                 <span class="pulsar-symbol welcomelogo" aria-hidden="true">⌁</span> <!--welcomelogo-->
-                <h1>
-                    PULSAR
-                </h1>
-                <p class="os-label">
-                    Operating System
-                </p>
-                <div class="separator">
-                    <span>
-                        +
-                    </span>
-                    <div class="line">
-                    </div>
-                    <span>
-                        +
-                    </span>
-                </div>
-                <p class="description">
-                    A WEB-OS designed to connect,
-                    monitor and interact with microcontrollers.
-                    Developed by N1kamaro.
-                </p>
-                <p class="quote">
-                    "Stop thinking about it - Do it."
-                </p>
-                <button class="enter-button" id="enterSystem" type="button">
-                    [ ENTER SYSTEM ]
-                </button>
-            </div>
-            <div class="window-footer">
-                <span>
-                    A Hack Club Project
-                </span>
-                <span>
-                    Web-Os by N1k
-                </span>
-                <span>
-                    BUILD-1.0 (Ultra Lite)
-                </span>
-            </div>
-        </section>
-        
-        <section class="window signal-window" id="signalLog">
-            <div class="window-bar">
-                <span id="signalLogTitle">
-                    PULSAR // SIGNAL LOG
-                </span>
-                <div class="window-controls">
-                    <button aria-label="Minimize window" class="window-minimize" type="button">
-                        ─
-                    </button>
-                    <button aria-label="Maximize window" class="window-maximize" type="button">
-                        □
-                    </button>
-                    <button aria-label="Close window" class="window-close" type="button">
-                        ×
-                    </button>
-                </div>
-            </div>
-            <div class="signal-content">
-                <aside class="signal-index">
-                    <div class="signal-index-title">
-                        LOG INDEX
-                    </div>
-                    <div id="signalEntries">
-                    </div>
-                </aside>
-                <div class="signal-reader">
-                    <div class="signal-reader-status" id="signalReaderStatus">
-                        TRANSMISSION // SELECT LOG
-                    </div>
-                    <div id="signalReader">
-                        <h2>
-                            SIGNAL LOG
-                        </h2>
-                        <p>
-                            PULSAR SYSTEM RECORD DATABASE.
-                        </p>
-                        <p class="signal-muted">
-                            SELECT A TRANSMISSION FROM THE LOG INDEX.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="window-footer">
-                <span>
-                    ARCHIVE // ONLINE
-                </span>
-                <span>
-                    3 RECORDS
-                </span>
-                <span>
-                    BUILD // 1.0
-                </span>
-            </div>
-        </section>
-        
-        <section class="window customization-window" id="customization">
-            <div class="window-bar">
-                <span>
-                    PULSAR // CUSTOMIZATION
-                </span>
-                <div class="window-controls">
-                    <button aria-label="Minimize window" class="window-minimize" type="button">
-                        ─
-                    </button>
-                    <button aria-label="Maximize window" class="window-maximize" type="button">
-                        □
-                    </button>
-                    <button aria-label="Close window" class="window-close" type="button">
-                        ×
-                    </button>
-                </div>
-            </div>
-            <div class="customization-content">
-                
-                <aside class="customization-sidebar">
+          </div>
+        </div>
+        <div class="window-footer">
+          <span> ARCHIVE // ONLINE </span>
+          <span> 3 RECORDS </span>
+          <span> BUILD // 1.0 </span>
+        </div>
+      </section>
 
-                <button class="custom-nav active" data-custom-page="wallpapers" type="button">
-                WALLPAPERS  
-                </button>
-
-                <button class="custom-nav" data-custom-page="sources" type="button">
-                WALLPAPERS SOURCES
-                </button>
-                </aside>
-
-                <div class="customization-main custom-page active" data-custom-content="wallpapers">
-                    <div class="customization-heading">
-                        <div>
-                            <span class="customization-code">
-                                INTERFACE // VISUAL
-                            </span>
-                            <h2>
-                                WALLPAPERS
-                            </h2>
-                        </div>
-                        <span id="wallpaperStatus">
-                            ACTIVE // Tapestry of Blazing Starbirth
-                        </span>
-                    </div>
-                    <p class="customization-description">
-                        SELECT A BACKGROUND FOR THE PULSAR DESKTOP ENVIRONMENT.
-                    </p>
-                    <div class="wallpaper-grid">
-                        <button class="wallpaper-card" data-wallpaper="TOBS" type="button">
-                            <img alt="" src="images/Wallpapers/heic2007a.jpg" />
-                            <span class="wallpaper-card-info">
-                                <strong>
-                                    Tapestry of Blazing Starbirth
-                                </strong>
-                                <small>
-                                    The Cosmic Reef.
-                                </small>
-                            </span>
-                        </button>
-                        <button class="wallpaper-card" data-wallpaper="TSF" type="button">
-                            <img alt="" src="images/Wallpapers/potw2049a.jpg" />
-                            <span class="wallpaper-card-info">
-                                <strong>
-                                    The Stellar Forge
-                                </strong>
-                                <small>
-                                    Starburst Galaxy.
-                                </small>
-                            </span>
-                        </button>
-                        <button class="wallpaper-card" data-wallpaper="LSP" type="button">
-                            <img alt="" src="images/Wallpapers/heic1917a.jpg" />
-                            <span class="wallpaper-card-info">
-                                <strong>
-                                    Latest Saturn Portrait (06/12/2019)
-                                </strong>
-                                <small>
-                                    Saturn portrait.
-                                </small>
-                            </span>
-                        </button>
-                        <button class="wallpaper-card" data-wallpaper="MM" type="button">
-                            <img alt="" src="images/Wallpapers/heic1007a.jpg" />
-                            <span class="wallpaper-card-info">
-                                <strong>
-                                    Mystic Mountain
-                                </strong>
-                                <small>
-                                    Nebula in Carina.
-                                </small>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            
-            <div class="customization-main custom-page" data-custom-content="sources">
+      <section class="window customization-window" id="customization">
+        <div class="window-bar">
+          <span>Custom</span>
+          <div class="window-controls">
+            <button
+              aria-label="Minimize window"
+              class="window-minimize"
+              type="button"
+            >
+              ─
+            </button>
+            <button
+              aria-label="Maximize window"
+              class="window-maximize"
+              type="button"
+            >
+              □
+            </button>
+            <button
+              aria-label="Close window"
+              class="window-close"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <div class="customization-content">
+          <div
+            class="customization-main custom-page active"
+            data-custom-content="wallpapers"
+          >
             <div class="customization-heading">
-            <div>
-            <span class="customization-code">
-                DOCUMENTATION // SOURCES
-            </span>
-
-            <h2>
-                WALLPAPER SOURCES
-            </h2>
+              <div>
+                <h2>Choose an wallpaper :D</h2>
+              </div>
             </div>
-            </div>
-
             <p class="customization-description">
-            ORIGINAL SOURCES AND CREDITS FOR PULSAR WALLPAPERS.
+              here's 4 cool wallpapers, enjoy :D
             </p>
-
-           <div class="wallpaper-source-list">
-
-
-    <article class="wallpaper-source-item">
-
-        <img
-            src="images/Wallpapers/heic2007a.jpg"
-            alt="Tapestry of Blazing Starbirth"
-        />
-
-        <div class="wallpaper-source-info">
-
-            <span class="wallpaper-source-code">
-                SOURCE // 01
-            </span>
-
-            <h3>
-                TAPESTRY OF BLAZING STARBIRTH
-            </h3>
-
-            <p>
-                THE COSMIC REEF
-            </p>
-
-            <div class="wallpaper-source-meta">
-                <span>FILE // HEIC2007A.JPG</span>
-                <span>SOURCE // ESA / HUBBLE</span>
-            </div>
-
-            <div class="wallpaper-source-actions">
-
-                <a
-                    class="wallpaper-source-link"
-                    href="https://esahubble.org/images/heic2007a/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    OPEN SOURCE ↗
-                </a>
-
-                <button
-                    class="wallpaper-source-web"
-                    type="button"
-                    data-url="https://esahubble.org/images/heic2007a/"
-                >
-                    OPEN IN PULSAR WEB →
-                </button>
-
-            </div>
-
-        </div>
-
-    </article>
-
-    <article class="wallpaper-source-item">
-
-        <img
-            src="images/Wallpapers/potw2049a.jpg"
-            alt="The Stellar Forge"
-        />
-
-        <div class="wallpaper-source-info">
-
-            <span class="wallpaper-source-code">
-                SOURCE // 02
-            </span>
-
-            <h3>
-                THE STELLAR FORGE
-            </h3>
-
-            <p>
-                STARBURST GALAXY
-            </p>
-
-            <div class="wallpaper-source-meta">
-                <span>FILE // POTW2049A.JPG</span>
-                <span>SOURCE // ESA / HUBBLE</span>
-            </div>
-
-            <div class="wallpaper-source-actions">
-
-                <a
-                    class="wallpaper-source-link"
-                    href="https://esahubble.org/images/potw2049a/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    OPEN SOURCE ↗
-                </a>
-
-                <button
-                    class="wallpaper-source-web"
-                    type="button"
-                    data-url="https://esahubble.org/images/potw2049a/"
-                >
-                    OPEN IN PULSAR WEB →
-                </button>
-
-            </div>
-
-        </div>
-
-    </article>
-
-    <article class="wallpaper-source-item">
-
-        <img
-            src="images/Wallpapers/heic1917a.jpg"
-            alt="Latest Saturn Portrait"
-        />
-
-        <div class="wallpaper-source-info">
-
-            <span class="wallpaper-source-code">
-                SOURCE // 03
-            </span>
-
-            <h3>
-                LATEST SATURN PORTRAIT
-            </h3>
-
-            <p>
-                SATURN PORTRAIT
-            </p>
-
-            <div class="wallpaper-source-meta">
-                <span>FILE // HEIC1917A.JPG</span>
-                <span>SOURCE // ESA / HUBBLE</span>
-            </div>
-
-            <div class="wallpaper-source-actions">
-
-                <a
-                    class="wallpaper-source-link"
-                    href="https://esahubble.org/images/heic1917a/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    OPEN SOURCE ↗
-                </a>
-
-                <button
-                    class="wallpaper-source-web"
-                    type="button"
-                    data-url="https://esahubble.org/images/heic1917a/"
-                >
-                    OPEN IN PULSAR WEB →
-                </button>
-
-            </div>
-
-        </div>
-
-    </article>
-        <img
-            src="images/Wallpapers/heic1007a.jpg"
-            alt="Mystic Mountain"
-        />
-
-        <div class="wallpaper-source-info">
-
-            <span class="wallpaper-source-code">
-                SOURCE // 04
-            </span>
-
-            <h3>
-                MYSTIC MOUNTAIN
-            </h3>
-
-            <p>
-                NEBULA IN CARINA
-            </p>
-
-            <div class="wallpaper-source-meta">
-                <span>FILE // HEIC1007A.JPG</span>
-                <span>SOURCE // ESA / HUBBLE</span>
-            </div>
-
-            <div class="wallpaper-source-actions">
-
-                <a
-                    class="wallpaper-source-link"
-                    href="https://esahubble.org/images/heic1007a/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    OPEN SOURCE ↗
-                </a>
-
-                <button
-                    class="wallpaper-source-web"
-                    type="button"
-                    data-url="https://esahubble.org/images/heic1007a/"
-                >
-                    OPEN IN PULSAR WEB →
-                </button>
-
-            </div>
-
-        </div>
-
-    </article>
-
-</div>
-            </div>
-        </div>
-            <div class="window-footer">
-                <span id="customizationFooter">
-                    WALLPAPER //   Tapestry of Blazing Starbirth
+            <div class="wallpaper-grid">
+              <button
+                class="wallpaper-card"
+                data-wallpaper="TOBS"
+                type="button"
+              >
+                <img alt="" src="images/Wallpapers/heic2007a.jpg" />
+                <span class="wallpaper-card-info">
+                  <strong> Tapestry of Blazing Starbirth </strong>
+                  <small> The Cosmic Reef. </small>
                 </span>
-                <span>
-                    LOCAL PROFILE
+              </button>
+              <button class="wallpaper-card" data-wallpaper="TSF" type="button">
+                <img alt="" src="images/Wallpapers/potw2049a.jpg" />
+                <span class="wallpaper-card-info">
+                  <strong> The Stellar Forge </strong>
+                  <small> Starburst Galaxy. </small>
                 </span>
-                <span>
-                    BUILD // 1.0
+              </button>
+              <button class="wallpaper-card" data-wallpaper="LSP" type="button">
+                <img alt="" src="images/Wallpapers/heic1917a.jpg" />
+                <span class="wallpaper-card-info">
+                  <strong> Latest Saturn Portrait (06/12/2019) </strong>
+                  <small> Saturn portrait. </small>
                 </span>
+              </button>
+              <button class="wallpaper-card" data-wallpaper="MM" type="button">
+                <img alt="" src="images/Wallpapers/heic1007a.jpg" />
+                <span class="wallpaper-card-info">
+                  <strong> Mystic Mountain </strong>
+                  <small> Nebula in Carina. </small>
+                </span>
+              </button>
             </div>
-        </section>
-    </main>
+      </section>
+    </div>
+    <!-- fecha desktop -->
 
-<!-- ============================================================
+    <!-- ============================================================
         SCRIPT ENTRYPOINT / THE END OF THE LINE :D 
-============================================================ --> 
+============================================================ -->
 
-    <script src="script.js">
-    </script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
