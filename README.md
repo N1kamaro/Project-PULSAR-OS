@@ -24,7 +24,8 @@ There's a customization app with 4 wallpapers, if you’re curious about where t
 
 ## Browser stuff!!
 
-<img width="1007" height="710" alt="{E99BDF64-3DD4-4D39-847E-38BFA7FE7DE1}" src="https://github.com/user-attachments/assets/9f1ae1ad-cc3c-4ac1-838d-4bf5c7d87b5f" />
+<img width="989" height="695" alt="{6108CC93-AB7A-4BAC-9E6B-25BE3A99DC29}" src="https://github.com/user-attachments/assets/42539524-e779-46c2-9e87-7f1514bf2c71" />
+
 
 Now, a little warning about the WEB browser...
 
@@ -32,7 +33,8 @@ It is NOT compatible with websites that block embedded viewing. So before trying
 
 Otherwise, you'll be greeted by the absolutely beautiful:
 
-<img width="996" height="703" alt="{0DAAE815-89F8-40A0-BB26-375153E4BC80}" src="https://github.com/user-attachments/assets/b21c6c25-1211-4e2c-8e1f-dbe89ef0225b" />
+<img width="993" height="691" alt="{AA06177C-5A59-4216-BB6E-1CD523B6107B}" src="https://github.com/user-attachments/assets/71c2f075-4f22-46d2-9c73-fce7fbad49fa" />
+
 
 **"FAILED TO LOAD"**
 
