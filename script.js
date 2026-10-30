@@ -81,13 +81,11 @@ saveData("system.lastBoot", new Date().toISOString());
 const desktop = document.getElementById("desktop");
 const topBar = document.getElementById("topBar");
 const clock = document.getElementById("clock");
-const screenFade = document.getElementById("screenFade");
 const networkIndicator = document.getElementById("networkIndicator");
 const systemMenu = document.getElementById("systemMenu");
 
 // windows
 const welcomeWindow = document.getElementById("welcome");
-const signalLogWindow = document.getElementById("signalLog");
 const customizationWindow = document.getElementById("customization");
 const notesWindow = document.getElementById("notesWindow");
 const calculatorWindow = document.getElementById("calculatorWindow");
@@ -97,15 +95,7 @@ const serialWindow = document.getElementById("serialWindow");
 const deviceManagerWindow = document.getElementById("deviceManagerWindow");
 const guideWindow = document.getElementById("guideWindow");
 
-// signal log
-const signalLogTitle = document.getElementById("signalLogTitle");
-const signalEntries = document.getElementById("signalEntries");
-const signalReaderStatus = document.getElementById("signalReaderStatus");
-const signalReader = document.getElementById("signalReader");
-
 // customization
-const wallpaperStatus = document.getElementById("wallpaperStatus");
-const customizationFooter = document.getElementById("customizationFooter");
 const wallpaperCards = document.querySelectorAll(".wallpaper-card");
 
 // notes
@@ -131,11 +121,8 @@ const webReload = document.getElementById("webReload");
 const webHome = document.getElementById("webHome");
 const webAddress = document.getElementById("webAddress");
 const webGo = document.getElementById("webGo");
-const webHistoryToggle = document.getElementById("webHistoryToggle");
 const webStatus = document.getElementById("webStatus");
 const webProtocol = document.getElementById("webProtocol");
-const webHistoryPanel = document.getElementById("webHistoryPanel");
-const webHistoryList = document.getElementById("webHistoryList");
 const webHomeScreen = document.getElementById("webHomeScreen");
 const webFrame = document.getElementById("webFrame");
 const webFallback = document.getElementById("webFallback");
@@ -390,11 +377,6 @@ calculatorWindow.tabIndex = -1;
 // one handler for each app in the menu
 document.getElementById("openAbout").addEventListener("click", function () {
   openWindow(welcomeWindow);
-  closeMenu();
-});
-
-document.getElementById("openSignalLog").addEventListener("click", function () {
-  openWindow(signalLogWindow);
   closeMenu();
 });
 
@@ -702,95 +684,6 @@ calculatorWindow.addEventListener("keydown", function (event) {
 
 showCalculator();
 
-const logs = [
-  {
-    code: "LOG // 001",
-    title: "SYSTEM INIT",
-    status: "TRANSMISSION // 001",
-    content:
-      "<h2>SYSTEM INIT</h2>" +
-      "<p>PULSAR CORE INITIALIZED.</p>" +
-      "<p>Desktop environment online. Window manager responding. Signal interface standing by.</p>" +
-      '<div class="signal-data">' +
-      dotted("CORE", "READY", 18) +
-      "<br>" +
-      dotted("DESKTOP", "ONLINE", 18) +
-      "<br>" +
-      dotted("WINDOW MANAGER", "ONLINE", 18) +
-      "<br>" +
-      dotted("SIGNAL", "STABLE", 18) +
-      "</div>" +
-      '<p class="signal-muted">END OF TRANSMISSION // 001</p>',
-  },
-  {
-    code: "LOG // 002",
-    title: "PROJECT PULSAR",
-    status: "TRANSMISSION // 002",
-    content:
-      "<h2>PROJECT PULSAR</h2>" +
-      "<p>PULSAR is a web-based operating system designed as an interface between a computer and external microcontrollers.</p>" +
-      "<p>The system combines a desktop environment with hardware tools, monitoring interfaces and communication utilities.</p>" +
-      '<div class="signal-data">' +
-      dotted("PROJECT", "PULSAR OS", 18) +
-      "<br>" +
-      dotted("PLATFORM", "WEB", 18) +
-      "<br>" +
-      dotted("INTERFACE", "HARDWARE", 18) +
-      "<br>" +
-      dotted("BUILD", "1.0", 18) +
-      "</div>" +
-      '<p class="signal-muted">A STAR. A SIGNAL. AN INTERFACE.</p>',
-  },
-  {
-    code: "LOG // 003",
-    title: "HARDWARE INTERFACE",
-    status: "TRANSMISSION // 003",
-    content:
-      "<h2>HARDWARE INTERFACE</h2>" +
-      "<p>Hardware communication services are online.</p>" +
-      "<p>PULSAR can connect to supported microcontrollers through Web Serial, exchange serial data and manage connected devices.</p>" +
-      '<div class="signal-data">' +
-      dotted("SERIAL", "ONLINE", 18) +
-      "<br>" +
-      dotted("RX / TX", "ENABLED", 18) +
-      "<br>" +
-      dotted("DEVICE MANAGER", "ONLINE", 18) +
-      "<br>" +
-      dotted("INTERFACE", "WEB SERIAL", 18) +
-      "<br>" +
-      dotted("LINK", "AVAILABLE", 18) +
-      "</div>" +
-      '<p class="signal-muted">HARDWARE INTERFACE // READY.</p>',
-  },
-];
-
-function showLog(index) {
-  const log = logs[index];
-
-  signalReader.innerHTML = log.content;
-  signalReaderStatus.textContent = log.status;
-  signalLogTitle.textContent = "PULSAR // SIGNAL LOG // " + log.title;
-
-  const entries = document.querySelectorAll(".signal-entry");
-  for (let i = 0; i < entries.length; i++) {
-    entries[i].classList.remove("active");
-  }
-  entries[index].classList.add("active");
-}
-
-// creates the list on the left
-for (let i = 0; i < logs.length; i++) {
-  const entry = makeElement("div", "signal-entry");
-  entry.appendChild(makeElement("div", "signal-entry-title", logs[i].title));
-  entry.appendChild(makeElement("div", "signal-entry-code", logs[i].code));
-
-  entry.addEventListener("click", function () {
-    showLog(i);
-  });
-
-  signalEntries.appendChild(entry);
-}
-
 // the names (TOBS, TSF...) need to be the same as the data-wallpaper in the
 // html and the .wallpaper-NAME class in the css, if not nothing happens! roger that?
 const wallpapers = {
@@ -820,7 +713,6 @@ const wallpaperCredits = {
 };
 
 let currentWallpaper = "TOBS";
-let wallpaperChanging = false;
 
 function applyWallpaper(name) {
   for (const key in wallpapers) {
@@ -844,23 +736,14 @@ function applyWallpaper(name) {
   document.getElementById("wallpaperCredit").href = credit.url;
 }
 
-// screen goes black, changes, and comes back
-async function changeWallpaper(name) {
-  if (wallpaperChanging || !wallpapers[name]) {
+// change wallpaper instantly now :D
+function changeWallpaper(name) {
+  if (!wallpapers[name]) {
     return;
   }
-  wallpaperChanging = true;
 
-  screenFade.classList.add("active");
-  await wait(220);
   applyWallpaper(name);
-  await wait(80);
-  screenFade.classList.remove("active");
-  await wait(230);
-
-  wallpaperChanging = false;
 }
-
 wallpaperCards.forEach(function (card) {
   card.addEventListener("click", function () {
     changeWallpaper(card.dataset.wallpaper);
@@ -1631,37 +1514,6 @@ function getWebDestination(input) {
   }
 }
 
-function renderWebHistory() {
-  webHistoryList.innerHTML = "";
-
-  if (webHistory.length === 0) {
-    webHistoryList.appendChild(
-      makeElement("div", "web-history-empty", "NO NAVIGATION HISTORY"),
-    );
-    return;
-  }
-
-  // newest first
-  for (let i = webHistory.length - 1; i >= 0; i--) {
-    const url = webHistory[i];
-    const item = makeElement("button", "web-history-item");
-
-    item.appendChild(
-      makeElement("div", "web-history-item-title", new URL(url).hostname),
-    );
-    item.appendChild(makeElement("div", "web-history-item-url", url));
-
-    // "let i" in the for makes a new i for each button, so the click remembers the right one
-    item.addEventListener("click", function () {
-      webIndex = i;
-      navigateWeb(url, false);
-      webHistoryPanel.hidden = true;
-    });
-
-    webHistoryList.appendChild(item);
-  }
-}
-
 function addWebHistory(url) {
   if (webHistory[webIndex] === url) {
     return;
@@ -1671,8 +1523,6 @@ function addWebHistory(url) {
   webHistory.splice(webIndex + 1);
   webHistory.push(url);
   webIndex = webHistory.length - 1;
-
-  renderWebHistory();
 }
 
 function showWebHome() {
@@ -1794,21 +1644,18 @@ webReload.addEventListener("click", function () {
   }
 });
 
-webHistoryToggle.addEventListener("click", function () {
-  webHistoryPanel.hidden = !webHistoryPanel.hidden;
-});
-
 webOpenExternal.addEventListener("click", openWebOutside);
 
-// the ↗ button next to the history button (it is not in the html)
+// External navigation button
 const externalButton = makeElement("button", "web-nav-button", "↗");
+
 externalButton.type = "button";
 externalButton.title = "Open externally";
 externalButton.setAttribute("aria-label", "Open current page externally");
-externalButton.addEventListener("click", openWebOutside);
-webHistoryToggle.before(externalButton);
 
-renderWebHistory();
+externalButton.addEventListener("click", openWebOutside);
+
+webGo.after(externalButton);
 showWebHome();
 
 // no more boot screen, straight to PULSAR :D

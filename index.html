@@ -75,11 +75,6 @@ Alright, without further ado, enjoy the code :D
       <div class="menu-section">
         <div class="menu-section-title">APPLICATIONS</div>
 
-        <button class="menu-item" id="openSignalLog" type="button">
-          <span class="menu-icon">&gt;\_</span>
-          <span>SIGNAL LOG</span>
-        </button>
-
         <button class="menu-item" id="openNotes" type="button">
           <span class="menu-icon">✎</span>
           <span>NOTES</span>
@@ -132,7 +127,6 @@ Alright, without further ado, enjoy the code :D
         <span> CORE // READY </span>
       </div>
     </nav>
-    <div class="screen-fade" id="screenFade"></div>
     <div class="desktop wallpaper-TOBS" id="desktop">
       <!-- wallpaper credits :D -->
       <a
@@ -432,16 +426,6 @@ Alright, without further ado, enjoy the code :D
           </div>
 
           <button class="web-go-button" id="webGo" type="button">GO</button>
-
-          <button
-            class="web-nav-button"
-            id="webHistoryToggle"
-            type="button"
-            aria-label="History"
-            title="Session history"
-          >
-            ≡
-          </button>
         </div>
 
         <div class="web-status-bar">
@@ -451,13 +435,6 @@ Alright, without further ado, enjoy the code :D
         </div>
 
         <div class="web-content">
-          <aside class="web-history-panel" id="webHistoryPanel" hidden>
-            <div class="web-history-header">SESSION HISTORY</div>
-
-            <div class="web-history-list" id="webHistoryList">
-              <div class="web-history-empty">NO NAVIGATION HISTORY</div>
-            </div>
-          </aside>
 
           <div class="web-view">
             <div class="web-home-screen" id="webHomeScreen">
@@ -1148,58 +1125,6 @@ Alright, without further ado, enjoy the code :D
           <span> A Hack Club Project </span>
           <span> Web-Os by N1k </span>
           <span> BUILD 1.0 (Ultra Lite) </span>
-        </div>
-      </section>
-
-      <section class="window signal-window" id="signalLog">
-        <div class="window-bar">
-          <span id="signalLogTitle"> PULSAR // SIGNAL LOG </span>
-          <div class="window-controls">
-            <button
-              aria-label="Minimize window"
-              class="window-minimize"
-              type="button"
-            >
-              ─
-            </button>
-            <button
-              aria-label="Maximize window"
-              class="window-maximize"
-              type="button"
-            >
-              □
-            </button>
-            <button
-              aria-label="Close window"
-              class="window-close"
-              type="button"
-            >
-              ×
-            </button>
-          </div>
-        </div>
-        <div class="signal-content">
-          <aside class="signal-index">
-            <div class="signal-index-title">LOG INDEX</div>
-            <div id="signalEntries"></div>
-          </aside>
-          <div class="signal-reader">
-            <div class="signal-reader-status" id="signalReaderStatus">
-              TRANSMISSION // SELECT LOG
-            </div>
-            <div id="signalReader">
-              <h2>SIGNAL LOG</h2>
-              <p>PULSAR SYSTEM RECORD DATABASE.</p>
-              <p class="signal-muted">
-                SELECT A TRANSMISSION FROM THE LOG INDEX.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="window-footer">
-          <span> ARCHIVE // ONLINE </span>
-          <span> 3 RECORDS </span>
-          <span> BUILD // 1.0 </span>
         </div>
       </section>
 
