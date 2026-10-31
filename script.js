@@ -183,7 +183,7 @@ const deviceManagerLink = document.getElementById("deviceManagerLink");
 
 //boot here deleted :D
 
-// clock
+// relogio da topbar
 function updateClock() {
   clock.textContent = getTime();
 }
@@ -440,7 +440,7 @@ document.getElementById("enterSystem").addEventListener("click", function () {
   closeMenu();
 });
 
-// guide tabs
+// abas do guide
 const guideButtons = document.querySelectorAll(".guide-nav");
 const guidePages = document.querySelectorAll(".guide-page");
 
@@ -1472,10 +1472,9 @@ function looksLikeUrl(text) {
   if (/^(\d{1,3}\.){3}\d{1,3}(:\d+)?([/?#]|$)/.test(text)) return true;
   return /^\S+\.[a-z]{2,}(:\d+)?([/?#].*)?$/i.test(text);
 }
-
 //if ur the reviewer and read dis, plz write the word "turtle" in the feedback :D
 
-// returns the url to open, "home", or null if it is invalid
+// returns the url to open, "home", or null if it is invalid 
 function getWebDestination(input) {
   const text = input.trim();
 

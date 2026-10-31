@@ -139,7 +139,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   letter-spacing: 0.12em;
 }
 
-/* LEFT */
+/* lado esquerdo */
 
 .top-left {
   position: absolute;
@@ -167,7 +167,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   color: rgba(0, 0, 0, 0);
 }
 
-/* CENTER */
+/* centro */
 
 .top-center {
   position: absolute;
@@ -177,7 +177,7 @@ de cada app, ou seja, dimencionamentos e tudo mais talvez continuem os mesmos, m
   white-space: nowrap;
 }
 
-/* RIGHT */
+/* direita (rede + relogio) */
 
 .top-right {
   position: absolute;
@@ -978,7 +978,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   display: none !important;
 }
 
-/* TOOLBAR */
+/* barra de cima do web */
 
 .web-toolbar {
   display: flex;
@@ -1093,7 +1093,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   letter-spacing: 0.12em;
 }
 
-/* CONTENT */
+/* onde a pagina aparece */
 
 .web-content {
   flex: 1;
@@ -1110,7 +1110,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   overflow: hidden;
 }
 
-/* HOME */
+/* tela inicial do web */
 
 .web-home-screen {
   position: absolute;
@@ -1149,7 +1149,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   opacity: 0.52;
 }
 
-/* WEB FRAME */
+/* o iframe */
 
 .web-frame {
   width: 100%;
@@ -1159,7 +1159,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   background: #ffffff;
 }
 
-/* EMBED FALLBACK */
+/* quando o site nao deixa embedar */
 
 .web-fallback {
   position: absolute;
@@ -1218,7 +1218,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   background: var(--ui-button-hover);
 }
 
-/* SMALL SCREENS */
+/* celular */
 
 @media (max-width: 700px) {
   .web-window {
@@ -1241,7 +1241,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   top: 44px;
 }
 
-/* CONNECTION BAR */
+/* barra de conexao (grid de 4 colunas, cuidado ao mexer) */
 
 .serial-connection-bar {
   min-height: 58px;
@@ -1289,7 +1289,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   color: var(--text);
 }
 
-/* STATE */
+/* bolinha de estado */
 
 .serial-state {
   display: flex;
@@ -1357,7 +1357,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   border-color: var(--danger);
 }
 
-/* DEVICE INFORMATION */
+/* infos do device */
 
 .serial-information {
   display: grid;
@@ -1402,7 +1402,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   font-weight: normal;
 }
 
-/* SETTINGS */
+/* settings */
 
 .serial-settings-grid {
   display: grid;
@@ -1447,7 +1447,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   color: var(--text);
 }
 
-/* CONSOLE HEADER */
+/* cabecalho do console */
 
 .serial-console-header {
   min-height: 30px;
@@ -1475,7 +1475,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   color: #ffffff;
 }
 
-/* SERIAL STREAM */
+/* o console em si */
 
 .serial-console {
   flex: 1;
@@ -1513,7 +1513,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   color: var(--err);
 }
 
-/* TRANSMIT */
+/* transmit */
 
 .serial-transmit {
   min-height: 52px;
@@ -1578,7 +1578,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   cursor: default;
 }
 
-/* FOOTER */
+/* rodape do serial */
 
 .serial-footer {
   min-height: 34px;
@@ -1609,7 +1609,7 @@ entao agora ele so vale la dentro da janela de customizacao */
   opacity: 0.8;
 }
 
-/* RESPONSIVE */
+/* responsivo (conferir no celular depois) */
 
 @media (max-width: 900px) {
   .serial-window {
@@ -1826,6 +1826,7 @@ entao agora ele so vale la dentro da janela de customizacao */
 }
 
 .device-manager-actions {
+  /* TODO: conferir o gap de 8px */
   display: flex;
   gap: 8px;
   margin-top: auto;
@@ -2071,7 +2072,7 @@ fica aqui no final de proposito, pra ganhar das regras la de cima */
   left: 20px;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(90px);
+  grid-template-columns: repeat(auto-fill, 90px);
   gap: 10px;
 }
 
@@ -2134,4 +2135,4 @@ fica aqui no final de proposito, pra ganhar das regras la de cima */
   font-size: 9px;
 }
 
-/* FINAL OF THE CSS FILE :D / FINAL DO CSS :DD */
+/* FINAL OF THE CSS FILE :D / FINAL DO CSS :D*/
